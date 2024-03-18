@@ -1,8 +1,10 @@
+import 'package:flame/game.dart';
 import 'package:go_router/go_router.dart';
 
 import 'widgets/screen_title.dart';
 import 'widgets/screen_main_menu.dart';
 import 'widgets/screen_settings.dart';
+import 'game/screen_game.dart';
 
 final router = GoRouter(
   routes: [
@@ -13,6 +15,10 @@ final router = GoRouter(
         GoRoute(
           path: 'main_menu',
           builder: (context, state) => const ScreenMainMenu(),
+        ),
+        GoRoute(
+          path: 'game',
+          builder: (context, state) => GameWidget(game: ScreenGame()),
         ),
         GoRoute(
           path: 'settings',
