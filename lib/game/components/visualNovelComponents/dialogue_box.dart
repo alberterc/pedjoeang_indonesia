@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flame/components.dart';
 import 'package:jenny/jenny.dart';
 
-import '../screen_game.dart';
+import '../../screen_game.dart';
 
 class DialogueBox extends PositionComponent with HasGameReference<ScreenGame> {
   DialogueBox({this.line});
