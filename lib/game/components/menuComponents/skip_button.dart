@@ -8,9 +8,6 @@ import '../../screen_game.dart';
 
 class SkipButton extends PositionComponent with HasGameReference<ScreenGame> {
   late final ButtonComponent button;
-
-  @override
-  bool get debugMode => true;
   
   @override
   FutureOr<void> onLoad() {
