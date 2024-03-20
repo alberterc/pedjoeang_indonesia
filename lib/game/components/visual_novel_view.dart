@@ -6,7 +6,7 @@ import 'package:jenny/jenny.dart';
 
 import '../screen_game.dart';
 import '../utils/utils.dart';
-import 'dialogue_box.dart';
+import 'visualNovelComponents/dialogue_box.dart';
 import 'menuComponents/menu_button.dart';
 import 'menuComponents/auto_button.dart';
 import 'menuComponents/history_button.dart';
@@ -15,11 +15,12 @@ import 'menuComponents/skip_button.dart';
 class VisualNovelView extends PositionComponent with DialogueView, HasGameReference<ScreenGame> {
   final renderPriority = GameUtils.renderPriority;
 
-  late final ButtonComponent forwardButtonComponent;
+  late final ButtonComponent forwardDialogueButton;
   Completer<void> _forwardCompleter = Completer();
   late final TextPaint dialoguePaint;
   final yuri = SpriteComponent();
   final miko = SpriteComponent();
+  final background = SpriteComponent();
   late SkipButton skipButton;
   late HistoryButton historyButton;
   late AutoButton autoButton;
@@ -27,7 +28,7 @@ class VisualNovelView extends PositionComponent with DialogueView, HasGameRefere
   late DialogueBox dialogueBox;
 
   @override
-  FutureOr<void> onLoad() {
+  FutureOr<void> onLoad() async {
     skipButton = SkipButton()
       ..priority = renderPriority['ui']!
       ..position = Vector2(game.size.x * 0.02, game.size.y * 0.03);
@@ -62,7 +63,12 @@ class VisualNovelView extends PositionComponent with DialogueView, HasGameRefere
       ..anchor = Anchor.topCenter
       ..size = Vector2(GameUtils.characterSize, GameUtils.characterSize);
 
-    forwardButtonComponent = ButtonComponent(
+    background
+      ..sprite = await game.loadSprite('background.png')
+      ..priority = renderPriority['background']!
+      ..size = game.size;
+
+    forwardDialogueButton = ButtonComponent(
       button: PositionComponent(),
       priority: renderPriority['under_ui']!,
       size: game.size, 
@@ -73,7 +79,7 @@ class VisualNovelView extends PositionComponent with DialogueView, HasGameRefere
       }
     );
     
-    addAll([miko, yuri, forwardButtonComponent, dialogueBox, skipButton, historyButton, autoButton, menuButton]);
+    addAll([background, miko, yuri, forwardDialogueButton, dialogueBox, skipButton, historyButton, autoButton, menuButton]);
     return super.onLoad();
   }
 
