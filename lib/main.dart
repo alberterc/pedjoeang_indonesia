@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flame/flame.dart';
 import 'package:provider/provider.dart';
 
+import 'constants/constants.dart' as constants;
 import 'router.dart';
 import 'app_lifecycle/app_lifecycle.dart';
 import 'style/palette.dart';
@@ -14,11 +15,11 @@ void main() async {
   // pre-load bgm audio file
   // await FlameAudio.audioCache.load('music/bgm.mp3');
 
-  runApp(const MyGame());
+  runApp(const Game());
 }
 
-class MyGame extends StatelessWidget {
-  const MyGame({super.key});
+class Game extends StatelessWidget {
+  const Game({super.key});
 
   @override
   Widget build(BuildContext context) {   
@@ -28,7 +29,7 @@ class MyGame extends StatelessWidget {
         child: Builder(
           builder: (context) {
             return MaterialApp.router(
-              title: 'My Game',
+              title: constants.gameName,
               routeInformationProvider: router.routeInformationProvider,
               routeInformationParser: router.routeInformationParser,
               routerDelegate: router.routerDelegate

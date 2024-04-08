@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:go_router/go_router.dart';
 
+import '../constants/constants.dart' as constants;
 import '../style/palette.dart';
 
 class ScreenTitle extends StatelessWidget {
@@ -25,10 +26,10 @@ class ScreenTitle extends StatelessWidget {
               height: 143,
               child: Center(
                 child: Text(
-                  'Title',
+                  constants.gameName,
                   style: TextStyle(
                     color: palette.fontMain.color,
-                    fontSize: 64
+                    fontSize: 42
                   ),
                 ),
               )
