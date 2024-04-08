@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:go_router/go_router.dart';
 
+import '../constants/constants.dart' as constants;
 import '../style/palette.dart';
 
 class ScreenMainMenu extends StatelessWidget {
@@ -38,10 +39,10 @@ class ScreenMainMenu extends StatelessWidget {
         height: 65,
         child: Center(
           child: Text(
-            'Title',
+            constants.gameName,
             style: TextStyle(
               color: palette.fontMain.color,
-              fontSize: 48
+              fontSize: 32
             ),
           ),
         )
