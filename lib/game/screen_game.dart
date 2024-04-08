@@ -4,8 +4,8 @@ import 'package:flame/components.dart';
 import 'package:flame/game.dart';
 import 'package:flutter/services.dart';
 import 'package:jenny/jenny.dart';
-import 'package:thesis_mobile_game_project/game/components/level_view.dart';
 
+import 'components/levels_view.dart';
 import 'components/visual_novel_view.dart';
 import '../style/palette.dart';
 
@@ -31,14 +31,15 @@ class ScreenGame extends FlameGame {
     yuriSprite = await loadSprite('yuri.png');
     mikoSprite = await loadSprite('miko.png');
 
-    // String startDialogueData = await rootBundle.loadString('assets/dialogue.yarn');
-    // yarnProject.parse(startDialogueData);
-    // var dialogueRunner = DialogueRunner(yarnProject: yarnProject, dialogueViews: [visualNovelView]);
+    String startDialogueData = await rootBundle.loadString('assets/dialogue.yarn');
+    yarnProject.parse(startDialogueData);
+    var dialogueRunner = DialogueRunner(yarnProject: yarnProject, dialogueViews: [visualNovelView]);
     
-    // dialogueRunner.startDialogue('Library_Meeting');
+    dialogueRunner.startDialogue('Library_Meeting');
+    add(visualNovelView);
 
-    levelView = LevelView(puzzleCount: 2);
-    add(levelView);
+    // levelView = LevelView(puzzleCount: 4);
+    // add(levelView);
 
     return super.onLoad();
   }
