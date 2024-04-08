@@ -1,3 +1,3 @@
-# thesis_mobile_game_project
+# Pedjoeang Indonesia
 
 A new Flutter project.
