@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flame/components.dart';
 import 'package:jenny/jenny.dart';
+import 'package:sizer/sizer.dart';
 
 import '../../screen_game.dart';
 
@@ -31,14 +32,14 @@ class DialogueBox extends PositionComponent with HasGameReference<ScreenGame> {
     
     characterNameTextPaint = TextPaint(
       style: TextStyle(
-        fontSize: 16,
+        fontSize: 16.sp,
         color: game.palette.fontMain.color
       )
     );
 
     characterLineTextPaint = TextPaint(
       style: TextStyle(
-        fontSize: 14,
+        fontSize: 14.sp,
         color: game.palette.fontMain.color
       )
     );
