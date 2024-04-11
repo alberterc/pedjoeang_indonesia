@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:go_router/go_router.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:sizer/sizer.dart';
 
+import '../constants/constants.dart' as constants;
 import '../style/palette.dart';
 
 class ScreenSettings extends StatefulWidget {
@@ -15,8 +17,10 @@ class ScreenSettings extends StatefulWidget {
 class ScreenSettingsState extends State<ScreenSettings> {
   late Palette palette;
 
-  static double eachMenuBoxHeight = 34.0;
+  static double eachMenuBoxHeight = 34.sp;
   static double eachMenuBoxWidth = 213.0;
+  // static double eachMenuBoxHeight = 68.0;
+  // static double eachMenuBoxWidth = 426.0;
 
   var musicVolume = 25.0;
   var soundEffectVolume = 25.0;
@@ -74,17 +78,17 @@ class ScreenSettingsState extends State<ScreenSettings> {
   // Widgets for settings screen title
   Widget getSettingsTitle() {
     return SizedBox(
-      width: 428,
-      height: 65,
-      child: Center(
-        child: Text(
-          'Options',
-          style: TextStyle(
-            color: palette.fontMain.color,
-            fontSize: 32
-          ),
+        child: FittedBox(
+          child: Center(
+            child: Text(
+              'Options',
+              style: TextStyle(
+                color: palette.fontMain.color,
+                fontSize: constants.fontLarge
+              ),
+            )
+          )
         )
-      ),
     );
   }
 
@@ -120,7 +124,7 @@ class ScreenSettingsState extends State<ScreenSettings> {
           'Music Volume',
           style: TextStyle(
             color: palette.fontMain.color,
-            fontSize: 16
+            fontSize: 14.sp
           ),
         ),
         SizedBox(
@@ -131,7 +135,7 @@ class ScreenSettingsState extends State<ScreenSettings> {
             min: 0.0,
             max: 100.0,
             label: '${musicVolume.round()}',
-            divisions: 4,
+            divisions: 5,
             onChanged: (double newValue) {
               SharedPreferences.getInstance().then((value) => value.setDouble('musicVolume', newValue));
               
@@ -155,7 +159,7 @@ class ScreenSettingsState extends State<ScreenSettings> {
           'Sound Effect Volume',
           style: TextStyle(
             color: palette.fontMain.color,
-            fontSize: 16
+            fontSize: 14.sp
           ),
         ),
         SizedBox(
@@ -166,7 +170,7 @@ class ScreenSettingsState extends State<ScreenSettings> {
             min: 0.0,
             max: 100.0,
             label: '${soundEffectVolume.round()}',
-            divisions: 4,
+            divisions: 5,
             onChanged: (double newValue) {
               SharedPreferences.getInstance().then((value) => value.setDouble('soundEffectVolume', newValue));
               
@@ -193,18 +197,18 @@ class ScreenSettingsState extends State<ScreenSettings> {
             'Skip',
             style: TextStyle(
               color: palette.fontMain.color,
-              fontSize: 16
+              fontSize: 14.sp
             )
           ),
           SizedBox(
-            width: 200.0,
+            width: eachMenuBoxWidth,
             child: CheckboxListTile(
               value: skipUnseenText,
               title: Text(
                 'Unseen Text',
                 style: TextStyle(
                   color: palette.fontMain.color,
-                  fontSize: 16
+                  fontSize: constants.fontSmall
                 ),
               ),
               controlAffinity: ListTileControlAffinity.leading,
@@ -236,7 +240,7 @@ class ScreenSettingsState extends State<ScreenSettings> {
               'Back',
               style: TextStyle(
                 color: palette.fontMain.color,
-                fontSize: 16
+                fontSize: 16.sp
               ),
             ),
           )

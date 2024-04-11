@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:go_router/go_router.dart';
+import 'package:sizer/sizer.dart';
 
 import '../constants/constants.dart' as constants;
 import '../style/palette.dart';
@@ -22,16 +23,16 @@ class ScreenTitle extends StatelessWidget {
           children: [
             Container(
               color: palette.backgroundSecondary.color,
-              width: 428,
-              height: 143,
-              child: Center(
-                child: Text(
-                  constants.gameName,
-                  style: TextStyle(
-                    color: palette.fontMain.color,
-                    fontSize: 42
-                  ),
-                ),
+              child: FittedBox(
+                child: Center(
+                  child: Text(
+                    constants.gameName,
+                    style: TextStyle(
+                      color: palette.fontMain.color,
+                      fontSize: 42.sp
+                    ),
+                  )
+                )
               )
             ),
             _gap,
@@ -39,7 +40,10 @@ class ScreenTitle extends StatelessWidget {
               onTap: () => GoRouter.of(context).push('/main_menu'),
               child: Container(
                 color: palette.backgroundSecondary.color,
-                child: const Text('Click to start'),
+                child: Text('Click to start',
+                  style: TextStyle(
+                    fontSize: constants.fontSmall
+                  )),
               ),
             )
           ],

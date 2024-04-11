@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:go_router/go_router.dart';
+import 'package:sizer/sizer.dart';
 
 import '../constants/constants.dart' as constants;
 import '../style/palette.dart';
@@ -8,8 +9,10 @@ import '../style/palette.dart';
 class ScreenMainMenu extends StatelessWidget {
   const ScreenMainMenu({super.key});
 
-  static double eachMenuBoxHeight = 34.0;
-  static double eachMenuBoxWidth = 213.0;
+  static double eachMenuBoxHeight = 34.sp;
+  static double eachMenuBoxWidth = 213.sp;
+  // static double eachMenuBoxHeight = 68.0;
+  // static double eachMenuBoxWidth = 426.0;
 
   @override
   Widget build(BuildContext context) {
@@ -35,16 +38,16 @@ class ScreenMainMenu extends StatelessWidget {
       padding: const EdgeInsets.all(8.0),
       child: Container(
         color: palette.backgroundSecondary.color,
-        width: 428,
-        height: 65,
-        child: Center(
-          child: Text(
-            constants.gameName,
-            style: TextStyle(
-              color: palette.fontMain.color,
-              fontSize: 32
-            ),
-          ),
+        child: FittedBox(
+          child: Center(
+            child: Text(
+              constants.gameName,
+              style: TextStyle(
+                color: palette.fontMain.color,
+                fontSize: constants.fontLarge
+              ),
+            )
+          )
         )
       ),
     );
@@ -69,7 +72,7 @@ class ScreenMainMenu extends StatelessWidget {
                   'Start Game',
                   style: TextStyle(
                     color: palette.fontMain.color,
-                    fontSize: 16
+                    fontSize: constants.fontMedium
                   ),
                 ),
               )
@@ -91,7 +94,7 @@ class ScreenMainMenu extends StatelessWidget {
                   'Options',
                   style: TextStyle(
                     color: palette.fontMain.color,
-                    fontSize: 16
+                    fontSize: constants.fontMedium
                   ),
                 ),
               )
@@ -113,7 +116,7 @@ class ScreenMainMenu extends StatelessWidget {
                   'Exit',
                   style: TextStyle(
                     color: palette.fontMain.color,
-                    fontSize: 16
+                    fontSize: constants.fontMedium
                   ),
                 ),
               )
