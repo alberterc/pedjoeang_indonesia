@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flame/components.dart';
 import 'package:flame/events.dart';
 import 'package:flutter/material.dart';
+import 'package:sizer/sizer.dart';
 
 import '../../screen_game.dart';
 
@@ -27,8 +28,8 @@ class Button extends PositionComponent with HasGameReference<ScreenGame>, TapCal
       textComponent = TextBoxComponent(
         text: text,
         textRenderer: TextPaint(
-          style: const TextStyle(
-            fontSize: 16,
+          style: TextStyle(
+            fontSize: 14.sp,
             color: Colors.black
           )
         ),

@@ -2,9 +2,13 @@ import 'dart:async';
 
 import 'package:flame/components.dart';
 import 'package:flame/events.dart';
+import 'package:flame/layout.dart';
 import 'package:flutter/material.dart';
+import 'package:sizer/sizer.dart';
 
 import '../../screen_game.dart';
+import '../../../constants/constants.dart' as constants;
+
 
 class MainPuzzleBox extends PositionComponent with HasGameReference<ScreenGame> {
   Anchor get puzzleBoxAnchor => puzzleAnchor;
@@ -36,7 +40,12 @@ class MainPuzzleBox extends PositionComponent with HasGameReference<ScreenGame> 
       ..position = size / 2
       ..size = Vector2(size.x * 0.7, size.y * 0.9);
 
-    add(mainPuzzle);
+    add(
+      AlignComponent(
+        child: mainPuzzle,
+        alignment: Anchor.center
+      )
+    );
 
     return super.onLoad();
   }
@@ -53,14 +62,14 @@ class MainPuzzleBox extends PositionComponent with HasGameReference<ScreenGame> 
 class MainPuzzle extends PositionComponent {
   late TextBoxComponent question;
   late CellsBox cellsBox;
-  
+
   @override
   FutureOr<void> onLoad() {
     question = TextBoxComponent(
       text: '[Pertanyaan mengenai sejarah penjajahan di Indonesia]',
       textRenderer: TextPaint(
-        style: const TextStyle(
-          fontSize: 14,
+        style: TextStyle(
+          fontSize: 12.sp,
           color: Colors.white
         )
       ),
@@ -74,9 +83,10 @@ class MainPuzzle extends PositionComponent {
     );
 
     cellsBox = CellsBox()
-      ..size = Vector2(size.x * 0.65, size.x * 0.65)
-      ..anchor = Anchor.bottomCenter
-      ..position = Vector2(size.x / 2, size.y);
+      ..size = Vector2(constants.gridSize,constants.gridSize)
+      // ..size = Vector2(size.x.w * 0.13.sp, size.x.w * 0.13.sp)
+      ..anchor = Anchor.topCenter
+      ..position = Vector2(question.size.x / 2, question.size.y * 1.5);
 
     addAll([
       question,
@@ -93,6 +103,7 @@ class CellsBox extends PositionComponent with HasGameReference<ScreenGame> {
 
   int grid = 5;
   late List<List<Cell>> cells;
+
 
   @override
   FutureOr<void> onLoad() {

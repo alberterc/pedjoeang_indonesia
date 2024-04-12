@@ -6,6 +6,7 @@ import 'package:flame/components.dart';
 
 import '../../screen_game.dart';
 
+
 class LevelPuzzle extends PositionComponent with HasGameReference<ScreenGame>, TapCallbacks {
   LevelPuzzle({
     required this.onTapUpEvent

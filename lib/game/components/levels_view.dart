@@ -2,6 +2,8 @@ import 'dart:async';
 
 import 'package:flame/components.dart';
 import 'package:flutter/material.dart';
+import 'package:sizer/sizer.dart';
+import 'package:go_router/go_router.dart';
 
 import '../../constants/constants.dart' as constants;
 import '../screen_game.dart';
@@ -34,9 +36,11 @@ class LevelView extends PositionComponent with HasGameReference<ScreenGame> {
     menuButton = Button(
       text: 'Menu',
       showText: false,
+      
       onTapUpEvent: (event, buttonName) {
         debugPrint('$buttonName button pressed');
       },
+      
       color: game.palette.backgroundSecondary.color
     )
       ..priority = renderPriority['ui']!
@@ -63,13 +67,14 @@ class LevelView extends PositionComponent with HasGameReference<ScreenGame> {
       priority: renderPriority['foreground'],
       text: '00:00',
       textRenderer: TextPaint(
-        style: const TextStyle(
-          fontSize: 16,
+        style: TextStyle(
+          fontSize: 14.sp,
           color: Colors.black
         )
       ),
       position: Vector2(mainPuzzle.x, mainPuzzle.y * 0.65),
       anchor: Anchor.topLeft,
+      size: Vector2(mainPuzzle.size.x, game.size.y * 0.04),
       align: Anchor.center,
       boxConfig: TextBoxConfig(
         maxWidth: mainPuzzle.size.x,
@@ -107,7 +112,8 @@ class LevelView extends PositionComponent with HasGameReference<ScreenGame> {
     for (int i = 0; i < puzzles.length; i++) {
       puzzles[i]
         ..position = puzzlePositions[i]
-        ..size = Vector2(game.size.x * 0.15, game.size.x * 0.15)
+        ..size = Vector2(constants.cipherSize, constants.cipherSize)
+        // ..size = Vector2(game.size.x * 0.125, game.size.x * 0.12)
         ..puzzleBoxColor = Color.fromARGB(255, (i * 50), (i * 50), 1 + 255)
         ..puzzleBoxText = 'Cipher ${i + 1}';
     }
