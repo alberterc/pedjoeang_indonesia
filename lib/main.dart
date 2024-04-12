@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flame/flame.dart';
 import 'package:provider/provider.dart';
+import 'package:sizer/sizer.dart';
 
 import 'constants/constants.dart' as constants;
 import 'router.dart';
@@ -23,20 +24,24 @@ class Game extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {   
-    return AppLifecycleObserver(
-      child: MultiProvider(
-        providers: [Provider(create: (context) => Palette())],
-        child: Builder(
-          builder: (context) {
-            return MaterialApp.router(
-              title: constants.gameName,
-              routeInformationProvider: router.routeInformationProvider,
-              routeInformationParser: router.routeInformationParser,
-              routerDelegate: router.routerDelegate
-            );
-          }
-        )
-      ),
+    return Sizer(
+      builder: (context, orientation, deviceType) {
+        return AppLifecycleObserver(
+          child: MultiProvider(
+            providers: [Provider(create: (context) => Palette())],
+            child: Builder(
+              builder: (context) {
+                return MaterialApp.router(
+                  title: constants.gameName,
+                  routeInformationProvider: router.routeInformationProvider,
+                  routeInformationParser: router.routeInformationParser,
+                  routerDelegate: router.routerDelegate
+                );
+              }
+            )
+          )
+        );
+      }
     );
   }
 }
