@@ -6,13 +6,28 @@ import 'package:sizer/sizer.dart';
 import '../constants/constants.dart' as constants;
 import '../style/palette.dart';
 
-class ScreenMainMenu extends StatelessWidget {
+class ScreenMainMenu extends StatefulWidget {
   const ScreenMainMenu({super.key});
 
-  static double eachMenuBoxHeight = 34.sp;
-  static double eachMenuBoxWidth = 213.sp;
-  // static double eachMenuBoxHeight = 68.0;
-  // static double eachMenuBoxWidth = 426.0;
+  @override
+  State<ScreenMainMenu> createState() => _ScreenMainMenuState();
+}
+
+class _ScreenMainMenuState extends State<ScreenMainMenu> {
+  late Color menuColor;
+  late Color menuTextColor;
+  static final double _eachMenuBoxHeight = 5.h;
+  static final double _eachMenuBoxWidth = 51.w;
+  // static double _eachMenuBoxHeight = 68.0;
+  // static double _eachMenuBoxWidth = 426.0;
+
+  @override
+  void initState() {
+    menuColor = constants.backgroundColorPrimary;
+    menuTextColor = constants.fontColorMain;
+    super.initState();
+  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -21,21 +36,42 @@ class ScreenMainMenu extends StatelessWidget {
     return Scaffold(
       backgroundColor: palette.backgroundMain.color,
       body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            getGameTitle(palette),
-            getGameMainMenu(context, palette),
-          ],
+        child: AspectRatio(
+          aspectRatio: constants.forceAspectRatio,
+          child: Stack(
+            children: [
+              Container(
+                decoration: const BoxDecoration(
+                  image: DecorationImage(
+                    image: AssetImage('assets/images/menu/main_menu_bg.png'),
+                    fit: BoxFit.fill
+                  )
+                ),
+              ),
+              Container(
+                width: double.infinity,
+                margin: EdgeInsets.only(top: 15.h),
+                child: getGameMainMenu(context, palette),
+              )
+              // SizedBox(
+              //   child: Column(
+              //     mainAxisAlignment: MainAxisAlignment.center,
+              //     children: [
+              //       getGameTitle(palette),
+              //       getGameMainMenu(context, palette),
+              //     ],
+              //   ),
+              // )
+            ],
+          ),
         ),
-      ),
+      )
     );
   }
 
   Widget getGameTitle(Palette palette) {
     return Padding(
-      padding: const EdgeInsets.all(8.0),
+      padding: const EdgeInsets.all(0),
       child: Container(
         color: palette.backgroundSecondary.color,
         child: FittedBox(
@@ -55,76 +91,151 @@ class ScreenMainMenu extends StatelessWidget {
 
   Widget getGameMainMenu(BuildContext context, Palette palette) {
     return Padding(
-      padding: const EdgeInsets.fromLTRB(0, 40.0, 0, 0),
-      child: Column(children: [
-        Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: GestureDetector(
+      padding: const EdgeInsets.fromLTRB(0, 0, 0, 0),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          GestureDetector(
+            // onTapDown: (_) {
+            //   setState(() {
+            //     menuColor = constants.invertColor(menuColor);
+            //     menuTextColor = constants.invertColor(menuTextColor);
+            //   });
+            // },
+            // onTapUp: (_) {
+            //   setState(() {
+            //     menuColor = constants.invertColor(menuColor);
+            //     menuTextColor = constants.invertColor(menuTextColor);
+            //   });
+            // },
+            // onTapCancel: () {
+            //   setState(() {
+            //     menuColor = constants.invertColor(menuColor);
+            //     menuTextColor = constants.invertColor(menuTextColor);
+            //   });
+            // },
             onTap: () {
               GoRouter.of(context).push('/game');
             },
             child: Container(
-              color: palette.backgroundSecondary.color,
-              width: eachMenuBoxWidth,
-              height: eachMenuBoxHeight,
-              child: Center(
-                child: Text(
-                  'Start Game',
-                  style: TextStyle(
-                    color: palette.fontMain.color,
-                    fontSize: constants.fontMedium
+              color: menuColor,
+              margin: const EdgeInsets.only(bottom: 16.0),
+              width: _eachMenuBoxWidth,
+              height: _eachMenuBoxHeight,
+              child: Row(
+                // mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Image.asset(
+                    'assets/images/menu/selector_hand_sprite.png',
                   ),
-                ),
+                  Text(
+                    'Start Game',
+                    style: TextStyle(
+                      color: menuTextColor,
+                      fontSize: constants.fontMedium,
+                      fontFamily: 'Pixeloid',
+                      fontWeight: FontWeight.w700
+                    ),
+                  ),
+                ]
               )
             ),
-          )
-        ),
-        Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: GestureDetector(
+          ),
+          GestureDetector(
+            // onTapDown: (_) {
+            //   setState(() {
+            //     menuColor = constants.invertColor(menuColor);
+            //     menuTextColor = constants.invertColor(menuTextColor);
+            //   });
+            // },
+            // onTapUp: (_) {
+            //   setState(() {
+            //     menuColor = constants.invertColor(menuColor);
+            //     menuTextColor = constants.invertColor(menuTextColor);
+            //   });
+            // },
+            // onTapCancel: () {
+            //   setState(() {
+            //     menuColor = constants.invertColor(menuColor);
+            //     menuTextColor = constants.invertColor(menuTextColor);
+            //   });
+            // },
             onTap: () {
               GoRouter.of(context).push('/settings');
             },
             child: Container(
-              color: palette.backgroundSecondary.color,
-              width: eachMenuBoxWidth,
-              height: eachMenuBoxHeight,
+              margin: const EdgeInsets.only(bottom: 16.0),
+              width: _eachMenuBoxWidth,
+              height: _eachMenuBoxHeight,
               child: Center(
-                child: Text(
-                  'Options',
-                  style: TextStyle(
-                    color: palette.fontMain.color,
-                    fontSize: constants.fontMedium
-                  ),
-                ),
+                child: Row(
+                  // mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Image.asset(
+                      'assets/images/menu/selector_hand_sprite.png',
+                    ),
+                    Text(
+                      'Settings',
+                      style: TextStyle(
+                        color: menuTextColor,
+                        fontSize: constants.fontMedium,
+                        fontFamily: 'Pixeloid',
+                        fontWeight: FontWeight.w700
+                      ),
+                    ),
+                  ],
+                )
               )
             ),
-          )
-        ),
-        Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: GestureDetector(
+          ),
+          GestureDetector(
+            // onTapDown: (_) {
+            //   setState(() {
+            //     menuColor = constants.invertColor(menuColor);
+            //     menuTextColor = constants.invertColor(menuTextColor);
+            //   });
+            // },
+            // onTapUp: (_) {
+            //   setState(() {
+            //     menuColor = constants.invertColor(menuColor);
+            //     menuTextColor = constants.invertColor(menuTextColor);
+            //   });
+            // },
+            // onTapCancel: () {
+            //   setState(() {
+            //     menuColor = constants.invertColor(menuColor);
+            //     menuTextColor = constants.invertColor(menuTextColor);
+            //   });
+            // },
             onTap: () {
               GoRouter.of(context).go('/');
             },
-            child: Container(
-              color: palette.backgroundSecondary.color,
-              width: eachMenuBoxWidth,
-              height: eachMenuBoxHeight,
+            child: SizedBox(
+              width: _eachMenuBoxWidth,
+              height: _eachMenuBoxHeight,
               child: Center(
-                child: Text(
-                  'Exit',
-                  style: TextStyle(
-                    color: palette.fontMain.color,
-                    fontSize: constants.fontMedium
-                  ),
-                ),
+                child: Row(
+                  // mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Image.asset(
+                      'assets/images/menu/selector_hand_sprite.png',
+                    ),
+                    Text(
+                      'Exit',
+                      style: TextStyle(
+                        color: menuTextColor,
+                        fontSize: constants.fontMedium,
+                        fontFamily: 'Pixeloid',
+                        fontWeight: FontWeight.w700
+                      ),
+                    ),
+                  ],
+                )
               )
             ),
-          )
-        ),
-      ],
-      )
+          ),
+        ],
+      ),
     );
   }
 }
