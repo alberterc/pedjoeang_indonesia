@@ -1,7 +1,9 @@
 import 'package:flame/palette.dart';
 
+import '../constants/constants.dart' as constants;
+
 class Palette {
-    PaletteEntry get backgroundMain => const PaletteEntry(Color(0xff002e65));
-    PaletteEntry get backgroundSecondary => const PaletteEntry(Color(0xffD9D9D9));
-    PaletteEntry get fontMain => const PaletteEntry(Color.fromARGB(255, 0, 0, 0));
+    PaletteEntry get backgroundMain => PaletteEntry(constants.backgroundColorPrimary);
+    PaletteEntry get backgroundSecondary => PaletteEntry(constants.backgroundColorSecondary);
+    PaletteEntry get fontMain => PaletteEntry(constants.fontColorMain);
 }
