@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
 
 import '../../constants/constants.dart' as constants;
-import '../screen_game.dart';
+import '../../widgets/screen_game.dart';
 import 'levelComponents/level_puzzle.dart';
 import 'levelComponents/level_table.dart';
 import 'levelComponents/main_puzzle_box.dart';

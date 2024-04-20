@@ -5,8 +5,8 @@ import 'package:flame/game.dart';
 import 'package:flutter/services.dart';
 import 'package:jenny/jenny.dart';
 
-import 'components/levels_view.dart';
-import 'components/visual_novel_view.dart';
+import '../game/components/levels_view.dart';
+import '../game/components/visual_novel_view.dart';
 import '../style/palette.dart';
 
 class ScreenGame extends FlameGame {

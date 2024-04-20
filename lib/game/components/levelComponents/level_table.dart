@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flame/components.dart';
 
-import '../../screen_game.dart';
+import '../../../widgets/screen_game.dart';
 
 class LevelTable extends PositionComponent with HasGameReference<ScreenGame> {
   @override
