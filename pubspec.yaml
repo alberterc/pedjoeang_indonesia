@@ -68,6 +68,17 @@ flutter:
   assets:
     - assets/
     - assets/images/
+    - assets/images/menu/
+
+  fonts:
+    - family: Pixeloid
+      fonts:
+        - asset: assets/fonts/Pixeloid-Sans.ttf
+        - asset: assets/fonts/Pixeloid-SansBold.ttf
+          weight: 700
+    - family: PixeloidMono
+      fonts:
+        - asset: assets/fonts/Pixeloid-Mono.ttf
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
