@@ -16,8 +16,8 @@ class ScreenGame extends FlameGame {
   late Vector2 uiButtonSize;
   late Sprite yuriSprite;
   late Sprite mikoSprite;
-  YarnProject yarnProject = YarnProject();
-  VisualNovelView visualNovelView = VisualNovelView();
+  final YarnProject _yarnProject = YarnProject();
+  final VisualNovelView _visualNovelView = VisualNovelView();
   late LevelView levelView;
   
   @override
@@ -32,11 +32,11 @@ class ScreenGame extends FlameGame {
     mikoSprite = await loadSprite('miko.png');
 
     String startDialogueData = await rootBundle.loadString('assets/dialogue.yarn');
-    yarnProject.parse(startDialogueData);
-    var dialogueRunner = DialogueRunner(yarnProject: yarnProject, dialogueViews: [visualNovelView]);
+    _yarnProject.parse(startDialogueData);
+    var dialogueRunner = DialogueRunner(yarnProject: _yarnProject, dialogueViews: [_visualNovelView]);
     
     dialogueRunner.startDialogue('Library_Meeting');
-    add(visualNovelView);
+    add(_visualNovelView);
 
     // levelView = LevelView(puzzleCount: 4);
     // add(levelView);
