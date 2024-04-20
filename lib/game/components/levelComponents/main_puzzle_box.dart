@@ -11,30 +11,10 @@ import '../../../constants/constants.dart' as constants;
 
 
 class MainPuzzleBox extends PositionComponent with HasGameReference<ScreenGame> {
-  Anchor get puzzleBoxAnchor => puzzleAnchor;
-  set puzzleBoxAnchor(Anchor puzzleBoxAnchor) => puzzleAnchor = puzzleBoxAnchor;
-
-  Vector2 get puzzleContainerSize => cellsContainerSize;
-  set puzzleContainerSize(Vector2 puzzleContainerSize) => cellsContainerSize = puzzleContainerSize;
-
-  double get cellBoxPadding => cellPadding;
-  set cellBoxPadding(double cellBoxPadding) => cellPadding = cellBoxPadding;
-  
-  Anchor puzzleAnchor = Anchor.topLeft;
-  Vector2 cellsContainerSize = Vector2(100, 100);
-  double cellPadding = 2.0;
-
-  late SpriteComponent puzzleBox;
   late MainPuzzle mainPuzzle;
 
   @override
   FutureOr<void> onLoad() {
-    // puzzleBox = SpriteComponent(
-    //   sprite: Sprite(game.images.fromCache('background.png')),
-    //   size: size,
-    //   anchor: puzzleAnchor
-    // );
-
     mainPuzzle = MainPuzzle()
       ..anchor = Anchor.center
       ..position = size / 2

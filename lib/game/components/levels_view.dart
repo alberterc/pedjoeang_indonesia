@@ -3,7 +3,6 @@ import 'dart:async';
 import 'package:flame/components.dart';
 import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
-import 'package:go_router/go_router.dart';
 
 import '../../constants/constants.dart' as constants;
 import '../screen_game.dart';
@@ -60,7 +59,6 @@ class LevelView extends PositionComponent with HasGameReference<ScreenGame> {
     mainPuzzle =  MainPuzzleBox()
       ..priority = renderPriority['foreground']!
       ..size = Vector2(game.size.x - ((tableLeft + mainPuzzleLeft) * 2), game.size.y - ((tableTop + mainPuzzleTop) * 2))
-      ..puzzleBoxAnchor = Anchor.topLeft
       ..position = Vector2(tableLeft + mainPuzzleLeft, tableTop + mainPuzzleTop);
 
     mainTimeLimit = TextBoxComponent(
