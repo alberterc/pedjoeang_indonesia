@@ -18,37 +18,40 @@ class ScreenTitle extends StatelessWidget {
     return Scaffold(
       backgroundColor: palette.backgroundMain.color,
       body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Container(
-              color: palette.backgroundSecondary.color,
-              child: FittedBox(
-                child: Center(
-                  child: Text(
-                    constants.gameName,
-                    style: TextStyle(
-                      color: palette.fontMain.color,
-                      fontSize: 42.sp
-                    ),
+        child: AspectRatio(
+          aspectRatio: constants.forceAspectRatio,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Container(
+                color: palette.backgroundSecondary.color,
+                child: FittedBox(
+                  child: Center(
+                    child: Text(
+                      constants.gameName,
+                      style: TextStyle(
+                        color: palette.fontMain.color,
+                        fontSize: 42.sp
+                      ),
+                    )
                   )
                 )
-              )
-            ),
-            _gap,
-            GestureDetector(
-              onTap: () => GoRouter.of(context).push('/main_menu'),
-              child: Container(
-                color: palette.backgroundSecondary.color,
-                child: Text('Click to start',
-                  style: TextStyle(
-                    fontSize: constants.fontSmall
-                  )),
               ),
-            )
-          ],
-        )
-      ),
+              _gap,
+              GestureDetector(
+                onTap: () => GoRouter.of(context).push('/main_menu'),
+                child: Container(
+                  color: palette.backgroundSecondary.color,
+                  child: Text('Click to start',
+                    style: TextStyle(
+                      fontSize: constants.fontSmall
+                    )),
+                ),
+              )
+            ],
+          )
+        ),
+      )
     );
   }
 }

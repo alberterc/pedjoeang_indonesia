@@ -17,10 +17,10 @@ class ScreenSettings extends StatefulWidget {
 class ScreenSettingsState extends State<ScreenSettings> {
   late Palette palette;
 
-  static double eachMenuBoxHeight = 34.sp;
-  static double eachMenuBoxWidth = 213.0;
-  // static double eachMenuBoxHeight = 68.0;
-  // static double eachMenuBoxWidth = 426.0;
+  static final double _eachMenuBoxHeight = 34.sp;
+  static final double _eachMenuBoxWidth = 213.sp;
+  // static double _eachMenuBoxHeight = 68.0;
+  // static double _eachMenuBoxWidth = 426.0;
 
   var musicVolume = 25.0;
   var soundEffectVolume = 25.0;
@@ -48,26 +48,29 @@ class ScreenSettingsState extends State<ScreenSettings> {
     return Scaffold(
       backgroundColor: palette.backgroundMain.color,
       body: Center(
-        child: FractionallySizedBox(
-          widthFactor: 0.8,
-          heightFactor: 0.8,
-          child: Container(
-            color: palette.backgroundSecondary.color,
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                getSettingsTitle(),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    getSettingsFirst(),
-                    getSettingsSecond()
-                  ],
-                ),
-                getSettingsBack()
-              ],
+        child: AspectRatio(
+          aspectRatio: constants.forceAspectRatio,
+          child: FractionallySizedBox(
+            widthFactor: 0.8,
+            heightFactor: 0.8,
+            child: Container(
+              color: palette.backgroundSecondary.color,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  getSettingsTitle(),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      getSettingsFirst(),
+                      getSettingsSecond()
+                    ],
+                  ),
+                  getSettingsBack()
+                ],
+              ),
             ),
           ),
         ),
@@ -81,7 +84,7 @@ class ScreenSettingsState extends State<ScreenSettings> {
         child: FittedBox(
           child: Center(
             child: Text(
-              'Options',
+              'Settings',
               style: TextStyle(
                 color: palette.fontMain.color,
                 fontSize: constants.fontLarge
@@ -201,7 +204,7 @@ class ScreenSettingsState extends State<ScreenSettings> {
             )
           ),
           SizedBox(
-            width: eachMenuBoxWidth,
+            width: _eachMenuBoxWidth,
             child: CheckboxListTile(
               value: skipUnseenText,
               title: Text(
@@ -233,8 +236,8 @@ class ScreenSettingsState extends State<ScreenSettings> {
         },
         child: Container(
           color: palette.backgroundSecondary.color,
-          width: eachMenuBoxWidth,
-          height: eachMenuBoxHeight,
+          width: _eachMenuBoxWidth,
+          height: _eachMenuBoxHeight,
           child: Center(
             child: Text(
               'Back',
