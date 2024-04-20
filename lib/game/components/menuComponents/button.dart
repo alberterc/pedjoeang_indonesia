@@ -5,7 +5,7 @@ import 'package:flame/events.dart';
 import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
 
-import '../../screen_game.dart';
+import '../../../widgets/screen_game.dart';
 
 class Button extends PositionComponent with HasGameReference<ScreenGame>, TapCallbacks {
   Button({

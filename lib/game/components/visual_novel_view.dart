@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:jenny/jenny.dart';
 
 import '../../constants/constants.dart' as constants;
-import '../screen_game.dart';
+import '../../widgets/screen_game.dart';
 import 'visualNovelComponents/dialogue_box.dart';
 import 'levels_view.dart';
 import 'menuComponents/button.dart';

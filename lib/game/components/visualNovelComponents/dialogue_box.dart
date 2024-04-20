@@ -5,7 +5,7 @@ import 'package:flame/components.dart';
 import 'package:jenny/jenny.dart';
 import 'package:sizer/sizer.dart';
 
-import '../../screen_game.dart';
+import '../../../widgets/screen_game.dart';
 
 class DialogueBox extends PositionComponent with HasGameReference<ScreenGame> {
   DialogueBox({this.line});

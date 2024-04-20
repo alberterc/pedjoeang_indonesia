@@ -4,7 +4,7 @@ import 'package:flame/events.dart';
 import 'package:flutter/material.dart';
 import 'package:flame/components.dart';
 
-import '../../screen_game.dart';
+import '../../../widgets/screen_game.dart';
 
 
 class LevelPuzzle extends PositionComponent with HasGameReference<ScreenGame>, TapCallbacks {

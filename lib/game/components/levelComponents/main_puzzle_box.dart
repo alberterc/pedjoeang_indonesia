@@ -6,7 +6,7 @@ import 'package:flame/layout.dart';
 import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
 
-import '../../screen_game.dart';
+import '../../../widgets/screen_game.dart';
 import '../../../constants/constants.dart' as constants;
 
 
