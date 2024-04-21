@@ -4,7 +4,6 @@ import 'package:flame/components.dart';
 import 'package:flame/events.dart';
 import 'package:flame/layout.dart';
 import 'package:flutter/material.dart';
-import 'package:sizer/sizer.dart';
 
 import '../../../widgets/screen_game.dart';
 import '../../../constants/constants.dart' as constants;
@@ -49,7 +48,7 @@ class MainPuzzle extends PositionComponent {
       text: '[Pertanyaan mengenai sejarah penjajahan di Indonesia]',
       textRenderer: TextPaint(
         style: TextStyle(
-          fontSize: 12.sp,
+          fontSize: constants.fontSmall,
           color: Colors.white,
           fontFamily: 'Pixeloid'
         )
