@@ -2,7 +2,6 @@ import 'dart:async';
 
 import 'package:flame/components.dart';
 import 'package:flutter/material.dart';
-import 'package:sizer/sizer.dart';
 
 import '../../constants/constants.dart' as constants;
 import '../../widgets/screen_game.dart';
@@ -14,7 +13,7 @@ import 'menuComponents/button.dart';
 class LevelView extends PositionComponent with HasGameReference<PIGame> {
   LevelView({required this.puzzleCount});
 
-  final renderPriority = constants.renderPriority; 
+  final renderPriority = constants.renderPriority;
 
   int puzzleCount;
   late SpriteComponent background;
@@ -65,7 +64,7 @@ class LevelView extends PositionComponent with HasGameReference<PIGame> {
       text: '00:00',
       textRenderer: TextPaint(
         style: TextStyle(
-          fontSize: 14.sp,
+          fontSize: constants.fontSmallLarge,
           color: Colors.black,
           fontFamily: 'Pixeloid'
         )

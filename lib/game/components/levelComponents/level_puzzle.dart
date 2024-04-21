@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flame/components.dart';
 
 import '../../../widgets/screen_game.dart';
-
+import '../../../constants/constants.dart' as constants;
 
 class LevelPuzzle extends PositionComponent with HasGameReference<PIGame>, TapCallbacks {
   LevelPuzzle({
@@ -29,8 +29,8 @@ class LevelPuzzle extends PositionComponent with HasGameReference<PIGame>, TapCa
   @override
   FutureOr<void> onLoad() {
     textPaint = TextPaint(
-      style: const TextStyle(
-        fontSize: 16,
+      style: TextStyle(
+        fontSize: constants.fontSmall,
         color: Colors.white,
         fontFamily: 'Pixeloid'
       )

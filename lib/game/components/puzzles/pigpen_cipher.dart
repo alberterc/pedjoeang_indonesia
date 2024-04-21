@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../../widgets/screen_game.dart';
+import '../../../constants/constants.dart' as constants;
 
 class PigpenCipher {
   const PigpenCipher({required this.solution});
@@ -25,11 +26,11 @@ class PigpenCipher {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            const Text(
+            Text(
               "Decrypt the following text",
               style: TextStyle(
                 color: Colors.black, 
-                fontSize: 20,
+                fontSize: constants.fontSmallLarge,
                 fontWeight: FontWeight.w700
               ),
             ),
@@ -37,9 +38,9 @@ class PigpenCipher {
             for (String word in solutionList) 
               Text(
                 word, 
-                style: const TextStyle(
+                style: TextStyle(
                   color: Colors.black,
-                  fontSize: 16,
+                  fontSize: constants.fontSmall,
                   fontFamily: 'PigpenCipher'
                 )
               ),
@@ -69,8 +70,8 @@ class PigpenCipher {
                         borderSide: BorderSide(color: Colors.black)
                       )
                     ),
-                    style: const TextStyle(
-                      fontSize: 16.0
+                    style: TextStyle(
+                      fontSize: constants.fontSmall
                     ),
                     cursorColor: Colors.black,
                     autocorrect: false,

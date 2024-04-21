@@ -19,6 +19,7 @@ const Map<String, int> renderPriority = {
 };
 double characterSize = 320.sp;
 double fontSmall = 12.sp;
+double fontSmallLarge = 14.sp;
 double fontMedium = 16.sp;
 double fontLarge = 32.sp;
 double gridSize = 140.sp;

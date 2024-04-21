@@ -127,7 +127,7 @@ class ScreenSettingsState extends State<ScreenSettings> {
           'Music Volume',
           style: TextStyle(
             color: palette.fontMain.color,
-            fontSize: 14.sp
+            fontSize: constants.fontSmallLarge
           ),
         ),
         SizedBox(
@@ -162,7 +162,7 @@ class ScreenSettingsState extends State<ScreenSettings> {
           'Sound Effect Volume',
           style: TextStyle(
             color: palette.fontMain.color,
-            fontSize: 14.sp
+            fontSize: constants.fontSmallLarge
           ),
         ),
         SizedBox(
@@ -200,7 +200,7 @@ class ScreenSettingsState extends State<ScreenSettings> {
             'Skip',
             style: TextStyle(
               color: palette.fontMain.color,
-              fontSize: 14.sp
+              fontSize: constants.fontSmallLarge
             )
           ),
           SizedBox(
@@ -243,7 +243,7 @@ class ScreenSettingsState extends State<ScreenSettings> {
               'Back',
               style: TextStyle(
                 color: palette.fontMain.color,
-                fontSize: 16.sp
+                fontSize: constants.fontMedium
               ),
             ),
           )

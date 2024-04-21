@@ -3,9 +3,9 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flame/components.dart';
 import 'package:jenny/jenny.dart';
-import 'package:sizer/sizer.dart';
 
 import '../../../widgets/screen_game.dart';
+import '../../../constants/constants.dart' as constants;
 
 class DialogueBox extends PositionComponent with HasGameReference<PIGame> {
   DialogueBox({this.line});
@@ -32,7 +32,7 @@ class DialogueBox extends PositionComponent with HasGameReference<PIGame> {
     
     characterNameTextPaint = TextPaint(
       style: TextStyle(
-        fontSize: 16.sp,
+        fontSize: constants.fontMedium,
         color: game.palette.fontMain.color,
         fontFamily: 'Pixeloid'
       )
@@ -40,7 +40,7 @@ class DialogueBox extends PositionComponent with HasGameReference<PIGame> {
 
     characterLineTextPaint = TextPaint(
       style: TextStyle(
-        fontSize: 14.sp,
+        fontSize: constants.fontSmallLarge,
         color: game.palette.fontMain.color,
         fontFamily: 'Pixeloid'
       )
