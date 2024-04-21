@@ -7,7 +7,7 @@ import 'package:flame/components.dart';
 import '../../../widgets/screen_game.dart';
 
 
-class LevelPuzzle extends PositionComponent with HasGameReference<ScreenGame>, TapCallbacks {
+class LevelPuzzle extends PositionComponent with HasGameReference<PIGame>, TapCallbacks {
   LevelPuzzle({
     required this.onTapUpEvent
   });
@@ -31,8 +31,8 @@ class LevelPuzzle extends PositionComponent with HasGameReference<ScreenGame>, T
     textPaint = TextPaint(
       style: const TextStyle(
         fontSize: 16,
-        // color: game.palette.fontMain.color
-        color: Colors.white
+        color: Colors.white,
+        fontFamily: 'Pixeloid'
       )
     );
 

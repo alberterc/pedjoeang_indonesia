@@ -7,7 +7,7 @@ import 'package:sizer/sizer.dart';
 
 import '../../../widgets/screen_game.dart';
 
-class DialogueBox extends PositionComponent with HasGameReference<ScreenGame> {
+class DialogueBox extends PositionComponent with HasGameReference<PIGame> {
   DialogueBox({this.line});
 
   DialogueLine? line;
@@ -33,14 +33,16 @@ class DialogueBox extends PositionComponent with HasGameReference<ScreenGame> {
     characterNameTextPaint = TextPaint(
       style: TextStyle(
         fontSize: 16.sp,
-        color: game.palette.fontMain.color
+        color: game.palette.fontMain.color,
+        fontFamily: 'Pixeloid'
       )
     );
 
     characterLineTextPaint = TextPaint(
       style: TextStyle(
         fontSize: 14.sp,
-        color: game.palette.fontMain.color
+        color: game.palette.fontMain.color,
+        fontFamily: 'Pixeloid'
       )
     );
 

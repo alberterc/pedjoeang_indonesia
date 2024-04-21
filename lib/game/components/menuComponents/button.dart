@@ -7,7 +7,7 @@ import 'package:sizer/sizer.dart';
 
 import '../../../widgets/screen_game.dart';
 
-class Button extends PositionComponent with HasGameReference<ScreenGame>, TapCallbacks {
+class Button extends PositionComponent with HasGameReference<PIGame>, TapCallbacks {
   Button({
     required this.text, 
     required this.onTapUpEvent, 

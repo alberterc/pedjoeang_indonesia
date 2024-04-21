@@ -10,7 +10,7 @@ import '../../../widgets/screen_game.dart';
 import '../../../constants/constants.dart' as constants;
 
 
-class MainPuzzleBox extends PositionComponent with HasGameReference<ScreenGame> {
+class MainPuzzleBox extends PositionComponent with HasGameReference<PIGame> {
   late MainPuzzle mainPuzzle;
 
   @override
@@ -50,7 +50,8 @@ class MainPuzzle extends PositionComponent {
       textRenderer: TextPaint(
         style: TextStyle(
           fontSize: 12.sp,
-          color: Colors.white
+          color: Colors.white,
+          fontFamily: 'Pixeloid'
         )
       ),
       position: Vector2(0, 0),
@@ -77,7 +78,7 @@ class MainPuzzle extends PositionComponent {
   }
 }
 
-class CellsBox extends PositionComponent with HasGameReference<ScreenGame> {
+class CellsBox extends PositionComponent with HasGameReference<PIGame> {
   int get gridSize => grid;
   set gridSize(int gridSize) => grid = gridSize;
 

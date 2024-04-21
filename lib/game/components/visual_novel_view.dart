@@ -11,7 +11,7 @@ import 'visualNovelComponents/dialogue_box.dart';
 import 'levels_view.dart';
 import 'menuComponents/button.dart';
 
-class VisualNovelView extends PositionComponent with DialogueView, HasGameReference<ScreenGame> {
+class VisualNovelView extends PositionComponent with DialogueView, HasGameReference<PIGame> {
   final renderPriority = constants.renderPriority;
 
   late final ButtonComponent forwardDialogueButton;
@@ -57,7 +57,7 @@ class VisualNovelView extends PositionComponent with DialogueView, HasGameRefere
       text: 'Menu',
       showText: false,
       onTapUpEvent: (event, buttonName) {
-        debugPrint('$buttonName button pressed');
+        game.overlays.add('PauseMenu');
       },
       color: game.palette.backgroundSecondary.color
     )

@@ -1,6 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
 
+Color invertColor(Color color) {
+  return Color.fromARGB(
+    color.alpha,
+    255 - color.red,
+    255 - color.green,
+    255 - color.blue
+  );
+}
+
 const String gameName = "Pedjoeang Indonesia";
 const Map<String, int> renderPriority = {
   'ui': 10,
@@ -18,3 +27,6 @@ double forceAspectRatio = 16 / 9;
 Color backgroundColorPrimary = const Color(0xffefbf97);
 Color backgroundColorSecondary = const Color(0xffD9D9D9);
 Color fontColorMain = const Color.fromARGB(255, 0, 0, 0);
+const flameOverlays = [
+  'PigpenCipher'
+];
