@@ -35,7 +35,53 @@ class Game extends StatelessWidget {
                   title: constants.gameName,
                   routeInformationProvider: router.routeInformationProvider,
                   routeInformationParser: router.routeInformationParser,
-                  routerDelegate: router.routerDelegate
+                  routerDelegate: router.routerDelegate,
+                  theme: ThemeData(
+                    fontFamily: 'Pixeloid',
+                    colorScheme: ThemeData().colorScheme.copyWith(primary: Colors.black),
+                    textSelectionTheme: const TextSelectionThemeData(
+                      selectionColor: Colors.white
+                    ),
+                    elevatedButtonTheme: ElevatedButtonThemeData(
+                      style: ButtonStyle(
+                        overlayColor: MaterialStateProperty.all(Colors.transparent),
+                        splashFactory: NoSplash.splashFactory,
+                        shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                          const RoundedRectangleBorder(
+                            borderRadius: BorderRadius.zero
+                          )
+                        ),
+                        backgroundColor: MaterialStateProperty.resolveWith<Color?>(
+                          (Set<MaterialState> states) {
+                            if (states.contains(MaterialState.hovered)) {
+                              return Colors.white;
+                            }
+                            if (states.contains(MaterialState.focused)) {
+                              return Colors.white;
+                            }
+                            if (states.contains(MaterialState.pressed)) {
+                              return Colors.white;
+                            }
+                            return Colors.black;
+                          }
+                        ),
+                        foregroundColor: MaterialStateProperty.resolveWith<Color?>(
+                          (Set<MaterialState> states) {
+                            if (states.contains(MaterialState.hovered)) {
+                              return Colors.black;
+                            }
+                            if (states.contains(MaterialState.focused)) {
+                              return Colors.black;
+                            }
+                            if (states.contains(MaterialState.pressed)) {
+                              return Colors.black;
+                            }
+                            return Colors.white;
+                          }
+                        ),
+                      ),
+                    )
+                  ),
                 );
               }
             )

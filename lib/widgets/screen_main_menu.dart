@@ -1,3 +1,4 @@
+import 'package:flame/extensions.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:go_router/go_router.dart';
@@ -14,20 +15,9 @@ class ScreenMainMenu extends StatefulWidget {
 }
 
 class _ScreenMainMenuState extends State<ScreenMainMenu> {
-  late Color menuColor;
-  late Color menuTextColor;
   static final double _eachMenuBoxHeight = 5.h;
   static final double _eachMenuBoxWidth = 51.w;
-  // static double _eachMenuBoxHeight = 68.0;
-  // static double _eachMenuBoxWidth = 426.0;
-
-  @override
-  void initState() {
-    menuColor = constants.backgroundColorPrimary;
-    menuTextColor = constants.fontColorMain;
-    super.initState();
-  }
-
+  static const _gap = SizedBox(height: 16.0);
 
   @override
   Widget build(BuildContext context) {
@@ -50,18 +40,9 @@ class _ScreenMainMenuState extends State<ScreenMainMenu> {
               ),
               Container(
                 width: double.infinity,
-                margin: EdgeInsets.only(top: 15.h),
+                margin: EdgeInsets.only(top: 18.h),
                 child: getGameMainMenu(context, palette),
               )
-              // SizedBox(
-              //   child: Column(
-              //     mainAxisAlignment: MainAxisAlignment.center,
-              //     children: [
-              //       getGameTitle(palette),
-              //       getGameMainMenu(context, palette),
-              //     ],
-              //   ),
-              // )
             ],
           ),
         ),
@@ -69,173 +50,187 @@ class _ScreenMainMenuState extends State<ScreenMainMenu> {
     );
   }
 
-  Widget getGameTitle(Palette palette) {
-    return Padding(
-      padding: const EdgeInsets.all(0),
-      child: Container(
-        color: palette.backgroundSecondary.color,
-        child: FittedBox(
-          child: Center(
-            child: Text(
-              constants.gameName,
-              style: TextStyle(
-                color: palette.fontMain.color,
-                fontSize: constants.fontLarge
-              ),
-            )
-          )
-        )
-      ),
-    );
-  }
-
   Widget getGameMainMenu(BuildContext context, Palette palette) {
-    return Padding(
-      padding: const EdgeInsets.fromLTRB(0, 0, 0, 0),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          GestureDetector(
-            // onTapDown: (_) {
-            //   setState(() {
-            //     menuColor = constants.invertColor(menuColor);
-            //     menuTextColor = constants.invertColor(menuTextColor);
-            //   });
-            // },
-            // onTapUp: (_) {
-            //   setState(() {
-            //     menuColor = constants.invertColor(menuColor);
-            //     menuTextColor = constants.invertColor(menuTextColor);
-            //   });
-            // },
-            // onTapCancel: () {
-            //   setState(() {
-            //     menuColor = constants.invertColor(menuColor);
-            //     menuTextColor = constants.invertColor(menuTextColor);
-            //   });
-            // },
-            onTap: () {
-              GoRouter.of(context).push('/game');
-            },
-            child: Container(
-              color: menuColor,
-              margin: const EdgeInsets.only(bottom: 16.0),
-              width: _eachMenuBoxWidth,
-              height: _eachMenuBoxHeight,
-              child: Row(
-                // mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Image.asset(
-                    'assets/images/menu/selector_hand_sprite.png',
-                  ),
-                  Text(
-                    'Start Game',
-                    style: TextStyle(
-                      color: menuTextColor,
-                      fontSize: constants.fontMedium,
-                      fontFamily: 'Pixeloid',
-                      fontWeight: FontWeight.w700
-                    ),
-                  ),
-                ]
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        TextButton(
+          onPressed: () {
+            GoRouter.of(context).push('/game');
+          },
+          style: ButtonStyle(
+            fixedSize: MaterialStateProperty.all<Size>(Size(_eachMenuBoxWidth, _eachMenuBoxHeight)),
+            padding: MaterialStateProperty.all<EdgeInsets>(EdgeInsets.zero),
+            shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+              RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(0.0),
               )
             ),
+            splashFactory: NoSplash.splashFactory,
+            overlayColor: MaterialStateProperty.all(Colors.transparent),
+            backgroundColor: MaterialStateProperty.resolveWith<Color?>(
+              (Set<MaterialState> states) {
+                if (states.contains(MaterialState.hovered)) {
+                  return constants.backgroundColorPrimary.darken(0.3);
+                }
+                if (states.contains(MaterialState.focused)) {
+                  return constants.backgroundColorPrimary.darken(0.3);
+                }
+                if (states.contains(MaterialState.pressed)) {
+                  return constants.invertColor(constants.backgroundColorPrimary);
+                }
+                return constants.backgroundColorPrimary;
+              }
+            ),
+            foregroundColor: MaterialStateProperty.resolveWith<Color?>(
+              (Set<MaterialState> states) {
+                if (states.contains(MaterialState.hovered)) {
+                  return constants.fontColorMain;
+                }
+                if (states.contains(MaterialState.focused)) {
+                  return constants.fontColorMain;
+                }
+                if (states.contains(MaterialState.pressed)) {
+                  return constants.invertColor(constants.fontColorMain);
+                }
+                return constants.fontColorMain;
+              }
+            )
           ),
-          GestureDetector(
-            // onTapDown: (_) {
-            //   setState(() {
-            //     menuColor = constants.invertColor(menuColor);
-            //     menuTextColor = constants.invertColor(menuTextColor);
-            //   });
-            // },
-            // onTapUp: (_) {
-            //   setState(() {
-            //     menuColor = constants.invertColor(menuColor);
-            //     menuTextColor = constants.invertColor(menuTextColor);
-            //   });
-            // },
-            // onTapCancel: () {
-            //   setState(() {
-            //     menuColor = constants.invertColor(menuColor);
-            //     menuTextColor = constants.invertColor(menuTextColor);
-            //   });
-            // },
-            onTap: () {
-              GoRouter.of(context).push('/settings');
-            },
-            child: Container(
-              margin: const EdgeInsets.only(bottom: 16.0),
-              width: _eachMenuBoxWidth,
-              height: _eachMenuBoxHeight,
-              child: Center(
-                child: Row(
-                  // mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Image.asset(
-                      'assets/images/menu/selector_hand_sprite.png',
-                    ),
-                    Text(
-                      'Settings',
-                      style: TextStyle(
-                        color: menuTextColor,
-                        fontSize: constants.fontMedium,
-                        fontFamily: 'Pixeloid',
-                        fontWeight: FontWeight.w700
-                      ),
-                    ),
-                  ],
-                )
+          child: Row(
+            children: [
+              Image.asset(
+                'assets/images/menu/selector_hand_sprite.png',
+              ),
+              Text(
+                'Start Game',
+                style: TextStyle(
+                  fontSize: constants.fontMedium,
+                  fontWeight: FontWeight.w700
+                ),
+              ),
+            ]
+          )
+        ),
+        _gap,
+        TextButton(
+          onPressed: () {
+            GoRouter.of(context).push('/settings');
+          },
+          style: ButtonStyle(
+            fixedSize: MaterialStateProperty.all<Size>(Size(_eachMenuBoxWidth, _eachMenuBoxHeight)),
+            padding: MaterialStateProperty.all<EdgeInsets>(EdgeInsets.zero),
+            shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+              RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(0.0),
               )
             ),
+            splashFactory: NoSplash.splashFactory,
+            overlayColor: MaterialStateProperty.all(Colors.transparent),
+            backgroundColor: MaterialStateProperty.resolveWith<Color?>(
+              (Set<MaterialState> states) {
+                if (states.contains(MaterialState.hovered)) {
+                  return constants.backgroundColorPrimary.darken(0.3);
+                }
+                if (states.contains(MaterialState.focused)) {
+                  return constants.backgroundColorPrimary.darken(0.3);
+                }
+                if (states.contains(MaterialState.pressed)) {
+                  return constants.invertColor(constants.backgroundColorPrimary);
+                }
+                return constants.backgroundColorPrimary;
+              }
+            ),
+            foregroundColor: MaterialStateProperty.resolveWith<Color?>(
+              (Set<MaterialState> states) {
+                if (states.contains(MaterialState.hovered)) {
+                  return constants.fontColorMain;
+                }
+                if (states.contains(MaterialState.focused)) {
+                  return constants.fontColorMain;
+                }
+                if (states.contains(MaterialState.pressed)) {
+                  return constants.invertColor(constants.fontColorMain);
+                }
+                return constants.fontColorMain;
+              }
+            )
           ),
-          GestureDetector(
-            // onTapDown: (_) {
-            //   setState(() {
-            //     menuColor = constants.invertColor(menuColor);
-            //     menuTextColor = constants.invertColor(menuTextColor);
-            //   });
-            // },
-            // onTapUp: (_) {
-            //   setState(() {
-            //     menuColor = constants.invertColor(menuColor);
-            //     menuTextColor = constants.invertColor(menuTextColor);
-            //   });
-            // },
-            // onTapCancel: () {
-            //   setState(() {
-            //     menuColor = constants.invertColor(menuColor);
-            //     menuTextColor = constants.invertColor(menuTextColor);
-            //   });
-            // },
-            onTap: () {
-              GoRouter.of(context).go('/');
-            },
-            child: SizedBox(
-              width: _eachMenuBoxWidth,
-              height: _eachMenuBoxHeight,
-              child: Center(
-                child: Row(
-                  // mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Image.asset(
-                      'assets/images/menu/selector_hand_sprite.png',
-                    ),
-                    Text(
-                      'Exit',
-                      style: TextStyle(
-                        color: menuTextColor,
-                        fontSize: constants.fontMedium,
-                        fontFamily: 'Pixeloid',
-                        fontWeight: FontWeight.w700
-                      ),
-                    ),
-                  ],
-                )
+          child: Row(
+            children: [
+              Image.asset(
+                'assets/images/menu/selector_hand_sprite.png',
+              ),
+              Text(
+                'Settings',
+                style: TextStyle(
+                  fontSize: constants.fontMedium,
+                  fontWeight: FontWeight.w700
+                ),
+              ),
+            ],
+          )
+        ),
+        _gap,
+        TextButton(
+          onPressed: () {
+            GoRouter.of(context).go('/');
+          },
+          style: ButtonStyle(
+            fixedSize: MaterialStateProperty.all<Size>(Size(_eachMenuBoxWidth, _eachMenuBoxHeight)),
+            padding: MaterialStateProperty.all<EdgeInsets>(EdgeInsets.zero),
+            shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+              RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(0.0),
               )
             ),
+            splashFactory: NoSplash.splashFactory,
+            overlayColor: MaterialStateProperty.all(Colors.transparent),
+            backgroundColor: MaterialStateProperty.resolveWith<Color?>(
+              (Set<MaterialState> states) {
+                if (states.contains(MaterialState.hovered)) {
+                  return constants.backgroundColorPrimary.darken(0.3);
+                }
+                if (states.contains(MaterialState.focused)) {
+                  return constants.backgroundColorPrimary.darken(0.3);
+                }
+                if (states.contains(MaterialState.pressed)) {
+                  return constants.invertColor(constants.backgroundColorPrimary);
+                }
+                return constants.backgroundColorPrimary;
+              }
+            ),
+            foregroundColor: MaterialStateProperty.resolveWith<Color?>(
+              (Set<MaterialState> states) {
+                if (states.contains(MaterialState.hovered)) {
+                  return constants.fontColorMain;
+                }
+                if (states.contains(MaterialState.focused)) {
+                  return constants.fontColorMain;
+                }
+                if (states.contains(MaterialState.pressed)) {
+                  return constants.invertColor(constants.fontColorMain);
+                }
+                return constants.fontColorMain;
+              }
+            )
           ),
-        ],
-      ),
+          child: Row(
+            children: [
+              Image.asset(
+                'assets/images/menu/selector_hand_sprite.png',
+              ),
+              Text(
+                'Exit',
+                style: TextStyle(
+                  fontSize: constants.fontMedium,
+                  fontWeight: FontWeight.w700
+                ),
+              ),
+            ],
+          )
+        ),
+      ],
     );
   }
 }

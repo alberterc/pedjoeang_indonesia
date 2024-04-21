@@ -232,7 +232,7 @@ class ScreenSettingsState extends State<ScreenSettings> {
       padding: const EdgeInsets.all(8.0),
       child: GestureDetector(
         onTap: () {
-          GoRouter.of(context).go('/main_menu');
+          GoRouter.of(context).pop();
         },
         child: Container(
           color: palette.backgroundSecondary.color,

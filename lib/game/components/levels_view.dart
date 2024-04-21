@@ -11,7 +11,7 @@ import 'levelComponents/level_table.dart';
 import 'levelComponents/main_puzzle_box.dart';
 import 'menuComponents/button.dart';
 
-class LevelView extends PositionComponent with HasGameReference<ScreenGame> {
+class LevelView extends PositionComponent with HasGameReference<PIGame> {
   LevelView({required this.puzzleCount});
 
   final renderPriority = constants.renderPriority; 
@@ -21,6 +21,7 @@ class LevelView extends PositionComponent with HasGameReference<ScreenGame> {
   late LevelTable levelTable;
   late MainPuzzleBox mainPuzzle;
   late TextBoxComponent mainTimeLimit;
+  late List<String> puzzleTypes;
   late List<LevelPuzzle> puzzles;
   late Button mainPuzzleSubmitButton;
   late Button menuButton;
@@ -35,11 +36,9 @@ class LevelView extends PositionComponent with HasGameReference<ScreenGame> {
     menuButton = Button(
       text: 'Menu',
       showText: false,
-      
       onTapUpEvent: (event, buttonName) {
-        debugPrint('$buttonName button pressed');
+        game.overlays.add('PauseMenu');
       },
-      
       color: game.palette.backgroundSecondary.color
     )
       ..priority = renderPriority['ui']!
@@ -67,7 +66,8 @@ class LevelView extends PositionComponent with HasGameReference<ScreenGame> {
       textRenderer: TextPaint(
         style: TextStyle(
           fontSize: 14.sp,
-          color: Colors.black
+          color: Colors.black,
+          fontFamily: 'Pixeloid'
         )
       ),
       position: Vector2(mainPuzzle.x, mainPuzzle.y * 0.65),
@@ -92,9 +92,17 @@ class LevelView extends PositionComponent with HasGameReference<ScreenGame> {
       ..anchor = Anchor.center
       ..size = Vector2(mainPuzzle.size.x * 0.4, game.size.y * 0.07);
 
+    puzzleTypes = [
+      "PigpenCipher",
+      "PigpenCipher",
+      "PigpenCipher",
+      "PigpenCipher",
+    ];
+
     puzzles = List.generate(puzzleCount, (index) => LevelPuzzle(
       onTapUpEvent: (event, buttonName) {
         debugPrint('$buttonName button pressed');
+        game.overlays.add(puzzleTypes[index]);
       }
     )
       ..priority = renderPriority['foreground']!
@@ -111,9 +119,8 @@ class LevelView extends PositionComponent with HasGameReference<ScreenGame> {
       puzzles[i]
         ..position = puzzlePositions[i]
         ..size = Vector2(constants.cipherSize, constants.cipherSize)
-        // ..size = Vector2(game.size.x * 0.125, game.size.x * 0.12)
         ..puzzleBoxColor = Color.fromARGB(255, (i * 50), (i * 50), 1 + 255)
-        ..puzzleBoxText = 'Cipher ${i + 1}';
+        ..puzzleBoxText = 'Puzzle ${i + 1}';
     }
 
     addAll([background, levelTable, mainPuzzle, mainTimeLimit, mainPuzzleSubmitButton, menuButton]);

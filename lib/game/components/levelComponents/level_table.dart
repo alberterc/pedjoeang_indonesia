@@ -3,7 +3,7 @@ import 'package:flame/components.dart';
 
 import '../../../widgets/screen_game.dart';
 
-class LevelTable extends PositionComponent with HasGameReference<ScreenGame> {
+class LevelTable extends PositionComponent with HasGameReference<PIGame> {
   @override
   void render(Canvas canvas) {
     canvas.drawRect(
