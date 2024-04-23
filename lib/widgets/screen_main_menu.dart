@@ -5,7 +5,7 @@ import 'package:go_router/go_router.dart';
 import 'package:sizer/sizer.dart';
 
 import '../constants/constants.dart' as constants;
-import '../style/palette.dart';
+import '../game/style/palette.dart';
 
 class ScreenMainMenu extends StatefulWidget {
   const ScreenMainMenu({super.key});
@@ -17,7 +17,6 @@ class ScreenMainMenu extends StatefulWidget {
 class _ScreenMainMenuState extends State<ScreenMainMenu> {
   static final double _eachMenuBoxHeight = 5.h;
   static final double _eachMenuBoxWidth = 51.w;
-  static const _gap = SizedBox(height: 16.0);
 
   @override
   Widget build(BuildContext context) {
@@ -26,33 +25,35 @@ class _ScreenMainMenuState extends State<ScreenMainMenu> {
     return Scaffold(
       backgroundColor: palette.backgroundMain.color,
       body: Center(
-        child: AspectRatio(
-          aspectRatio: constants.forceAspectRatio,
-          child: Stack(
-            children: [
-              Container(
-                decoration: const BoxDecoration(
-                  image: DecorationImage(
-                    image: AssetImage('assets/images/menu/main_menu_bg.png'),
-                    fit: BoxFit.fill
-                  )
-                ),
+        child: Stack(
+          children: [
+            Container(
+              decoration: const BoxDecoration(
+                image: DecorationImage(
+                  image: AssetImage('assets/images/menu/main_menu_bg.png'),
+                  fit: BoxFit.contain
+                )
               ),
-              Container(
-                width: double.infinity,
-                margin: EdgeInsets.only(top: 18.h),
+            ),
+            Positioned(
+              top: MediaQuery.of(context).size.height * 0.45,
+              child: SizedBox(
+                width: MediaQuery.of(context).size.width,
                 child: getGameMainMenu(context, palette),
-              )
-            ],
-          ),
+              ),
+            )
+          ],
         ),
       )
     );
   }
 
   Widget getGameMainMenu(BuildContext context, Palette palette) {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.center,
+    return Wrap(
+      alignment: WrapAlignment.center,
+      runAlignment: WrapAlignment.center,
+      spacing: 16.0,
+      direction: Axis.vertical,
       children: [
         TextButton(
           onPressed: () {
@@ -98,21 +99,21 @@ class _ScreenMainMenuState extends State<ScreenMainMenu> {
             )
           ),
           child: Row(
+            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Image.asset(
                 'assets/images/menu/selector_hand_sprite.png',
               ),
               Text(
-                'Start Game',
+                'Mulai Main',
                 style: TextStyle(
-                  fontSize: constants.fontMedium,
+                  fontSize: constants.fontSmallLarge,
                   fontWeight: FontWeight.w700
                 ),
               ),
             ]
           )
         ),
-        _gap,
         TextButton(
           onPressed: () {
             GoRouter.of(context).push('/settings');
@@ -157,21 +158,21 @@ class _ScreenMainMenuState extends State<ScreenMainMenu> {
             )
           ),
           child: Row(
+            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Image.asset(
                 'assets/images/menu/selector_hand_sprite.png',
               ),
               Text(
-                'Settings',
+                'Pengaturan',
                 style: TextStyle(
-                  fontSize: constants.fontMedium,
+                  fontSize: constants.fontSmallLarge,
                   fontWeight: FontWeight.w700
                 ),
               ),
             ],
           )
         ),
-        _gap,
         TextButton(
           onPressed: () {
             GoRouter.of(context).go('/');
@@ -216,14 +217,15 @@ class _ScreenMainMenuState extends State<ScreenMainMenu> {
             )
           ),
           child: Row(
+            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Image.asset(
                 'assets/images/menu/selector_hand_sprite.png',
               ),
               Text(
-                'Exit',
+                'Keluar',
                 style: TextStyle(
-                  fontSize: constants.fontMedium,
+                  fontSize: constants.fontSmallLarge,
                   fontWeight: FontWeight.w700
                 ),
               ),
