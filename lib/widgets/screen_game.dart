@@ -3,15 +3,16 @@ import 'dart:async';
 import 'package:flame/components.dart';
 import 'package:flame/game.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:jenny/jenny.dart';
-import 'package:pedjoeang_indonesia/game/components/puzzles/pigpen_cipher.dart';
+// import 'package:flutter/services.dart';
+// import 'package:jenny/jenny.dart';
+import 'package:pedjoeang_indonesia/game/overlays/puzzles/pigpen_cipher.dart';
 import 'package:pedjoeang_indonesia/game/overlays/pause_menu.dart';
 
-import '../game/components/levels_view.dart';
-import '../game/components/visual_novel_view.dart';
 import '../constants/constants.dart' as constants;
-import '../style/palette.dart';
+import '../game/components/levels_view.dart';
+// import '../game/components/visual_novel_view.dart';
+import '../game/overlays/puzzles/slide_puzzle.dart';
+import '../game/style/palette.dart';
 
 class ScreenGame extends StatefulWidget {
   const ScreenGame({super.key});
@@ -35,12 +36,34 @@ class _ScreenGameState extends State<ScreenGame> {
       updated playerProgress and new puzzle solutions
    */
 
+  List<int> _shuffleBoard(List<int> list) {
+    List<int> shuffledNumList = List.from(list);
+    shuffledNumList.shuffle();
+    return shuffledNumList;
+  }
+
   @override
   Widget build(BuildContext context) {
     PauseMenu pauseMenu = const PauseMenu();
 
-    const pigpenCipherSolution = 'chair table eagle house';
-    PigpenCipher pigpenCipher = const PigpenCipher(solution: pigpenCipherSolution);
+    PigpenCipher pigpenCipher = const PigpenCipher(
+      solution: 'chair table eagle house',
+      clueImages: [
+        'assets/images/yuri.png'
+      ]
+    );
+    
+    List<int> slidePuzzleSolution = [1, 2, 3, 4, 5, 6, 7, 8, 0];
+    SlidePuzzle slidePuzzle = SlidePuzzle(
+      boardSize: 9,
+      solution: slidePuzzleSolution, // needs to have 0 as the last index
+      shuffledNumList: _shuffleBoard(slidePuzzleSolution),
+      clueText: [
+        'Urutan meningkat',
+        'Kiri ke kanan',
+        'Atas ke bawah'
+      ]
+    );
 
     return Scaffold(
       body: PopScope(
@@ -48,12 +71,10 @@ class _ScreenGameState extends State<ScreenGame> {
         onPopInvoked: (_) {
           for (var overlay in constants.flameOverlays) {
             if (_piGame.overlays.isActive(overlay)) {
-              if (overlay != 'PauseMenu') {
-                _piGame.overlays.remove(overlay);
-                break;
-              }
+              _piGame.overlays.remove(overlay);
+              break;
             }
-            else {
+            if (overlay == 'PauseMenu') {
               _piGame.overlays.add('PauseMenu');
             }
           }
@@ -62,7 +83,8 @@ class _ScreenGameState extends State<ScreenGame> {
           game: _piGame,
           overlayBuilderMap: {
             'PauseMenu': pauseMenu.build,
-            'PigpenCipher': pigpenCipher.build
+            'PigpenCipher': pigpenCipher.build,
+            'SlidePuzzle': slidePuzzle.build
           },
         ),
       ),
@@ -77,8 +99,8 @@ class PIGame extends FlameGame {
   late Vector2 uiButtonSize;
   late Sprite yuriSprite;
   late Sprite mikoSprite;
-  final YarnProject _yarnProject = YarnProject();
-  final VisualNovelView _visualNovelView = VisualNovelView();
+  // final YarnProject _yarnProject = YarnProject();
+  // final VisualNovelView _visualNovelView = VisualNovelView();
   late LevelView levelView;
   
   @override
@@ -92,15 +114,21 @@ class PIGame extends FlameGame {
     yuriSprite = await loadSprite('yuri.png');
     mikoSprite = await loadSprite('miko.png');
 
-    String startDialogueData = await rootBundle.loadString('assets/dialogue.yarn');
-    _yarnProject.parse(startDialogueData);
-    var dialogueRunner = DialogueRunner(yarnProject: _yarnProject, dialogueViews: [_visualNovelView]);
+    // String startDialogueData = await rootBundle.loadString('assets/dialogue.yarn');
+    // _yarnProject.parse(startDialogueData);
+    // var dialogueRunner = DialogueRunner(yarnProject: _yarnProject, dialogueViews: [_visualNovelView]);
     
-    dialogueRunner.startDialogue('Library_Meeting');
-    add(_visualNovelView);
+    // dialogueRunner.startDialogue('Library_Meeting');
+    // add(_visualNovelView);
 
-    // levelView = LevelView(puzzleCount: 4);
-    // add(levelView);
+    levelView = LevelView(
+      puzzleCount: 2,
+      puzzleTypes: [
+        'SlidePuzzle',
+        'PigpenCipher'
+      ]
+    );
+    add(levelView);
 
     return super.onLoad();
   }

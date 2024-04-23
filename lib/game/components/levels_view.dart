@@ -11,7 +11,7 @@ import 'levelComponents/main_puzzle_box.dart';
 import 'menuComponents/button.dart';
 
 class LevelView extends PositionComponent with HasGameReference<PIGame> {
-  LevelView({required this.puzzleCount});
+  LevelView({required this.puzzleCount, required this.puzzleTypes});
 
   final renderPriority = constants.renderPriority;
 
@@ -80,7 +80,7 @@ class LevelView extends PositionComponent with HasGameReference<PIGame> {
     );
 
     mainPuzzleSubmitButton = Button(
-      text: 'Submit',
+      text: 'Jawab',
       onTapUpEvent: (event, buttonName) {
         debugPrint('$buttonName button pressed');
       },
@@ -90,13 +90,6 @@ class LevelView extends PositionComponent with HasGameReference<PIGame> {
       ..position = Vector2(mainPuzzle.x + mainPuzzle.size.x / 2, mainPuzzle.y * 1.35 + mainPuzzle.size.y)
       ..anchor = Anchor.center
       ..size = Vector2(mainPuzzle.size.x * 0.4, game.size.y * 0.07);
-
-    puzzleTypes = [
-      "PigpenCipher",
-      "PigpenCipher",
-      "PigpenCipher",
-      "PigpenCipher",
-    ];
 
     puzzles = List.generate(puzzleCount, (index) => LevelPuzzle(
       onTapUpEvent: (event, buttonName) {
