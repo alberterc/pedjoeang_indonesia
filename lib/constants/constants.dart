@@ -18,6 +18,8 @@ const Map<String, int> renderPriority = {
   'background': 0
 };
 double characterSize = 320.sp;
+double fontTiny = 8.sp;
+double fontTinyLarge = 10.sp;
 double fontSmall = 12.sp;
 double fontSmallLarge = 14.sp;
 double fontMedium = 16.sp;
@@ -29,5 +31,7 @@ Color backgroundColorPrimary = const Color(0xffefbf97);
 Color backgroundColorSecondary = const Color(0xffD9D9D9);
 Color fontColorMain = const Color.fromARGB(255, 0, 0, 0);
 const flameOverlays = [
-  'PigpenCipher'
+  'PigpenCipher',
+  'SlidePuzzle',
+  'PauseMenu' // has to be the last index
 ];

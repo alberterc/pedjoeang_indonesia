@@ -6,7 +6,7 @@ import 'package:sizer/sizer.dart';
 import 'constants/constants.dart' as constants;
 import 'router.dart';
 import 'app_lifecycle/app_lifecycle.dart';
-import 'style/palette.dart';
+import 'game/style/palette.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -80,7 +80,46 @@ class Game extends StatelessWidget {
                           }
                         ),
                       ),
-                    )
+                    ),
+                    textButtonTheme: TextButtonThemeData(
+                      style: ButtonStyle(
+                        overlayColor: MaterialStateProperty.all(Colors.transparent),
+                        splashFactory: NoSplash.splashFactory,
+                        shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                          const RoundedRectangleBorder(
+                            borderRadius: BorderRadius.zero
+                          )
+                        ),
+                        backgroundColor: MaterialStateProperty.resolveWith<Color?>(
+                          (Set<MaterialState> states) {
+                            if (states.contains(MaterialState.hovered)) {
+                              return Colors.white;
+                            }
+                            if (states.contains(MaterialState.focused)) {
+                              return Colors.white;
+                            }
+                            if (states.contains(MaterialState.pressed)) {
+                              return Colors.white;
+                            }
+                            return Colors.black;
+                          }
+                        ),
+                        foregroundColor: MaterialStateProperty.resolveWith<Color?>(
+                          (Set<MaterialState> states) {
+                            if (states.contains(MaterialState.hovered)) {
+                              return Colors.black;
+                            }
+                            if (states.contains(MaterialState.focused)) {
+                              return Colors.black;
+                            }
+                            if (states.contains(MaterialState.pressed)) {
+                              return Colors.black;
+                            }
+                            return Colors.white;
+                          }
+                        ),
+                      ),
+                    ),
                   ),
                 );
               }
