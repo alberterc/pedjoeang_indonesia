@@ -5,7 +5,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sizer/sizer.dart';
 
 import '../constants/constants.dart' as constants;
-import '../style/palette.dart';
+import '../game/style/palette.dart';
 
 class ScreenSettings extends StatefulWidget {
   const ScreenSettings({super.key});

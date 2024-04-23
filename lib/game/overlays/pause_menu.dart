@@ -29,7 +29,7 @@ class PauseMenu {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Text(
-                  'Game Paused',
+                  'Permainan Dijeda',
                   style: TextStyle(
                     fontSize: constants.fontLarge,
                     color: Colors.white
@@ -41,13 +41,7 @@ class PauseMenu {
                     game.overlays.remove('PauseMenu');
                     GoRouter.of(context).pop();
                   },
-                  child: const Text('Main Menu'),
-                ),
-                ElevatedButton(
-                  onPressed: () {
-                    GoRouter.of(context).push('/settings');
-                  },
-                  child: const Text('Settings'),
+                  child: const Text('Menu Utama'),
                 ),
               ]
             ),

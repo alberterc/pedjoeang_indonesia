@@ -4,7 +4,7 @@ import 'package:go_router/go_router.dart';
 import 'package:sizer/sizer.dart';
 
 import '../constants/constants.dart' as constants;
-import '../style/palette.dart';
+import '../game/style/palette.dart';
 
 class ScreenTitle extends StatelessWidget {
   const ScreenTitle({super.key});
