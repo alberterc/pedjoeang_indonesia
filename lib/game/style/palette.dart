@@ -1,6 +1,6 @@
 import 'package:flame/palette.dart';
 
-import '../constants/constants.dart' as constants;
+import '../../constants/constants.dart' as constants;
 
 class Palette {
     PaletteEntry get backgroundMain => PaletteEntry(constants.backgroundColorPrimary);
