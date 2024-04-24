@@ -1,11 +1,15 @@
+import 'dart:convert';
+
 import 'package:flame/extensions.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 import 'package:go_router/go_router.dart';
 import 'package:sizer/sizer.dart';
 
 import '../constants/constants.dart' as constants;
 import '../game/style/palette.dart';
+import '../models/levels.dart';
 
 class ScreenMainMenu extends StatefulWidget {
   const ScreenMainMenu({super.key});
@@ -22,6 +26,20 @@ class _ScreenMainMenuState extends State<ScreenMainMenu> {
   Widget build(BuildContext context) {
     final palette = context.watch<Palette>();
 
+    return FutureBuilder<Levels>(
+      future: _getLevelsData(),
+      builder: (context, snapshot) {
+        if (snapshot.hasData) {
+          return _getMainMenuScreen(context, palette, snapshot.data);
+        } else if (snapshot.hasError) {
+          return Text('${snapshot.error}');
+        }
+        return const CircularProgressIndicator();
+      },
+    );
+  }
+
+  Widget _getMainMenuScreen(BuildContext context, Palette palette, Levels? levels) {
     return Scaffold(
       backgroundColor: palette.backgroundMain.color,
       body: Center(
@@ -39,7 +57,7 @@ class _ScreenMainMenuState extends State<ScreenMainMenu> {
               top: MediaQuery.of(context).size.height * 0.45,
               child: SizedBox(
                 width: MediaQuery.of(context).size.width,
-                child: getGameMainMenu(context, palette),
+                child: getGameMainMenu(context, palette, levels),
               ),
             )
           ],
@@ -48,7 +66,7 @@ class _ScreenMainMenuState extends State<ScreenMainMenu> {
     );
   }
 
-  Widget getGameMainMenu(BuildContext context, Palette palette) {
+  Widget getGameMainMenu(BuildContext context, Palette palette, Levels? levels) {
     return Wrap(
       alignment: WrapAlignment.center,
       runAlignment: WrapAlignment.center,
@@ -57,7 +75,12 @@ class _ScreenMainMenuState extends State<ScreenMainMenu> {
       children: [
         TextButton(
           onPressed: () {
-            GoRouter.of(context).push('/game');
+            GoRouter.of(context).push(
+              '/game',
+              extra: {
+                "levels": levels
+              }
+            );
           },
           style: ButtonStyle(
             fixedSize: MaterialStateProperty.all<Size>(Size(_eachMenuBoxWidth, _eachMenuBoxHeight)),
@@ -234,5 +257,13 @@ class _ScreenMainMenuState extends State<ScreenMainMenu> {
         ),
       ],
     );
+  }
+
+  Future<Levels> _getLevelsData() async {
+    final levelsJsonStr = await rootBundle.loadString('assets/levels.json');
+    final levelsJson = jsonDecode(levelsJsonStr);
+    final parsedLevelsJson = Levels.fromJson(levelsJson);
+
+    return parsedLevelsJson;
   }
 }

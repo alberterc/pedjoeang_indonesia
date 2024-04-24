@@ -1,0 +1,42 @@
+{
+    "levels": [
+        {
+            "level": 1,
+            "puzzles": [
+                {
+                    "type": "SlidePuzzle",
+                    "title": "Benarkan Urutan Angka",
+                    "solution": [20, 2, 3, 4, 5, 6, 7, 8, 0],
+                    "clueTexts": [
+                        "Urutan meningkat",
+                        "Kiri ke kanan",
+                        "Atas ke bawah"
+                    ],
+                    "clueImages": [],
+                    "initialShowClue": true
+                },
+                {
+                    "type": "PigpenCipher",
+                    "title": "Dekripsi Teks",
+                    "solution": ["chair eagle house tablee"],
+                    "clueTexts": [],
+                    "clueImages": [
+                        "assets/images/yuri.png"
+                    ],
+                    "initialShowClue": false
+                },
+                {
+                    "type": "GuessTheNumber",
+                    "title": "Tebak Angka",
+                    "solution": [1234, 1945],
+                    "clueTexts": [
+                        "Digit pertama",
+                        "Digit kedua"
+                    ],
+                    "clueImages": [],
+                    "initialShowClue": true
+                }
+            ]
+        }
+    ]
+}

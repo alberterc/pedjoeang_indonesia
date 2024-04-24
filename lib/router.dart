@@ -1,5 +1,6 @@
 import 'package:go_router/go_router.dart';
 
+import 'models/levels.dart';
 import 'widgets/screen_title.dart';
 import 'widgets/screen_main_menu.dart';
 import 'widgets/screen_settings.dart';
@@ -17,7 +18,10 @@ final router = GoRouter(
         ),
         GoRoute(
           path: 'game',
-          builder: (context, state) => const ScreenGame(),
+          builder: (context, state) {
+            Map<String, Levels?> levels = state.extra as Map<String, Levels?>;
+            return ScreenGame(levelData: levels['levels']!);
+          },
         ),
         GoRoute(
           path: 'settings',
