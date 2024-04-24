@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flame/components.dart';
 import 'package:flame/game.dart';
 import 'package:flutter/material.dart';
+import 'package:pedjoeang_indonesia/game/overlays/puzzles/guess_the_number.dart';
 // import 'package:flutter/services.dart';
 // import 'package:jenny/jenny.dart';
 import 'package:pedjoeang_indonesia/game/overlays/puzzles/pigpen_cipher.dart';
@@ -13,9 +14,14 @@ import '../game/components/levels_view.dart';
 // import '../game/components/visual_novel_view.dart';
 import '../game/overlays/puzzles/slide_puzzle.dart';
 import '../game/style/palette.dart';
+import '../models/levels.dart';
+
+final puzzleShowClue = ValueNotifier<Map<String, bool>>({});
 
 class ScreenGame extends StatefulWidget {
-  const ScreenGame({super.key});
+  const ScreenGame({super.key, required this.levelData});
+
+  final Levels levelData;
 
   @override
   State<ScreenGame> createState() => _ScreenGameState();
@@ -23,7 +29,6 @@ class ScreenGame extends StatefulWidget {
 
 class _ScreenGameState extends State<ScreenGame> {
   final _piGame = PIGame();
-
   /*
     store several variables here:
     - playerProgress (currentLevel)
@@ -36,33 +41,35 @@ class _ScreenGameState extends State<ScreenGame> {
       updated playerProgress and new puzzle solutions
    */
 
-  List<int> _shuffleBoard(List<int> list) {
-    List<int> shuffledNumList = List.from(list);
-    shuffledNumList.shuffle();
-    return shuffledNumList;
-  }
-
   @override
   Widget build(BuildContext context) {
     PauseMenu pauseMenu = const PauseMenu();
 
-    PigpenCipher pigpenCipher = const PigpenCipher(
-      solution: 'chair table eagle house',
-      clueImages: [
-        'assets/images/yuri.png'
-      ]
-    );
-    
-    List<int> slidePuzzleSolution = [1, 2, 3, 4, 5, 6, 7, 8, 0];
+    final levels = widget.levelData.levels;
+    final puzzles = levels[0].puzzles;
+    for (var puzzle in puzzles) {
+      puzzleShowClue.value[puzzle.type] = puzzle.initialShowClue;
+    }
+
+    List<int> slidePuzzleSolution = puzzles[0].solution.cast<int>();
+    List<String> slidePuzzleClue = puzzles[0].clueTexts;
     SlidePuzzle slidePuzzle = SlidePuzzle(
       boardSize: 9,
-      solution: slidePuzzleSolution, // needs to have 0 as the last index
+      solution: slidePuzzleSolution,
       shuffledNumList: _shuffleBoard(slidePuzzleSolution),
-      clueText: [
-        'Urutan meningkat',
-        'Kiri ke kanan',
-        'Atas ke bawah'
-      ]
+      clueTexts: slidePuzzleClue
+    );
+
+    String pigpenCipherSolution = puzzles[1].solution[0];
+    List<String> pigpenCipherClue = puzzles[1].clueImages.cast<String>();
+    PigpenCipher pigpenCipher = PigpenCipher(
+      solution: pigpenCipherSolution,
+      clueImages: pigpenCipherClue
+    );
+
+    GuessTheNumber guessTheNumber = GuessTheNumber(
+      solutions: puzzles[2].solution.cast<int>(),
+      clueTexts: puzzles[2].clueTexts
     );
 
     return Scaffold(
@@ -83,12 +90,19 @@ class _ScreenGameState extends State<ScreenGame> {
           game: _piGame,
           overlayBuilderMap: {
             'PauseMenu': pauseMenu.build,
+            'SlidePuzzle': slidePuzzle.build,
             'PigpenCipher': pigpenCipher.build,
-            'SlidePuzzle': slidePuzzle.build
+            'GuessTheNumber': guessTheNumber.build
           },
-        ),
+        )
       ),
     );
+  }
+
+  List<int> _shuffleBoard(List<int> list) {
+    List<int> shuffledNumList = List.from(list);
+    shuffledNumList.shuffle();
+    return shuffledNumList;
   }
 }
 
@@ -122,10 +136,11 @@ class PIGame extends FlameGame {
     // add(_visualNovelView);
 
     levelView = LevelView(
-      puzzleCount: 2,
+      puzzleCount: 3,
       puzzleTypes: [
         'SlidePuzzle',
-        'PigpenCipher'
+        'PigpenCipher',
+        'GuessTheNumber'
       ]
     );
     add(levelView);

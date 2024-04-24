@@ -6,7 +6,10 @@ import '../../../widgets/partials/custom_close_button_icon.dart';
 import '../../../widgets/partials/puzzle_body.dart';
 
 class PigpenCipher {
-  const PigpenCipher({required this.solution, required this.clueImages});
+  const PigpenCipher({
+    required this.solution,
+    required this.clueImages
+  });
 
   final String solution;
   final List<String> clueImages;
@@ -25,7 +28,7 @@ class PigpenCipher {
     }
     _PigpenCipher pigpenCipher = _PigpenCipher(
       solutionList: solutionList,
-      clueImageWidgetList: clueImageWidgetList,
+      clueImageWidgetList: clueImageWidgetList
     );
 
     return Positioned(
@@ -66,7 +69,10 @@ class PigpenCipher {
 }
 
 class _PigpenCipher extends StatefulWidget {
-  const _PigpenCipher({required this.solutionList, required this.clueImageWidgetList});
+  const _PigpenCipher({
+    required this.solutionList,
+    required this.clueImageWidgetList
+  });
 
   final List<String> solutionList;
   final List<Widget> clueImageWidgetList;
@@ -77,93 +83,89 @@ class _PigpenCipher extends StatefulWidget {
 
 class _PigpenCipherState extends State<_PigpenCipher> {
   static const _gap = SizedBox(height: 24.0);
-  bool isClueShow = false;
   
   @override
   Widget build(BuildContext context) {
     String submittedAnswer = "";
     
-    return PuzzleBody(
-      title: 'Dekripsi Teks',
-      spacing: 16.0,
-      showClue: isClueShow,
-      clue: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: widget.clueImageWidgetList,
-      ),
-      body: Column(
-        children: [
-          for (String word in widget.solutionList) 
-            Text(
-              word,
-              style: TextStyle(
-                color: Colors.black,
-                fontSize: constants.fontSmall,
-                fontFamily: 'PigpenCipher',
-              ),
-              textDirection: TextDirection.ltr,
-              textHeightBehavior: const TextHeightBehavior(
-                applyHeightToFirstAscent: false,
-                applyHeightToLastDescent: false
-              ),
-            ),
-          _gap,
-          FractionallySizedBox(
-            widthFactor: 0.5,
-            child: TextField(
-              decoration: InputDecoration(
-                border: const OutlineInputBorder(
-                  borderRadius: BorderRadius.zero,
-                  borderSide: BorderSide(color: Colors.black)
-                ),
-                focusedBorder: const OutlineInputBorder(
-                  borderRadius: BorderRadius.zero,
-                  borderSide: BorderSide(color: Colors.black)
-                ),
-                isDense: true,
-                contentPadding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 8.0),
-                enabledBorder: const OutlineInputBorder(
-                  borderRadius: BorderRadius.zero,
-                  borderSide: BorderSide(color: Colors.black)
-                ),
-                suffixIcon: Container(
-                  margin: const EdgeInsets.symmetric(horizontal: 2.0, vertical: 2.0),
-                  child: TextButton(
-                    onPressed: () {
-                      _checkAnswer(submittedAnswer, widget.solutionList.join(' '));
-                    },
-                    child: Text(
-                      'Kirim',
-                      style: TextStyle(
-                        fontSize: constants.fontTiny
-                      ),
-                    ),
+    return ValueListenableBuilder(
+      valueListenable: puzzleShowClue,
+      builder: (context, value, _) {
+        return PuzzleBody(
+          title: 'Dekripsi Teks',
+          spacing: 16.0,
+          showClue: value['PigpenCipher']!,
+          clue: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: widget.clueImageWidgetList,
+          ),
+          body: Column(
+            children: [
+              for (String word in widget.solutionList) 
+                Text(
+                  word,
+                  style: TextStyle(
+                    color: Colors.black,
+                    fontSize: constants.fontSmall,
+                    fontFamily: 'PigpenCipher',
+                  ),
+                  textDirection: TextDirection.ltr,
+                  textHeightBehavior: const TextHeightBehavior(
+                    applyHeightToFirstAscent: false,
+                    applyHeightToLastDescent: false
                   ),
                 ),
-                suffixIconConstraints: BoxConstraints.tight(const Size(65, 35)),
+              _gap,
+              FractionallySizedBox(
+                widthFactor: 0.5,
+                child: TextField(
+                  decoration: InputDecoration(
+                    border: const OutlineInputBorder(
+                      borderRadius: BorderRadius.zero,
+                      borderSide: BorderSide(color: Colors.black)
+                    ),
+                    focusedBorder: const OutlineInputBorder(
+                      borderRadius: BorderRadius.zero,
+                      borderSide: BorderSide(color: Colors.black)
+                    ),
+                    isDense: true,
+                    contentPadding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 8.0),
+                    enabledBorder: const OutlineInputBorder(
+                      borderRadius: BorderRadius.zero,
+                      borderSide: BorderSide(color: Colors.black)
+                    ),
+                    suffixIcon: Container(
+                      margin: const EdgeInsets.symmetric(horizontal: 2.0, vertical: 2.0),
+                      child: TextButton(
+                        onPressed: () {
+                          _checkAnswer(submittedAnswer, widget.solutionList.join(' '));
+                        },
+                        child: Text(
+                          'Kirim',
+                          style: TextStyle(
+                            fontSize: constants.fontTiny
+                          ),
+                        ),
+                      ),
+                    ),
+                    suffixIconConstraints: BoxConstraints.tight(const Size(65, 35)),
+                  ),
+                  style: TextStyle(
+                    fontSize: constants.fontTiny,
+                  ),
+                  textDirection: TextDirection.ltr,
+                  keyboardType: TextInputType.text,
+                  cursorColor: Colors.black,
+                  autocorrect: false,
+                  onSubmitted: (input) => _checkAnswer(input, widget.solutionList.join(' ')),
+                  onChanged: (input) => submittedAnswer = input,
+                ),
               ),
-              style: TextStyle(
-                fontSize: constants.fontTiny,
-              ),
-              textDirection: TextDirection.ltr,
-              keyboardType: TextInputType.text,
-              cursorColor: Colors.black,
-              autocorrect: false,
-              onSubmitted: (input) => _checkAnswer(input, widget.solutionList.join(' ')),
-              onChanged: (input) => submittedAnswer = input,
-            ),
+            ],
           ),
-        ],
-      ),
+        );
+      }
     );
-  }
-  
-  void showClue(bool show) {
-    if (show) {
-      setState(() {
-        isClueShow = true;
-      });
-    }
   }
 
   void _checkAnswer(String input, String solution) {
@@ -176,10 +178,11 @@ class _PigpenCipherState extends State<_PigpenCipher> {
   }
 
   void _win() {
-    print('you win!');
+    // TODO: add win information
+    puzzleShowClue.value['GuessTheNumber'] = true;
   }
 
   void _lose() {
-    print('you lose!');
+    // TODO: add lose information
   }
 }

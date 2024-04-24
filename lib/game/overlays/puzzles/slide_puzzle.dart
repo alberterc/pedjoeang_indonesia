@@ -11,19 +11,19 @@ class SlidePuzzle {
     required this.boardSize,
     required this.solution,
     required this.shuffledNumList,
-    required this.clueText
+    required this.clueTexts
   });
 
   final int boardSize;
   final List<int> solution;
   final List<int> shuffledNumList;
-  final List<String> clueText;
+  final List<String> clueTexts;
 
   Widget build(BuildContext context, PIGame game) {
     final screenWidth = MediaQuery.of(context).size.width;
     final screenHeight = MediaQuery.of(context).size.height;
     List<Widget> clueWidgetTextList = [];
-    for (var clue in clueText) {
+    for (var clue in clueTexts) {
       clueWidgetTextList.add(
         Text(
           clue,
@@ -108,90 +108,96 @@ class _SlidePuzzleState extends State<_SlidePuzzle> {
     final List<int> solution = widget.solution;
     List<int> boardNumbers = widget.boardNumbers;
 
-    return PuzzleBody(
-      title: 'Benarkan Urutan Angka',
-      spacing: 64.0,
-      showClue: true,
-      clue: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: widget.clueWidgetTextList,
-      ),
-      body: SizedBox(
-        width: widget.screenWidth * 0.25,
-        child: GridView.builder(
-          physics: const NeverScrollableScrollPhysics(),
-          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-            crossAxisCount: 3,
-            mainAxisSpacing: 14.0,
-            crossAxisSpacing: 14.0
+    return ValueListenableBuilder(
+      valueListenable: puzzleShowClue,
+      builder: (context, value, _) {
+        return PuzzleBody(
+          title: 'Benarkan Urutan Angka',
+          spacing: 64.0,
+          showClue: value['SlidePuzzle']!,
+          clue: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: widget.clueWidgetTextList,
           ),
-          shrinkWrap: true,
-          itemCount: boardSize,
-          itemBuilder: (_, index) {
-            if (boardNumbers[index] == 0) {
-              return Container(
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  border: Border.all(color: Colors.black, width: 2.0)
-                ),
-              );
-            }
-            else {
-              return TextButton(
-                style: ButtonStyle(
-                  side: MaterialStateProperty.resolveWith<BorderSide>(
-                    (Set<MaterialState> states) {
-                      if (states.contains(MaterialState.hovered)) {
-                        return const BorderSide(
-                          color: Colors.black,
-                          width: 2.0
-                        );
-                      }
-                      if (states.contains(MaterialState.focused)) {
-                        return const BorderSide(
-                          color: Colors.black,
-                          width: 2.0
-                        );
-                      }
-                      if (states.contains(MaterialState.pressed)) {
-                        return const BorderSide(
-                          color: Colors.black,
-                          width: 2.0
-                        );
-                      }
-                      return const BorderSide(
-                          color: Colors.white,
-                          width: 2.0
-                        );
-                    }
-                  )
-                ),
-                onPressed: () async {
-                  List<int> newList = await _onTileClick(boardNumbers, await _getCurrentIndex(boardNumbers, boardNumbers[index]));
-                  setState(() {
-                    boardNumbers = newList;
-                  });
-                  // if (await _checkAnswer(boardNumbers, solution)) {
-                  //   _win(widget.game);
-                  // }
-                  _win(widget.game);
-                },
-                child: Text(
-                  '${boardNumbers[index]}',
-                  style: TextStyle(
-                    fontSize: constants.fontSmallLarge
-                  ),
-                )
-              );
-            }
-          }
-        )
-      ),
+          body: SizedBox(
+            width: widget.screenWidth * 0.25,
+            child: GridView.builder(
+              physics: const NeverScrollableScrollPhysics(),
+              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: 3,
+                mainAxisSpacing: 14.0,
+                crossAxisSpacing: 14.0
+              ),
+              shrinkWrap: true,
+              itemCount: boardSize,
+              itemBuilder: (_, index) {
+                if (boardNumbers[index] == 0) {
+                  return Container(
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      border: Border.all(color: Colors.black, width: 2.0)
+                    ),
+                  );
+                }
+                else {
+                  return TextButton(
+                    style: ButtonStyle(
+                      side: MaterialStateProperty.resolveWith<BorderSide>(
+                        (Set<MaterialState> states) {
+                          if (states.contains(MaterialState.hovered)) {
+                            return const BorderSide(
+                              color: Colors.black,
+                              width: 2.0
+                            );
+                          }
+                          if (states.contains(MaterialState.focused)) {
+                            return const BorderSide(
+                              color: Colors.black,
+                              width: 2.0
+                            );
+                          }
+                          if (states.contains(MaterialState.pressed)) {
+                            return const BorderSide(
+                              color: Colors.black,
+                              width: 2.0
+                            );
+                          }
+                          return const BorderSide(
+                              color: Colors.white,
+                              width: 2.0
+                            );
+                        }
+                      )
+                    ),
+                    onPressed: () async {
+                      List<int> newList = await _onTileClick(boardNumbers, await _getCurrentIndex(boardNumbers, boardNumbers[index]));
+                      setState(() {
+                        boardNumbers = newList;
+                      });
+                      // if (await _checkAnswer(boardNumbers, solution)) {
+                      //   _win(widget.game);
+                      // }
+                      _win(widget.game);
+                    },
+                    child: Text(
+                      '${boardNumbers[index]}',
+                      style: TextStyle(
+                        fontSize: constants.fontSmallLarge
+                      ),
+                    )
+                  );
+                }
+              }
+            )
+          ),
+        );
+      }
     );
   }
 
   void _win(PIGame game) {
-    game.overlays.remove('SlidePuzzle');
+    // TODO: add win information
+    puzzleShowClue.value['PigpenCipher'] = true;
   }
 
   Future<bool> _checkAnswer(List<int> boardNumbers, List<int> solution) async {
