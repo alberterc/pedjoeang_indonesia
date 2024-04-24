@@ -31,7 +31,8 @@ Color backgroundColorPrimary = const Color(0xffefbf97);
 Color backgroundColorSecondary = const Color(0xffD9D9D9);
 Color fontColorMain = const Color.fromARGB(255, 0, 0, 0);
 const flameOverlays = [
-  'PigpenCipher',
   'SlidePuzzle',
+  'PigpenCipher',
+  'GuessTheNumber',
   'PauseMenu' // has to be the last index
 ];
