@@ -39,10 +39,10 @@
                 {
                     "type": "ButtonOrder",
                     "title": "Urutan Tombol yang Benar",
-                    "solution": [1, 2, 3, 4, 5, 6, 7],
+                    "solution": [],
                     "clueTexts": [],
                     "clueImages": [
-                        "assets/images/yuri.png"
+                        "assets/images/ui/menu/dummy_text.png"
                     ],
                     "initialShowClue": false
                 }

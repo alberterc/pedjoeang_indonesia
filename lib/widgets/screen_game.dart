@@ -1,18 +1,19 @@
 import 'dart:async';
+import 'dart:math';
 
 import 'package:flame/components.dart';
 import 'package:flame/game.dart';
 import 'package:flutter/material.dart';
-import 'package:pedjoeang_indonesia/game/overlays/puzzles/guess_the_number.dart';
 // import 'package:flutter/services.dart';
 // import 'package:jenny/jenny.dart';
-import 'package:pedjoeang_indonesia/game/overlays/puzzles/pigpen_cipher.dart';
-import 'package:pedjoeang_indonesia/game/overlays/pause_menu.dart';
 
 import '../constants/constants.dart' as constants;
 import '../game/components/levels_view.dart';
 // import '../game/components/visual_novel_view.dart';
+import '../game/overlays/pause_menu.dart';
 import '../game/overlays/puzzles/button_order.dart';
+import '../game/overlays/puzzles/guess_the_number.dart';
+import '../game/overlays/puzzles/pigpen_cipher.dart';
 import '../game/overlays/puzzles/slide_puzzle.dart';
 import '../game/style/palette.dart';
 import '../models/levels.dart';
@@ -73,9 +74,10 @@ class _ScreenGameState extends State<ScreenGame> {
       clueTexts: puzzles[2].clueTexts
     );
 
+    List<String> buttonOrderClueList = puzzles[3].clueImages.cast<String>();
+    String buttonOrderClue = buttonOrderClueList[Random().nextInt(buttonOrderClueList.length)];
     ButtonOrder buttonOrder = ButtonOrder(
-      solutions: puzzles[3].solution.cast<String>(),
-      clueImages: puzzles[3].clueImages
+      clueImage: buttonOrderClue
     );
 
     return Scaffold(
