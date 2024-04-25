@@ -1,38 +1,25 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:pedjoeang_indonesia/widgets/partials/custom_close_button_icon.dart';
 
 import '../../../widgets/partials/puzzle_body.dart';
 import '../../../widgets/screen_game.dart';
+import '../../../constants/constants.dart' as constants;
 
-late String solution;
+late Map<int, Uint8List> solution;
 
 class ButtonOrder {
   const ButtonOrder({
-    required this.solutions,
-    required this.clueImages
+    required this.clueImage
   });
 
-  final List<dynamic> solutions;
-  final List<String> clueImages;
+  final String clueImage;
 
   Widget build(BuildContext context, PIGame game) {
     final screenWidth = MediaQuery.of(context).size.width;
     final screenHeight = MediaQuery.of(context).size.height;
-    List<Widget> clueImageWidgetList = [];
-    for (var clue in clueImages) {
-      clueImageWidgetList.add(
-        Image(
-          image: AssetImage(clue),
-        )
-      );
-    }
-
-    solution = solutions[0];
-
-    _ButtonOrder buttonOrder = _ButtonOrder(
-      screenWidth: screenWidth,
-      clueImageWidgetList: clueImageWidgetList
-    );
 
     return Positioned(
       left: game.size.x * 0.08,
@@ -60,25 +47,45 @@ class ButtonOrder {
                 padding: const EdgeInsets.only(top: 32.0),
                 child: Align(
                   alignment: Alignment.center,
-                  child: buttonOrder,
+                  child: FutureBuilder(
+                    future: constants.splitImage(clueImage, 2, 7),
+                    builder: (context, snapshot) {
+                      if (snapshot.hasData) {
+                        solution = snapshot.data![Random().nextInt(snapshot.data!.length)];
+
+                        _ButtonOrder buttonOrder = _ButtonOrder(
+                          screenWidth: screenWidth,
+                          clueImageWidget: Image(
+                            image: AssetImage(clueImage),
+                          )
+                        );
+                        
+                        return buttonOrder;
+                      }
+                      else if (snapshot.hasError) {
+                        return const Text('Failed to load puzzle data');
+                      }
+                      return Container();
+                    }
+                  ),
                 )
               )
             ]
           ),
         ),
       )
-    );  
+    );
   }
 }
 
 class _ButtonOrder extends StatefulWidget {
   const _ButtonOrder({
     required this.screenWidth,
-    required this.clueImageWidgetList
+    required this.clueImageWidget
   });
   
   final double screenWidth;
-  final List<Widget> clueImageWidgetList;
+  final Widget clueImageWidget;
 
   @override
   State<_ButtonOrder> createState() => _ButtonOrderState();
@@ -96,9 +103,7 @@ class _ButtonOrderState extends State<_ButtonOrder> {
           title: 'Urutan Tombol yang Benar',
           spacing: 64.0,
           showClue: value['ButtonOrder']!,
-          clue: Column(
-            children: widget.clueImageWidgetList
-          ),
+          clue: widget.clueImageWidget,
           body: SizedBox(
             width: widget.screenWidth * 0.25,
             child: GridView.builder(
@@ -125,7 +130,12 @@ class _ButtonOrderState extends State<_ButtonOrder> {
                       _selectedButton[index] = !_selectedButton[index];
                     });
                   },
-                  child: Image(image: AssetImage(solution)),
+                  child: SizedBox(
+                    child: Image.memory(
+                      solution[index + 1]!,
+                      fit: BoxFit.fill,
+                    ),
+                  )
                 );
               }
             ),
