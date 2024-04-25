@@ -28,13 +28,23 @@
                 {
                     "type": "GuessTheNumber",
                     "title": "Tebak Angka",
-                    "solution": [1234, 1945],
+                    "solution": ["1234", "1945"],
                     "clueTexts": [
                         "Digit pertama",
                         "Digit kedua"
                     ],
                     "clueImages": [],
-                    "initialShowClue": true
+                    "initialShowClue": false
+                },
+                {
+                    "type": "ButtonOrder",
+                    "title": "Urutan Tombol yang Benar",
+                    "solution": [1, 2, 3, 4, 5, 6, 7],
+                    "clueTexts": [],
+                    "clueImages": [
+                        "assets/images/yuri.png"
+                    ],
+                    "initialShowClue": false
                 }
             ]
         }
