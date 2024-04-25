@@ -174,10 +174,10 @@ class _SlidePuzzleState extends State<_SlidePuzzle> {
                       setState(() {
                         boardNumbers = newList;
                       });
-                      // if (await _checkAnswer(boardNumbers, solution)) {
-                      //   _win(widget.game);
-                      // }
-                      _win(widget.game);
+                      if (await _checkAnswer(boardNumbers, solution)) {
+                        _win(widget.game);
+                      }
+                      // _win(widget.game); // TODO: for debug purposes only
                     },
                     child: Text(
                       '${boardNumbers[index]}',
