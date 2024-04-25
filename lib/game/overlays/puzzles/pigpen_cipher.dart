@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 import '../../../widgets/screen_game.dart';
 import '../../../constants/constants.dart' as constants;
@@ -156,6 +157,9 @@ class _PigpenCipherState extends State<_PigpenCipher> {
                   textDirection: TextDirection.ltr,
                   keyboardType: TextInputType.text,
                   cursorColor: Colors.black,
+                  inputFormatters: [
+                    FilteringTextInputFormatter.singleLineFormatter
+                  ],
                   autocorrect: false,
                   onSubmitted: (input) => _checkAnswer(input, widget.solutionList.join(' ')),
                   onChanged: (input) => submittedAnswer = input,

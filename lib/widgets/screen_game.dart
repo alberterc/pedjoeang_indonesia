@@ -12,6 +12,7 @@ import 'package:pedjoeang_indonesia/game/overlays/pause_menu.dart';
 import '../constants/constants.dart' as constants;
 import '../game/components/levels_view.dart';
 // import '../game/components/visual_novel_view.dart';
+import '../game/overlays/puzzles/button_order.dart';
 import '../game/overlays/puzzles/slide_puzzle.dart';
 import '../game/style/palette.dart';
 import '../models/levels.dart';
@@ -68,8 +69,13 @@ class _ScreenGameState extends State<ScreenGame> {
     );
 
     GuessTheNumber guessTheNumber = GuessTheNumber(
-      solutions: puzzles[2].solution.cast<int>(),
+      solutions: puzzles[2].solution.cast<String>(),
       clueTexts: puzzles[2].clueTexts
+    );
+
+    ButtonOrder buttonOrder = ButtonOrder(
+      solutions: puzzles[3].solution.cast<String>(),
+      clueImages: puzzles[3].clueImages
     );
 
     return Scaffold(
@@ -92,7 +98,8 @@ class _ScreenGameState extends State<ScreenGame> {
             'PauseMenu': pauseMenu.build,
             'SlidePuzzle': slidePuzzle.build,
             'PigpenCipher': pigpenCipher.build,
-            'GuessTheNumber': guessTheNumber.build
+            'GuessTheNumber': guessTheNumber.build,
+            'ButtonOrder': buttonOrder.build
           },
         )
       ),
@@ -136,11 +143,12 @@ class PIGame extends FlameGame {
     // add(_visualNovelView);
 
     levelView = LevelView(
-      puzzleCount: 3,
+      puzzleCount: 4,
       puzzleTypes: [
         'SlidePuzzle',
         'PigpenCipher',
-        'GuessTheNumber'
+        'GuessTheNumber',
+        'ButtonOrder'
       ]
     );
     add(levelView);
