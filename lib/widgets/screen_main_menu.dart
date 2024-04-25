@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 import 'package:go_router/go_router.dart';
-import 'package:sizer/sizer.dart';
 
 import '../constants/constants.dart' as constants;
 import '../game/style/palette.dart';
@@ -19,9 +18,6 @@ class ScreenMainMenu extends StatefulWidget {
 }
 
 class _ScreenMainMenuState extends State<ScreenMainMenu> {
-  static final double _eachMenuBoxHeight = 5.h;
-  static final double _eachMenuBoxWidth = 51.w;
-
   @override
   Widget build(BuildContext context) {
     final palette = context.watch<Palette>();
@@ -30,7 +26,7 @@ class _ScreenMainMenuState extends State<ScreenMainMenu> {
       future: _getLevelsData(),
       builder: (context, snapshot) {
         if (snapshot.hasData) {
-          return _getMainMenuScreen(context, palette, snapshot.data);
+          return _getMainMenuScreen(palette, snapshot.data);
         } else if (snapshot.hasError) {
           return Text('${snapshot.error}');
         }
@@ -39,223 +35,184 @@ class _ScreenMainMenuState extends State<ScreenMainMenu> {
     );
   }
 
-  Widget _getMainMenuScreen(BuildContext context, Palette palette, Levels? levels) {
+  Widget _getMainMenuScreen(Palette palette, Levels? levels) {
     return Scaffold(
-      backgroundColor: palette.backgroundMain.color,
-      body: Center(
-        child: Stack(
-          children: [
-            Container(
-              decoration: const BoxDecoration(
-                image: DecorationImage(
-                  image: AssetImage('assets/images/menu/main_menu_bg.png'),
-                  fit: BoxFit.contain
+      body: Container(
+        width: MediaQuery.of(context).size.width,
+        decoration: const BoxDecoration(
+          image: DecorationImage(
+            image: AssetImage('assets/images/old_paper.png'),
+            fit: BoxFit.fill
+          )
+        ),
+        child: AspectRatio(
+          aspectRatio: 16 / 9,
+          child: Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: Column(
+              children: [
+                Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Container(
+                      padding: const EdgeInsets.only(bottom: 4.0),
+                      decoration: const BoxDecoration(
+                        border: Border(
+                          bottom: BorderSide(
+                            color: Colors.black,
+                            width: 4.0
+                          )
+                        )
+                      ),
+                      child: Image.asset('assets/images/ui/menu/published_text.png')
+                    ),
+                    const SizedBox(height: 8.0,),
+                    SizedBox(
+                      width: MediaQuery.of(context).size.width,
+                      child: Image.asset('assets/images/ui/menu/game_title.png',
+                        fit: BoxFit.fitWidth,
+                      ),
+                    ),
+                  ],
+                ),
+                const SizedBox(height: 8.0,),
+                Container(
+                  width: MediaQuery.of(context).size.width,
+                  height: 16.0,
+                  color: Colors.black
+                ),
+                const SizedBox(height: 8.0,),
+                Container(
+                  width: MediaQuery.of(context).size.width,
+                  height: 8.0,
+                  color: Colors.black
+                ),
+                const SizedBox(height: 24.0,),
+                Wrap(
+                  direction: Axis.horizontal,
+                  alignment: WrapAlignment.spaceBetween,
+                  spacing: 16.0,
+                  children: [
+                    SizedBox(
+                      width: MediaQuery.of(context).size.width / 3.5,
+                      child: Image.asset('assets/images/ui/menu/dummy_text.png',
+                        fit: BoxFit.contain,
+                      ),
+                    ),
+                    Container(
+                      width: MediaQuery.of(context).size.width / 3.5,
+                      decoration: const BoxDecoration(
+                        border: Border.symmetric(
+                          vertical: BorderSide(
+                            color: Colors.black,
+                            width: 4.0
+                          ),
+                          horizontal: BorderSide(
+                            color: Colors.black,
+                            width: 8.0
+                          )
+                        )
+                      ),
+                      child: _getGameMainMenu(palette, levels)
+                    ),
+                    SizedBox(
+                      width: MediaQuery.of(context).size.width / 3.5,
+                      child: Image.asset('assets/images/ui/menu/dummy_text.png', 
+                        fit: BoxFit.contain
+                      )
+                    ),
+                  ],
                 )
-              ),
+              ],
             ),
-            Positioned(
-              top: MediaQuery.of(context).size.height * 0.45,
-              child: SizedBox(
-                width: MediaQuery.of(context).size.width,
-                child: getGameMainMenu(context, palette, levels),
-              ),
-            )
-          ],
+          ),
         ),
       )
     );
   }
 
-  Widget getGameMainMenu(BuildContext context, Palette palette, Levels? levels) {
+  Widget _getGameMainMenu(Palette palette, Levels? levels) {
     return Wrap(
       alignment: WrapAlignment.center,
       runAlignment: WrapAlignment.center,
-      spacing: 16.0,
+      spacing: 32.0,
       direction: Axis.vertical,
       children: [
-        TextButton(
-          onPressed: () {
-            GoRouter.of(context).push(
-              '/game',
-              extra: {
-                "levels": levels
-              }
-            );
-          },
-          style: ButtonStyle(
-            fixedSize: MaterialStateProperty.all<Size>(Size(_eachMenuBoxWidth, _eachMenuBoxHeight)),
-            padding: MaterialStateProperty.all<EdgeInsets>(EdgeInsets.zero),
-            shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-              RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(0.0),
-              )
-            ),
-            splashFactory: NoSplash.splashFactory,
-            overlayColor: MaterialStateProperty.all(Colors.transparent),
-            backgroundColor: MaterialStateProperty.resolveWith<Color?>(
-              (Set<MaterialState> states) {
-                if (states.contains(MaterialState.hovered)) {
-                  return constants.backgroundColorPrimary.darken(0.3);
-                }
-                if (states.contains(MaterialState.focused)) {
-                  return constants.backgroundColorPrimary.darken(0.3);
-                }
-                if (states.contains(MaterialState.pressed)) {
-                  return constants.invertColor(constants.backgroundColorPrimary);
-                }
-                return constants.backgroundColorPrimary;
-              }
-            ),
-            foregroundColor: MaterialStateProperty.resolveWith<Color?>(
-              (Set<MaterialState> states) {
-                if (states.contains(MaterialState.hovered)) {
-                  return constants.fontColorMain;
-                }
-                if (states.contains(MaterialState.focused)) {
-                  return constants.fontColorMain;
-                }
-                if (states.contains(MaterialState.pressed)) {
-                  return constants.invertColor(constants.fontColorMain);
-                }
-                return constants.fontColorMain;
-              }
-            )
-          ),
-          child: Row(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              Image.asset(
-                'assets/images/menu/selector_hand_sprite.png',
-              ),
-              Text(
-                'Mulai Main',
-                style: TextStyle(
-                  fontSize: constants.fontSmallLarge,
-                  fontWeight: FontWeight.w700
-                ),
-              ),
-            ]
-          )
-        ),
-        TextButton(
-          onPressed: () {
-            GoRouter.of(context).push('/settings');
-          },
-          style: ButtonStyle(
-            fixedSize: MaterialStateProperty.all<Size>(Size(_eachMenuBoxWidth, _eachMenuBoxHeight)),
-            padding: MaterialStateProperty.all<EdgeInsets>(EdgeInsets.zero),
-            shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-              RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(0.0),
-              )
-            ),
-            splashFactory: NoSplash.splashFactory,
-            overlayColor: MaterialStateProperty.all(Colors.transparent),
-            backgroundColor: MaterialStateProperty.resolveWith<Color?>(
-              (Set<MaterialState> states) {
-                if (states.contains(MaterialState.hovered)) {
-                  return constants.backgroundColorPrimary.darken(0.3);
-                }
-                if (states.contains(MaterialState.focused)) {
-                  return constants.backgroundColorPrimary.darken(0.3);
-                }
-                if (states.contains(MaterialState.pressed)) {
-                  return constants.invertColor(constants.backgroundColorPrimary);
-                }
-                return constants.backgroundColorPrimary;
-              }
-            ),
-            foregroundColor: MaterialStateProperty.resolveWith<Color?>(
-              (Set<MaterialState> states) {
-                if (states.contains(MaterialState.hovered)) {
-                  return constants.fontColorMain;
-                }
-                if (states.contains(MaterialState.focused)) {
-                  return constants.fontColorMain;
-                }
-                if (states.contains(MaterialState.pressed)) {
-                  return constants.invertColor(constants.fontColorMain);
-                }
-                return constants.fontColorMain;
-              }
-            )
-          ),
-          child: Row(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              Image.asset(
-                'assets/images/menu/selector_hand_sprite.png',
-              ),
-              Text(
-                'Pengaturan',
-                style: TextStyle(
-                  fontSize: constants.fontSmallLarge,
-                  fontWeight: FontWeight.w700
-                ),
-              ),
-            ],
-          )
-        ),
-        TextButton(
-          onPressed: () {
-            GoRouter.of(context).go('/');
-          },
-          style: ButtonStyle(
-            fixedSize: MaterialStateProperty.all<Size>(Size(_eachMenuBoxWidth, _eachMenuBoxHeight)),
-            padding: MaterialStateProperty.all<EdgeInsets>(EdgeInsets.zero),
-            shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-              RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(0.0),
-              )
-            ),
-            splashFactory: NoSplash.splashFactory,
-            overlayColor: MaterialStateProperty.all(Colors.transparent),
-            backgroundColor: MaterialStateProperty.resolveWith<Color?>(
-              (Set<MaterialState> states) {
-                if (states.contains(MaterialState.hovered)) {
-                  return constants.backgroundColorPrimary.darken(0.3);
-                }
-                if (states.contains(MaterialState.focused)) {
-                  return constants.backgroundColorPrimary.darken(0.3);
-                }
-                if (states.contains(MaterialState.pressed)) {
-                  return constants.invertColor(constants.backgroundColorPrimary);
-                }
-                return constants.backgroundColorPrimary;
-              }
-            ),
-            foregroundColor: MaterialStateProperty.resolveWith<Color?>(
-              (Set<MaterialState> states) {
-                if (states.contains(MaterialState.hovered)) {
-                  return constants.fontColorMain;
-                }
-                if (states.contains(MaterialState.focused)) {
-                  return constants.fontColorMain;
-                }
-                if (states.contains(MaterialState.pressed)) {
-                  return constants.invertColor(constants.fontColorMain);
-                }
-                return constants.fontColorMain;
-              }
-            )
-          ),
-          child: Row(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              Image.asset(
-                'assets/images/menu/selector_hand_sprite.png',
-              ),
-              Text(
-                'Keluar',
-                style: TextStyle(
-                  fontSize: constants.fontSmallLarge,
-                  fontWeight: FontWeight.w700
-                ),
-              ),
-            ],
-          )
-        ),
+        _getTextButton('Mulai Main', () {
+          GoRouter.of(context).push(
+            '/game',
+            extra: {
+              'levels': levels
+            }
+          );
+        }),
+        _getTextButton('Pengaturan', () {
+          GoRouter.of(context).push('/settings');
+        }),
+        _getTextButton('Keluar', () {
+          GoRouter.of(context).go('/');
+        })
       ],
+    );
+  }
+
+  Widget _getTextButton(String text, Function onTap) {
+    return TextButton(
+      onPressed: () => onTap(),
+      style: ButtonStyle(
+        fixedSize: MaterialStateProperty.all<Size>(Size.fromWidth(MediaQuery.of(context).size.width / 3.8)),
+        padding: MaterialStateProperty.all<EdgeInsets>(EdgeInsets.zero),
+        shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+          RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(0.0),
+          )
+        ),
+        splashFactory: NoSplash.splashFactory,
+        overlayColor: MaterialStateProperty.all(Colors.transparent),
+        backgroundColor: MaterialStateProperty.resolveWith<Color?>(
+          (Set<MaterialState> states) {
+            if (states.contains(MaterialState.hovered)) {
+              return constants.backgroundColorPrimary.darken(0.3);
+            }
+            if (states.contains(MaterialState.focused)) {
+              return constants.backgroundColorPrimary.darken(0.3);
+            }
+            if (states.contains(MaterialState.pressed)) {
+              return constants.invertColor(constants.backgroundColorPrimary);
+            }
+            return Colors.transparent;
+          }
+        ),
+        foregroundColor: MaterialStateProperty.resolveWith<Color?>(
+          (Set<MaterialState> states) {
+            if (states.contains(MaterialState.hovered)) {
+              return constants.fontColorMain;
+            }
+            if (states.contains(MaterialState.focused)) {
+              return constants.fontColorMain;
+            }
+            if (states.contains(MaterialState.pressed)) {
+              return constants.invertColor(constants.fontColorMain);
+            }
+            return constants.fontColorMain;
+          }
+        )
+      ),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          Image.asset(
+            'assets/images/ui/menu/selector_hand_sprite.png',
+          ),
+          Text(
+            text,
+            style: TextStyle(
+              fontSize: constants.fontSmallLarge,
+              fontWeight: FontWeight.w700
+            ),
+          ),
+        ]
+      )
     );
   }
 

@@ -11,10 +11,10 @@ class ScreenSettings extends StatefulWidget {
   const ScreenSettings({super.key});
 
   @override
-  State<ScreenSettings> createState() => ScreenSettingsState();
+  State<ScreenSettings> createState() => _ScreenSettingsState();
 }
 
-class ScreenSettingsState extends State<ScreenSettings> {
+class _ScreenSettingsState extends State<ScreenSettings> {
   late Palette palette;
 
   static final double _eachMenuBoxHeight = 34.sp;
@@ -48,31 +48,39 @@ class ScreenSettingsState extends State<ScreenSettings> {
     return Scaffold(
       backgroundColor: palette.backgroundMain.color,
       body: Center(
-        child: AspectRatio(
-          aspectRatio: constants.forceAspectRatio,
-          child: FractionallySizedBox(
-            widthFactor: 0.8,
-            heightFactor: 0.8,
-            child: Container(
-              color: palette.backgroundSecondary.color,
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  getSettingsTitle(),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      getSettingsFirst(),
-                      getSettingsSecond()
-                    ],
-                  ),
-                  getSettingsBack()
-                ],
+        child: Stack(
+          children: [
+            Container(
+              decoration: const BoxDecoration(
+                image: DecorationImage(
+                  image: AssetImage('assets/images/'),
+                  fit: BoxFit.contain
+                )
               ),
             ),
-          ),
+            Positioned(
+              top: MediaQuery.of(context).size.height * 0.45,
+              child: SizedBox(
+                width: MediaQuery.of(context).size.width,
+                child: Wrap(
+                  alignment: WrapAlignment.center,
+                  runAlignment: WrapAlignment.center,
+                  spacing: 16.0,
+                  direction: Axis.vertical,
+                  children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        getSettingsFirst()
+                      ],
+                    ),
+                    getSettingsBack()
+                  ],
+                ),
+              ),
+            ),
+          ]
         ),
       )
     );
