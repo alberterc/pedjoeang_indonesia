@@ -22,8 +22,6 @@ Future <List<Map<int, Uint8List>>> splitImage(String path, int widthDivider, int
     int x = 0, y = 0;
     int width = (image.width / widthDivider).floor();
     int height = (image.height / heigthDivider).floor();
-    print('img: ${image.width} x ${image.height}');
-    print('newImg: $width x $height');
 
     for (int i = 0; i < widthDivider; i++) {
       Map<int, Uint8List> outputMap = {};
@@ -79,7 +77,8 @@ double cipherSize = 90.sp; //default 80.sp
 double forceAspectRatio = 16 / 9;
 Color backgroundColorPrimary = const Color(0xffefbf97);
 Color backgroundColorSecondary = const Color(0xffD9D9D9);
-Color fontColorMain = const Color.fromARGB(255, 0, 0, 0);
+Color fontColorMain = Colors.black;
+Color fontColorSecondary = Colors.white;
 const flameOverlays = [
   'SlidePuzzle',
   'PigpenCipher',

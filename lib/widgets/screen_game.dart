@@ -120,6 +120,14 @@ class PIGame extends FlameGame {
   set palette(Palette palette) => Palette();
 
   late Vector2 uiButtonSize;
+  late Sprite bgSprite;
+  late Sprite tableSprite;
+  late Sprite mainPuzzleBgSprite;
+  late Sprite smallPuzzleBgSprite;
+  late List<Sprite> smallPuzzleIcon;
+  late Map<String, Sprite> envelopeIconSprite;
+  late Map<String, Sprite> menuIconSprite;
+  late Map<String, Sprite> checkmarkIconSprite;
   late Sprite yuriSprite;
   late Sprite mikoSprite;
   // final YarnProject _yarnProject = YarnProject();
@@ -133,6 +141,30 @@ class PIGame extends FlameGame {
     // TODO: decide game assets loading
     // should all assets for both the visual novel view and level view be pre-loaded after the player presses "Start Game"
     // or should they be loaded every time the player changes between the views?
+
+    // load image assets for game
+    bgSprite = await loadSprite('ui/game/BG_Mini_Castle_Dark_Gray.png', srcSize: Vector2(600, 360));
+    tableSprite = await loadSprite('ui/game/BG_Mini_Ground_Dark.png');
+    mainPuzzleBgSprite = await loadSprite('ui/game/broken_paper.png');
+    smallPuzzleBgSprite = await loadSprite('ui/game/small_paper.png');
+    smallPuzzleIcon = [
+      await loadSprite('ui/game/small_grid.png'),
+      await loadSprite('ui/game/small_pigpen.png'),
+      await loadSprite('ui/game/small_guess_num.png'),
+      await loadSprite('ui/game/small_btn_order.png')
+    ];
+    envelopeIconSprite = {
+      'dark': await loadSprite('ui/game/envelope_icon.png'),
+      'light': await loadSprite('ui/game/envelope_icon_light.png'),
+    };
+    menuIconSprite = {
+      'dark': await loadSprite('ui/game/menu_icon.png'),
+      'light': await loadSprite('ui/game/menu_icon_light.png'),
+    };
+    checkmarkIconSprite = {
+      'dark': await loadSprite('ui/game/checkmark_icon.png'),
+      'light': await loadSprite('ui/game/checkmark_icon_light.png'),
+    };
 
     yuriSprite = await loadSprite('yuri.png');
     mikoSprite = await loadSprite('miko.png');
