@@ -46,41 +46,94 @@ class _ScreenSettingsState extends State<ScreenSettings> {
     palette = context.watch<Palette>();
 
     return Scaffold(
-      backgroundColor: palette.backgroundMain.color,
-      body: Center(
-        child: Stack(
-          children: [
-            Container(
-              decoration: const BoxDecoration(
-                image: DecorationImage(
-                  image: AssetImage('assets/images/'),
-                  fit: BoxFit.contain
-                )
-              ),
-            ),
-            Positioned(
-              top: MediaQuery.of(context).size.height * 0.45,
-              child: SizedBox(
-                width: MediaQuery.of(context).size.width,
-                child: Wrap(
-                  alignment: WrapAlignment.center,
-                  runAlignment: WrapAlignment.center,
-                  spacing: 16.0,
-                  direction: Axis.vertical,
-                  children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        getSettingsFirst()
-                      ],
-                    ),
-                    getSettingsBack()
-                  ],
+      body: Container(
+        width: MediaQuery.of(context).size.width,
+        decoration: const BoxDecoration(
+          image: DecorationImage(
+            image: AssetImage('assets/images/ui/old_paper.png'),
+            fit: BoxFit.fill
+          )
+        ),
+        child: AspectRatio(
+          aspectRatio: 16 / 9,
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
+            child: Column(
+              children: [
+                Container(
+                  width: MediaQuery.of(context).size.width,
+                  height: 16.0,
+                  color: Colors.black
                 ),
-              ),
+                const SizedBox(height: 8.0,),
+                Container(
+                  width: MediaQuery.of(context).size.width,
+                  height: 8.0,
+                  color: Colors.black
+                ),
+                const SizedBox(height: 16.0,),
+                SizedBox(
+                  child: FittedBox(
+                    child: Center(
+                      child: Text(
+                        'Settings',
+                        style: TextStyle(
+                          color: palette.fontMain.color,
+                          fontSize: constants.fontLarge
+                        ),
+                      )
+                    )
+                  )
+                ),
+                SizedBox(
+                  height: 100.0,
+                  child: Wrap(
+                    direction: Axis.horizontal,
+                    alignment: WrapAlignment.spaceBetween,
+                    spacing: 16.0,
+                    children: [
+                      SizedBox(
+                        width: MediaQuery.of(context).size.width / 3.75,
+                        child: Column(
+                          children: [
+                            Image.asset('assets/images/ui/menu/headline_1.png'),
+                            const SizedBox(height: 8.0,),
+                            Image.asset('assets/images/ui/menu/dummy_text.png')
+                          ],
+                        ),
+                      ),
+                      Container(
+                        width: MediaQuery.of(context).size.width / 3.3,
+                        decoration: BoxDecoration(
+                          border: Border.all(
+                            color: Colors.black,
+                            width: 8.0
+                          )
+                        ),
+                        child: Column(
+                          children: [
+                            getSettingsFirst(),
+                            getSettingsBack()
+                          ],
+                        ),
+                        
+                      ),
+                      SizedBox(
+                        width: MediaQuery.of(context).size.width / 3.75,
+                        child: Column(
+                          children: [
+                            Image.asset('assets/images/ui/menu/dummy_text.png'),
+                            const SizedBox(height: 8.0,),
+                            Image.asset('assets/images/ui/menu/headline_2.png')
+                          ],
+                        )
+                      ),
+                    ],
+                  )
+                )
+              ],
             ),
-          ]
+          ),
         ),
       )
     );
@@ -117,14 +170,14 @@ class _ScreenSettingsState extends State<ScreenSettings> {
     );
   }
 
-  Widget getSettingsSecond() {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        getSettingsDialogSkip(),
-      ],
-    );
-  }
+  // Widget getSettingsSecond() {
+  //   return Column(
+  //     crossAxisAlignment: CrossAxisAlignment.start,
+  //     children: [
+  //       getSettingsDialogSkip(),
+  //     ],
+  //   );
+  // }
 
   // Widgets for first row
   Widget getSettingsMusic() {
@@ -135,7 +188,7 @@ class _ScreenSettingsState extends State<ScreenSettings> {
           'Music Volume',
           style: TextStyle(
             color: palette.fontMain.color,
-            fontSize: constants.fontSmallLarge
+            fontSize: constants.fontTinyLarge
           ),
         ),
         SizedBox(
@@ -170,7 +223,7 @@ class _ScreenSettingsState extends State<ScreenSettings> {
           'Sound Effect Volume',
           style: TextStyle(
             color: palette.fontMain.color,
-            fontSize: constants.fontSmallLarge
+            fontSize: constants.fontTinyLarge
           ),
         ),
         SizedBox(
@@ -197,42 +250,42 @@ class _ScreenSettingsState extends State<ScreenSettings> {
     );
   }
 
-  // Widgets for second row
-  Widget getSettingsDialogSkip() {
-    return Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(
-            'Skip',
-            style: TextStyle(
-              color: palette.fontMain.color,
-              fontSize: constants.fontSmallLarge
-            )
-          ),
-          SizedBox(
-            width: _eachMenuBoxWidth,
-            child: CheckboxListTile(
-              value: skipUnseenText,
-              title: Text(
-                'Unseen Text',
-                style: TextStyle(
-                  color: palette.fontMain.color,
-                  fontSize: constants.fontSmall
-                ),
-              ),
-              controlAffinity: ListTileControlAffinity.leading,
-              onChanged: (bool? newValue) {
-                SharedPreferences.getInstance().then((value) => value.setBool('skipUnseenText', newValue!));
-                setState(() => skipUnseenText = newValue!);
-              },
-            ),
-          )
-        ]
-      ),
-    );
-  }
+  // // Widgets for second row
+  // Widget getSettingsDialogSkip() {
+  //   return Padding(
+  //     padding: const EdgeInsets.all(8.0),
+  //     child: Column(
+  //       crossAxisAlignment: CrossAxisAlignment.start,
+  //       children: [
+  //         Text(
+  //           'Skip',
+  //           style: TextStyle(
+  //             color: palette.fontMain.color,
+  //             fontSize: constants.fontSmallLarge
+  //           )
+  //         ),
+  //         SizedBox(
+  //           width: _eachMenuBoxWidth,
+  //           child: CheckboxListTile(
+  //             value: skipUnseenText,
+  //             title: Text(
+  //               'Unseen Text',
+  //               style: TextStyle(
+  //                 color: palette.fontMain.color,
+  //                 fontSize: constants.fontSmall
+  //               ),
+  //             ),
+  //             controlAffinity: ListTileControlAffinity.leading,
+  //             onChanged: (bool? newValue) {
+  //               SharedPreferences.getInstance().then((value) => value.setBool('skipUnseenText', newValue!));
+  //               setState(() => skipUnseenText = newValue!);
+  //             },
+  //           ),
+  //         )
+  //       ]
+  //     ),
+  //   );
+  // }
 
   // Widgets for going back to main menu
   Widget getSettingsBack() {
@@ -244,14 +297,14 @@ class _ScreenSettingsState extends State<ScreenSettings> {
         },
         child: Container(
           color: palette.backgroundSecondary.color,
-          width: _eachMenuBoxWidth,
-          height: _eachMenuBoxHeight,
+          width: _eachMenuBoxWidth / 2,
+          height: _eachMenuBoxHeight / 1.5,
           child: Center(
             child: Text(
               'Back',
               style: TextStyle(
                 color: palette.fontMain.color,
-                fontSize: constants.fontMedium
+                fontSize: constants.fontSmall
               ),
             ),
           )

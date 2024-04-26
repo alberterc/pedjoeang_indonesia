@@ -71,6 +71,8 @@ flutter:
     - assets/images/
     - assets/images/ui/
     - assets/images/ui/menu/
+    - assets/images/ui/game/
+    - assets/images/ui/game/puzzle/
 
   fonts:
     - family: Pixeloid

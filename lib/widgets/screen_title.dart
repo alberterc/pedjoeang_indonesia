@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:go_router/go_router.dart';
-import 'package:sizer/sizer.dart';
 
 import '../constants/constants.dart' as constants;
 import '../game/style/palette.dart';
@@ -16,36 +15,39 @@ class ScreenTitle extends StatelessWidget {
     final palette = context.watch<Palette>();
 
     return Scaffold(
-      backgroundColor: palette.backgroundMain.color,
-      body: Center(
+      body: Container(
+        width: MediaQuery.of(context).size.width,
+        decoration: const BoxDecoration(
+          image: DecorationImage(
+            image: AssetImage('assets/images/ui/old_paper.png'),
+            fit: BoxFit.fill
+          )
+        ),
         child: AspectRatio(
-          aspectRatio: constants.forceAspectRatio,
+          aspectRatio: 16 / 9,
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Container(
-                color: palette.backgroundSecondary.color,
-                child: FittedBox(
-                  child: Center(
-                    child: Text(
-                      constants.gameName,
-                      style: TextStyle(
-                        color: palette.fontMain.color,
-                        fontSize: 42.sp
-                      ),
-                    )
+                padding: const EdgeInsets.all(8.0),
+                decoration: BoxDecoration(
+                  border: Border.all(
+                    color: Colors.black,
+                    width: 8.0
                   )
-                )
+                ),
+                child: Image.asset('assets/images/ui/menu/game_title.png')
               ),
               _gap,
               GestureDetector(
                 onTap: () => GoRouter.of(context).push('/main_menu'),
-                child: Container(
-                  color: palette.backgroundSecondary.color,
+                child: SizedBox(
                   child: Text('Click to start',
                     style: TextStyle(
+                      color: palette.fontMain.color,
                       fontSize: constants.fontSmall
-                    )),
+                    )
+                  ),
                 ),
               )
             ],

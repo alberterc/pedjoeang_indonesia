@@ -127,12 +127,12 @@ class VisualNovelView extends PositionComponent with DialogueView, HasGameRefere
     return _forwardCompleter.future;
   }
 
-  @override
-  FutureOr<void> onDialogueFinish() {
-    levelView = LevelView(puzzleCount: 4);
-    removeAll([background, miko, yuri, forwardDialogueButton, dialogueBox, skipButton, historyButton, autoButton, menuButton]);
-    add(levelView);
+  // @override
+  // FutureOr<void> onDialogueFinish() {
+  //   levelView = LevelView(puzzleCount: 4);
+  //   removeAll([background, miko, yuri, forwardDialogueButton, dialogueBox, skipButton, historyButton, autoButton, menuButton]);
+  //   add(levelView);
 
-    return super.onDialogueFinish();
-  }
+  //   return super.onDialogueFinish();
+  // }
 }
