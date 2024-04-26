@@ -21,17 +21,18 @@ class LevelPuzzle extends PositionComponent with HasGameReference<PIGame>, TapCa
   Color boxColor = const Color.fromARGB(255, 255, 255, 255);
   String boxText = '';
   final Function(TapUpEvent, String) onTapUpEvent;
-
   late TextBoxComponent text;
   late TextPaint textPaint;
-  late SpriteComponent box;
+  late SpriteComponent background;
+  late SpriteComponent icon;
+  late Sprite smallIcon;
   
   @override
   FutureOr<void> onLoad() {
     textPaint = TextPaint(
       style: TextStyle(
         fontSize: constants.fontSmall,
-        color: Colors.white,
+        color: constants.fontColorMain,
         fontFamily: 'Pixeloid'
       )
     );
@@ -47,16 +48,21 @@ class LevelPuzzle extends PositionComponent with HasGameReference<PIGame>, TapCa
       )
     );
 
-    // box = SpriteComponent(
-    //   sprite: Sprite(
-    //     game.images.fromCache('background.png')
-    //   ),
-    //   size: size,
-    //   paint: Paint()..color = boxColor
-    // );
+    icon = SpriteComponent(
+      sprite: smallIcon,
+      position: Vector2(size.x / 2, size.y / 2),
+      anchor: Anchor.center,
+      size: smallIcon.srcSize * 1.25
+    );
+
+    background = SpriteComponent(
+      sprite: game.smallPuzzleBgSprite,
+      size: size
+    );
 
     addAll([
-      // box,
+      background,
+      icon,
       text
     ]);
 
@@ -67,13 +73,5 @@ class LevelPuzzle extends PositionComponent with HasGameReference<PIGame>, TapCa
   void onTapUp(TapUpEvent event) {
     super.onTapUp(event);
     onTapUpEvent(event, boxText);
-  }
-
-  @override
-  void render(Canvas canvas) {
-    canvas.drawRect(
-      Rect.fromLTWH(0, 0, size.x, size.y),
-      Paint()..color = boxColor
-    );
   }
 }

@@ -1,14 +1,20 @@
-import 'package:flutter/material.dart';
+import 'dart:async';
+
 import 'package:flame/components.dart';
 
 import '../../../widgets/screen_game.dart';
 
 class LevelTable extends PositionComponent with HasGameReference<PIGame> {
+  late SpriteComponent background;
+  late Sprite sprite;
+
   @override
-  void render(Canvas canvas) {
-    canvas.drawRect(
-      Rect.fromLTWH(0, 0, size.x, size.y),
-      Paint()..color = game.palette.backgroundSecondary.color
-    );
+  FutureOr<void> onLoad() {
+    background = SpriteComponent()
+      ..sprite = sprite
+      ..size = size;
+
+    add(background);
+    return super.onLoad();
   }
 }

@@ -1,38 +1,28 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:pedjoeang_indonesia/widgets/partials/custom_close_button_icon.dart';
 
 import '../../../widgets/partials/puzzle_body.dart';
 import '../../../widgets/screen_game.dart';
+import '../../../constants/constants.dart' as constants;
 
-late String solution;
+late Map<int, Uint8List> solution;
+final List<int> _selectedButtonText = [];
+bool _isCorrectOrder = true;
 
 class ButtonOrder {
   const ButtonOrder({
-    required this.solutions,
-    required this.clueImages
+    required this.clueImage
   });
 
-  final List<dynamic> solutions;
-  final List<String> clueImages;
+  final String clueImage;
 
   Widget build(BuildContext context, PIGame game) {
+    _selectedButtonText.clear();
     final screenWidth = MediaQuery.of(context).size.width;
     final screenHeight = MediaQuery.of(context).size.height;
-    List<Widget> clueImageWidgetList = [];
-    for (var clue in clueImages) {
-      clueImageWidgetList.add(
-        Image(
-          image: AssetImage(clue),
-        )
-      );
-    }
-
-    solution = solutions[0];
-
-    _ButtonOrder buttonOrder = _ButtonOrder(
-      screenWidth: screenWidth,
-      clueImageWidgetList: clueImageWidgetList
-    );
 
     return Positioned(
       left: game.size.x * 0.08,
@@ -60,25 +50,45 @@ class ButtonOrder {
                 padding: const EdgeInsets.only(top: 32.0),
                 child: Align(
                   alignment: Alignment.center,
-                  child: buttonOrder,
+                  child: FutureBuilder(
+                    future: constants.splitImage(clueImage, 2, 7),
+                    builder: (context, snapshot) {
+                      if (snapshot.hasData) {
+                        solution = snapshot.data![Random().nextInt(snapshot.data!.length)];
+
+                        _ButtonOrder buttonOrder = _ButtonOrder(
+                          screenWidth: screenWidth,
+                          clueImageWidget: Image(
+                            image: AssetImage(clueImage),
+                          )
+                        );
+                        
+                        return buttonOrder;
+                      }
+                      else if (snapshot.hasError) {
+                        return const Text('Failed to load puzzle data');
+                      }
+                      return Container();
+                    }
+                  ),
                 )
               )
             ]
           ),
         ),
       )
-    );  
+    );
   }
 }
 
 class _ButtonOrder extends StatefulWidget {
   const _ButtonOrder({
     required this.screenWidth,
-    required this.clueImageWidgetList
+    required this.clueImageWidget
   });
   
   final double screenWidth;
-  final List<Widget> clueImageWidgetList;
+  final Widget clueImageWidget;
 
   @override
   State<_ButtonOrder> createState() => _ButtonOrderState();
@@ -86,6 +96,27 @@ class _ButtonOrder extends StatefulWidget {
 
 class _ButtonOrderState extends State<_ButtonOrder> {
   final List<bool> _selectedButton = [false, false, false, false];
+  late List<bool> _isButtonDisabled;
+
+  @override
+  void initState() {
+    super.initState();
+    _isButtonDisabled = [false, false, false, false];
+  }
+
+  void _checkButtonOrder(int selectedButton, int selectedItem) {
+    setState(() {
+      _isButtonDisabled[selectedButton] = true;
+      _selectedButton[selectedButton] = true;
+      if (_selectedButtonText.isNotEmpty) {
+        if (selectedItem < _selectedButtonText.last) {
+          _isCorrectOrder = false;
+        }
+      }
+      _selectedButtonText.add(selectedItem);
+      _checkAnswer();
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -96,9 +127,7 @@ class _ButtonOrderState extends State<_ButtonOrder> {
           title: 'Urutan Tombol yang Benar',
           spacing: 64.0,
           showClue: value['ButtonOrder']!,
-          clue: Column(
-            children: widget.clueImageWidgetList
-          ),
+          clue: widget.clueImageWidget,
           body: SizedBox(
             width: widget.screenWidth * 0.25,
             child: GridView.builder(
@@ -121,11 +150,14 @@ class _ButtonOrderState extends State<_ButtonOrder> {
                     ),
                   ),
                   onPressed: () {
-                    setState(() {
-                      _selectedButton[index] = !_selectedButton[index];
-                    });
+                    // _isButtonDisabled[index] ? null : _checkButtonOrder(index);
                   },
-                  child: Image(image: AssetImage(solution)),
+                  child: SizedBox(
+                    child: Image.memory(
+                      solution[index + 1]!,
+                      fit: BoxFit.fill,
+                    ),
+                  )
                 );
               }
             ),
@@ -133,5 +165,62 @@ class _ButtonOrderState extends State<_ButtonOrder> {
         );
       }
     );
+  }
+
+  // Widget temp() {
+  //   Map<int, Uint8List> orderList = {}; // total: 7 data
+  //   Map<int, Uint8List> questionOrderList = {}; // total: 4 data dari orderList yg di random
+  //   List<Widget> widgetList = [];
+  //   for (int i = 0; i < 4; i++) {
+  //     var random = Random().nextInt(orderList.length); // variable random di sini adalah variable yang dijadiin "key" dari orderList
+  //     questionOrderList[random] = orderList[random]!; // add data dgn "key" random ke questionOrderList
+  //     orderList.remove(random); // hapus data dgn "key" random yg udh dmskkin ke questionOrderList
+
+  //     widgetList.add(
+  //       TextButton(
+  //         onPressed: () {
+  //           _isButtonDisabled[i] ? null : _checkButtonOrder(i, random);
+  //         },
+  //         child: Image.memory(
+  //           questionOrderList[random]!,
+  //           fit: BoxFit.fill,
+  //         )
+  //       )
+  //     );
+  //   }
+  //   return Wrap(
+  //     children: widgetList
+  //   );
+  // }
+
+  void _win() {
+    // TODO: add win information
+    // puzzleShowClue.value['MainQuestion'] = true;
+    print('win');
+  }
+
+  void _lose() {
+    // TODO: add lose information
+    _reset();
+  }
+
+  void _reset() {
+    _selectedButtonText.clear();
+    for (int i = 0; i < _selectedButton.length; i++) {
+      _selectedButton[i] = false;
+      _isButtonDisabled[i] = false;
+    }
+    _isCorrectOrder = true;
+  }
+
+  void _checkAnswer() {
+    if (_selectedButtonText.length == 4) {
+      if (_isCorrectOrder) {
+        _win();
+      }
+      else {
+        _lose();
+      }
+    }
   }
 }

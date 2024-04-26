@@ -35,6 +35,7 @@ class VisualNovelView extends PositionComponent with DialogueView, HasGameRefere
       onTapUpEvent: (event, buttonName) {
         debugPrint('$buttonName button pressed');
       },
+      showBorder: false,
       color: game.palette.backgroundSecondary.color
     )
       ..priority = renderPriority['ui']!
@@ -47,6 +48,7 @@ class VisualNovelView extends PositionComponent with DialogueView, HasGameRefere
       onTapUpEvent: (event, buttonName) {
         debugPrint('$buttonName button pressed');
       },
+      showBorder: false,
       color: game.palette.backgroundSecondary.color
     )
       ..priority = renderPriority['ui']!
@@ -59,6 +61,7 @@ class VisualNovelView extends PositionComponent with DialogueView, HasGameRefere
       onTapUpEvent: (event, buttonName) {
         game.overlays.add('PauseMenu');
       },
+      showBorder: false,
       color: game.palette.backgroundSecondary.color
     )
       ..priority = renderPriority['ui']!
@@ -71,6 +74,7 @@ class VisualNovelView extends PositionComponent with DialogueView, HasGameRefere
       onTapUpEvent: (event, buttonName) {
         debugPrint('$buttonName button pressed');
       },
+      showBorder: false,
       color: game.palette.backgroundSecondary.color
     )
       ..priority = renderPriority['ui']!
@@ -127,12 +131,12 @@ class VisualNovelView extends PositionComponent with DialogueView, HasGameRefere
     return _forwardCompleter.future;
   }
 
-  // @override
-  // FutureOr<void> onDialogueFinish() {
-  //   levelView = LevelView(puzzleCount: 4);
-  //   removeAll([background, miko, yuri, forwardDialogueButton, dialogueBox, skipButton, historyButton, autoButton, menuButton]);
-  //   add(levelView);
+  @override
+  FutureOr<void> onDialogueFinish() {
+    // levelView = LevelView(puzzleCount: 4);
+    removeAll([background, miko, yuri, forwardDialogueButton, dialogueBox, skipButton, historyButton, autoButton, menuButton]);
+    add(levelView);
 
-  //   return super.onDialogueFinish();
-  // }
+    return super.onDialogueFinish();
+  }
 }
