@@ -52,7 +52,10 @@ class SlidePuzzle {
         width: screenWidth,
         height: screenHeight,
         decoration: const BoxDecoration(
-          color: Color.fromARGB(255, 68, 239, 0)
+            image: DecorationImage(
+            image: AssetImage('assets/images/ui/old_paper.png'),
+            fit: BoxFit.fill
+          )
         ),
         child: SingleChildScrollView(
           padding: const EdgeInsets.all(0),
@@ -116,7 +119,8 @@ class _SlidePuzzleState extends State<_SlidePuzzle> {
           spacing: 64.0,
           showClue: value['SlidePuzzle']!,
           clue: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.center,
             children: widget.clueWidgetTextList,
           ),
           body: SizedBox(

@@ -21,7 +21,7 @@
                     "solution": ["chair eagle house tablee"],
                     "clueTexts": [],
                     "clueImages": [
-                        "assets/images/yuri.png"
+                        "assets/images/ui/game/pigpen_cipher.png"
                     ],
                     "initialShowClue": false
                 },
