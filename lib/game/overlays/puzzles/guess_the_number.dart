@@ -45,7 +45,10 @@ class GuessTheNumber {
         width: screenWidth,
         height: screenHeight,
         decoration: const BoxDecoration(
-          color: Color.fromARGB(255, 68, 239, 0)
+          image: DecorationImage(
+            image: AssetImage('assets/images/ui/old_paper.png'),
+            fit: BoxFit.fill
+          )
         ),
         child: SingleChildScrollView(
           padding: const EdgeInsets.all(0),
@@ -97,9 +100,12 @@ class _GuessTheNumberState extends State<_GuessTheNumber> {
           title: 'Tebak Angka',
           spacing: 32.0,
           showClue: value['GuessTheNumber']!,
-          clue: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: widget.clueTextWidgetList,
+          clue: Center(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: widget.clueTextWidgetList,
+            ),
           ),
           body: Column(
             children: [
