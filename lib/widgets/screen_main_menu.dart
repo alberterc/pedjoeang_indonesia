@@ -41,18 +41,18 @@ class _ScreenMainMenuState extends State<ScreenMainMenu> {
         width: MediaQuery.of(context).size.width,
         decoration: const BoxDecoration(
           image: DecorationImage(
-            image: AssetImage('assets/images/old_paper.png'),
+            image: AssetImage('assets/images/ui/old_paper.png'),
             fit: BoxFit.fill
           )
         ),
         child: AspectRatio(
           aspectRatio: 16 / 9,
           child: Padding(
-            padding: const EdgeInsets.all(16.0),
+            padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
             child: Column(
               children: [
                 Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
+                  // mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Container(
                       padding: const EdgeInsets.only(bottom: 4.0),
@@ -69,13 +69,11 @@ class _ScreenMainMenuState extends State<ScreenMainMenu> {
                     const SizedBox(height: 8.0,),
                     SizedBox(
                       width: MediaQuery.of(context).size.width,
-                      child: Image.asset('assets/images/ui/menu/game_title.png',
-                        fit: BoxFit.fitWidth,
-                      ),
+                      child: Image.asset('assets/images/ui/menu/game_title.png')
                     ),
                   ],
                 ),
-                const SizedBox(height: 8.0,),
+                const SizedBox(height: 4.0,),
                 Container(
                   width: MediaQuery.of(context).size.width,
                   height: 16.0,
@@ -87,41 +85,46 @@ class _ScreenMainMenuState extends State<ScreenMainMenu> {
                   height: 8.0,
                   color: Colors.black
                 ),
-                const SizedBox(height: 24.0,),
-                Wrap(
-                  direction: Axis.horizontal,
-                  alignment: WrapAlignment.spaceBetween,
-                  spacing: 16.0,
-                  children: [
-                    SizedBox(
-                      width: MediaQuery.of(context).size.width / 3.5,
-                      child: Image.asset('assets/images/ui/menu/dummy_text.png',
-                        fit: BoxFit.contain,
+                const SizedBox(height: 16.0,),
+                SizedBox(
+                  height: 100.0,
+                  child: Wrap(
+                    direction: Axis.horizontal,
+                    alignment: WrapAlignment.spaceBetween,
+                    spacing: 16.0,
+                    children: [
+                      SizedBox(
+                        width: MediaQuery.of(context).size.width / 3.75,
+                        child: Column(
+                          children: [
+                            Image.asset('assets/images/ui/menu/headline_1.png'),
+                            const SizedBox(height: 8.0,),
+                            Image.asset('assets/images/ui/menu/dummy_text.png')
+                          ],
+                        ),
                       ),
-                    ),
-                    Container(
-                      width: MediaQuery.of(context).size.width / 3.5,
-                      decoration: const BoxDecoration(
-                        border: Border.symmetric(
-                          vertical: BorderSide(
-                            color: Colors.black,
-                            width: 4.0
-                          ),
-                          horizontal: BorderSide(
+                      Container(
+                        width: MediaQuery.of(context).size.width / 3.3,
+                        decoration: BoxDecoration(
+                          border: Border.all(
                             color: Colors.black,
                             width: 8.0
                           )
+                        ),
+                        child: _getGameMainMenu(palette, levels)
+                      ),
+                      SizedBox(
+                        width: MediaQuery.of(context).size.width / 3.75,
+                        child: Column(
+                          children: [
+                            Image.asset('assets/images/ui/menu/dummy_text.png'),
+                            const SizedBox(height: 8.0,),
+                            Image.asset('assets/images/ui/menu/headline_2.png')
+                          ],
                         )
                       ),
-                      child: _getGameMainMenu(palette, levels)
-                    ),
-                    SizedBox(
-                      width: MediaQuery.of(context).size.width / 3.5,
-                      child: Image.asset('assets/images/ui/menu/dummy_text.png', 
-                        fit: BoxFit.contain
-                      )
-                    ),
-                  ],
+                    ],
+                  )
                 )
               ],
             ),
@@ -135,7 +138,7 @@ class _ScreenMainMenuState extends State<ScreenMainMenu> {
     return Wrap(
       alignment: WrapAlignment.center,
       runAlignment: WrapAlignment.center,
-      spacing: 32.0,
+      spacing: 12.0,
       direction: Axis.vertical,
       children: [
         _getTextButton('Mulai Main', () {

@@ -41,7 +41,10 @@ class PigpenCipher {
         width: screenWidth,
         height: screenHeight,
         decoration: const BoxDecoration(
-          color: Color.fromARGB(255, 68, 239, 0)
+          image: DecorationImage(
+            image: AssetImage('assets/images/ui/old_paper.png'),
+            fit: BoxFit.fill
+          )
         ),
         child: SingleChildScrollView(
           padding: const EdgeInsets.all(0),
