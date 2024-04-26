@@ -10,6 +10,7 @@ import 'package:flutter/material.dart';
 import '../constants/constants.dart' as constants;
 import '../game/components/levels_view.dart';
 // import '../game/components/visual_novel_view.dart';
+import '../game/overlays/main_clue.dart';
 import '../game/overlays/pause_menu.dart';
 import '../game/overlays/puzzles/button_order.dart';
 import '../game/overlays/puzzles/guess_the_number.dart';
@@ -45,6 +46,7 @@ class _ScreenGameState extends State<ScreenGame> {
 
   @override
   Widget build(BuildContext context) {
+    MainClue mainClue = const MainClue();
     PauseMenu pauseMenu = const PauseMenu();
 
     final levels = widget.levelData.levels;
@@ -97,6 +99,7 @@ class _ScreenGameState extends State<ScreenGame> {
         child: GameWidget<PIGame>(
           game: _piGame,
           overlayBuilderMap: {
+            'MainClue': mainClue.build,
             'PauseMenu': pauseMenu.build,
             'SlidePuzzle': slidePuzzle.build,
             'PigpenCipher': pigpenCipher.build,

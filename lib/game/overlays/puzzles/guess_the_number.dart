@@ -146,6 +146,7 @@ class _GuessTheNumberState extends State<_GuessTheNumber> {
 
   void _win() {
     // TODO: add win information
+    puzzleShowClue.value['ButtonOrder'] = true;
   }
 
   void _lose() {

@@ -33,7 +33,10 @@ class ButtonOrder {
         width: screenWidth,
         height: screenHeight,
         decoration: const BoxDecoration(
-          color: Color.fromARGB(255, 68, 239, 0)
+          image: DecorationImage(
+            image: AssetImage('assets/images/ui/old_paper.png'),
+            fit: BoxFit.fill
+          )
         ),
         child: SingleChildScrollView(
           padding: const EdgeInsets.all(0),
@@ -127,7 +130,12 @@ class _ButtonOrderState extends State<_ButtonOrder> {
           title: 'Urutan Tombol yang Benar',
           spacing: 64.0,
           showClue: value['ButtonOrder']!,
-          clue: widget.clueImageWidget,
+          clue: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              widget.clueImageWidget
+            ],
+          ),
           body: SizedBox(
             width: widget.screenWidth * 0.25,
             child: GridView.builder(
