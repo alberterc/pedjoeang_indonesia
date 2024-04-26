@@ -163,9 +163,9 @@ class _SlidePuzzleState extends State<_SlidePuzzle> {
                             );
                           }
                           return const BorderSide(
-                              color: Colors.white,
-                              width: 2.0
-                            );
+                            color: Colors.white,
+                            width: 2.0
+                          );
                         }
                       )
                     ),
