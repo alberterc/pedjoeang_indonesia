@@ -66,7 +66,10 @@ class LevelView extends PositionComponent with HasGameReference<PIGame> {
       ..buttonDown = game.envelopeIconSprite['light']!
       ..anchor = Anchor.center
       ..size = game.uiButtonSize
-      ..position = Vector2(mainPuzzle.x * 0.8, mainPuzzle.y + mainPuzzle.size.y / 2);
+      ..position = Vector2(mainPuzzle.x * 0.8, mainPuzzle.y + mainPuzzle.size.y / 2)
+      ..onPressed = () {
+        game.overlays.add('MainClue');
+      };
 
     mainPuzzleSubmitButton = SpriteButtonComponent()
       ..priority = renderPriority['ui']!
