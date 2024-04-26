@@ -9,6 +9,8 @@ import '../../../widgets/screen_game.dart';
 import '../../../constants/constants.dart' as constants;
 
 late Map<int, Uint8List> solution;
+final List<int> _selectedButtonText = [];
+bool _isCorrectOrder = true;
 
 class ButtonOrder {
   const ButtonOrder({
@@ -18,6 +20,7 @@ class ButtonOrder {
   final String clueImage;
 
   Widget build(BuildContext context, PIGame game) {
+    _selectedButtonText.clear();
     final screenWidth = MediaQuery.of(context).size.width;
     final screenHeight = MediaQuery.of(context).size.height;
 
@@ -93,6 +96,27 @@ class _ButtonOrder extends StatefulWidget {
 
 class _ButtonOrderState extends State<_ButtonOrder> {
   final List<bool> _selectedButton = [false, false, false, false];
+  late List<bool> _isButtonDisabled;
+
+  @override
+  void initState() {
+    super.initState();
+    _isButtonDisabled = [false, false, false, false];
+  }
+
+  void _checkButtonOrder(int selectedButton, int selectedItem) {
+    setState(() {
+      _isButtonDisabled[selectedButton] = true;
+      _selectedButton[selectedButton] = true;
+      if (_selectedButtonText.isNotEmpty) {
+        if (selectedItem < _selectedButtonText.last) {
+          _isCorrectOrder = false;
+        }
+      }
+      _selectedButtonText.add(selectedItem);
+      _checkAnswer();
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -126,9 +150,7 @@ class _ButtonOrderState extends State<_ButtonOrder> {
                     ),
                   ),
                   onPressed: () {
-                    setState(() {
-                      _selectedButton[index] = !_selectedButton[index];
-                    });
+                    // _isButtonDisabled[index] ? null : _checkButtonOrder(index);
                   },
                   child: SizedBox(
                     child: Image.memory(
@@ -143,5 +165,62 @@ class _ButtonOrderState extends State<_ButtonOrder> {
         );
       }
     );
+  }
+
+  // Widget temp() {
+  //   Map<int, Uint8List> orderList = {}; // total: 7 data
+  //   Map<int, Uint8List> questionOrderList = {}; // total: 4 data dari orderList yg di random
+  //   List<Widget> widgetList = [];
+  //   for (int i = 0; i < 4; i++) {
+  //     var random = Random().nextInt(orderList.length); // variable random di sini adalah variable yang dijadiin "key" dari orderList
+  //     questionOrderList[random] = orderList[random]!; // add data dgn "key" random ke questionOrderList
+  //     orderList.remove(random); // hapus data dgn "key" random yg udh dmskkin ke questionOrderList
+
+  //     widgetList.add(
+  //       TextButton(
+  //         onPressed: () {
+  //           _isButtonDisabled[i] ? null : _checkButtonOrder(i, random);
+  //         },
+  //         child: Image.memory(
+  //           questionOrderList[random]!,
+  //           fit: BoxFit.fill,
+  //         )
+  //       )
+  //     );
+  //   }
+  //   return Wrap(
+  //     children: widgetList
+  //   );
+  // }
+
+  void _win() {
+    // TODO: add win information
+    // puzzleShowClue.value['MainQuestion'] = true;
+    print('win');
+  }
+
+  void _lose() {
+    // TODO: add lose information
+    _reset();
+  }
+
+  void _reset() {
+    _selectedButtonText.clear();
+    for (int i = 0; i < _selectedButton.length; i++) {
+      _selectedButton[i] = false;
+      _isButtonDisabled[i] = false;
+    }
+    _isCorrectOrder = true;
+  }
+
+  void _checkAnswer() {
+    if (_selectedButtonText.length == 4) {
+      if (_isCorrectOrder) {
+        _win();
+      }
+      else {
+        _lose();
+      }
+    }
   }
 }
