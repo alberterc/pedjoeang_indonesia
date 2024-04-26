@@ -37,6 +37,34 @@ class PauseMenu {
                 ),
                 _gap,
                 ElevatedButton(
+                  style: ButtonStyle(
+                    side: MaterialStateProperty.resolveWith<BorderSide>(
+                        (Set<MaterialState> states) {
+                          if (states.contains(MaterialState.hovered)) {
+                            return const BorderSide(
+                              color: Colors.black,
+                              width: 2.0
+                            );
+                          }
+                          if (states.contains(MaterialState.focused)) {
+                            return const BorderSide(
+                              color: Colors.black,
+                              width: 2.0
+                            );
+                          }
+                          if (states.contains(MaterialState.pressed)) {
+                            return const BorderSide(
+                              color: Colors.black,
+                              width: 2.0
+                            );
+                          }
+                          return const BorderSide(
+                            color: Colors.white,
+                            width: 2.0
+                          );
+                        }
+                      )
+                  ),
                   onPressed: () {
                     game.overlays.remove('PauseMenu');
                     GoRouter.of(context).pop();
