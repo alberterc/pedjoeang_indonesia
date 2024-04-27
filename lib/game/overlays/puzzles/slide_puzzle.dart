@@ -1,5 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:pedjoeang_indonesia/widgets/partials/puzzle_status.dart';
 
 import '../../../widgets/screen_game.dart';
 import '../../../widgets/partials/custom_close_button_icon.dart';
@@ -90,7 +91,7 @@ class _SlidePuzzle extends StatefulWidget {
     required this.solution,
     required this.screenWidth,
     required this.boardNumbers,
-    required this.clueWidgetTextList
+    required this.clueWidgetTextList,
   });
   
   final PIGame game;
@@ -105,6 +106,8 @@ class _SlidePuzzle extends StatefulWidget {
 }
 
 class _SlidePuzzleState extends State<_SlidePuzzle> {
+  static const _gap = SizedBox(height: 24.0);
+
   @override
   Widget build(BuildContext context) {
     final int boardSize = widget.boardSize;
@@ -125,73 +128,79 @@ class _SlidePuzzleState extends State<_SlidePuzzle> {
           ),
           body: SizedBox(
             width: widget.screenWidth * 0.25,
-            child: GridView.builder(
-              physics: const NeverScrollableScrollPhysics(),
-              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 3,
-                mainAxisSpacing: 14.0,
-                crossAxisSpacing: 14.0
-              ),
-              shrinkWrap: true,
-              itemCount: boardSize,
-              itemBuilder: (_, index) {
-                if (boardNumbers[index] == 0) {
-                  return Container(
-                    decoration: BoxDecoration(
-                      color: Colors.white,
-                      border: Border.all(color: Colors.black, width: 2.0)
-                    ),
-                  );
-                }
-                else {
-                  return TextButton(
-                    style: ButtonStyle(
-                      side: MaterialStateProperty.resolveWith<BorderSide>(
-                        (Set<MaterialState> states) {
-                          if (states.contains(MaterialState.hovered)) {
-                            return const BorderSide(
-                              color: Colors.black,
-                              width: 2.0
-                            );
+            child: Column(
+              children: [
+                GridView.builder(
+                  physics: const NeverScrollableScrollPhysics(),
+                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 3,
+                    mainAxisSpacing: 14.0,
+                    crossAxisSpacing: 14.0
+                  ),
+                  shrinkWrap: true,
+                  itemCount: boardSize,
+                  itemBuilder: (_, index) {
+                    if (boardNumbers[index] == 0) {
+                      return Container(
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                          border: Border.all(color: Colors.black, width: 2.0)
+                        ),
+                      );
+                    }
+                    else {
+                      return TextButton(
+                        style: ButtonStyle(
+                          side: MaterialStateProperty.resolveWith<BorderSide>(
+                            (Set<MaterialState> states) {
+                              if (states.contains(MaterialState.hovered)) {
+                                return const BorderSide(
+                                  color: Colors.black,
+                                  width: 2.0
+                                );
+                              }
+                              if (states.contains(MaterialState.focused)) {
+                                return const BorderSide(
+                                  color: Colors.black,
+                                  width: 2.0
+                                );
+                              }
+                              if (states.contains(MaterialState.pressed)) {
+                                return const BorderSide(
+                                  color: Colors.black,
+                                  width: 2.0
+                                );
+                              }
+                              return const BorderSide(
+                                color: Colors.white,
+                                width: 2.0
+                              );
+                            }
+                          )
+                        ),
+                        onPressed: () async {
+                          List<int> newList = await _onTileClick(boardNumbers, await _getCurrentIndex(boardNumbers, boardNumbers[index]));
+                          setState(() {
+                            boardNumbers = newList;
+                          });
+                          if (await _checkAnswer(boardNumbers, solution)) {
+                            _win(widget.game);
                           }
-                          if (states.contains(MaterialState.focused)) {
-                            return const BorderSide(
-                              color: Colors.black,
-                              width: 2.0
-                            );
-                          }
-                          if (states.contains(MaterialState.pressed)) {
-                            return const BorderSide(
-                              color: Colors.black,
-                              width: 2.0
-                            );
-                          }
-                          return const BorderSide(
-                            color: Colors.white,
-                            width: 2.0
-                          );
-                        }
-                      )
-                    ),
-                    onPressed: () async {
-                      List<int> newList = await _onTileClick(boardNumbers, await _getCurrentIndex(boardNumbers, boardNumbers[index]));
-                      setState(() {
-                        boardNumbers = newList;
-                      });
-                      if (await _checkAnswer(boardNumbers, solution)) {
-                        _win(widget.game);
-                      }
-                      // _win(widget.game); // TODO: for debug purposes only
-                    },
-                    child: Text(
-                      '${boardNumbers[index]}',
-                      style: TextStyle(
-                        fontSize: constants.fontSmallLarge
-                      ),
-                    )
-                  );
-                }
-              }
+                          // _win(widget.game); // TODO: for debug purposes only
+                        },
+                        child: Text(
+                          '${boardNumbers[index]}',
+                          style: TextStyle(
+                            fontSize: constants.fontSmallLarge
+                          ),
+                        )
+                      );
+                    }
+                  }
+                ),
+                _gap,
+                const PuzzleStatus(puzzleName: 'SlidePuzzle'),
+              ],
             )
           ),
         );
@@ -202,6 +211,7 @@ class _SlidePuzzleState extends State<_SlidePuzzle> {
   void _win(PIGame game) {
     // TODO: add win information
     puzzleShowClue.value['PigpenCipher'] = true;
+    puzzleDone.value['SlidePuzzle'] = true;
   }
 
   Future<bool> _checkAnswer(List<int> boardNumbers, List<int> solution) async {

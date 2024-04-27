@@ -28,13 +28,13 @@
                 {
                     "type": "GuessTheNumber",
                     "title": "Tebak Angka",
-                    "solution": ["1234"],
+                    "solution": ["1234"],   
                     "clueTexts": [
-                        "Digit pertama",
-                        "Digit kedua"
+                            "Digit pertama",
+                            "Digit kedua"
                     ],
                     "clueImages": [],
-                    "initialShowClue": false
+                    "initialShowClue": true
                 },
                 {
                     "type": "ButtonOrder",

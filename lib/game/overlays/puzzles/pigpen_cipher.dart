@@ -1,6 +1,7 @@
 import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:pedjoeang_indonesia/widgets/partials/puzzle_status.dart';
 
 import '../../../widgets/screen_game.dart';
 import '../../../constants/constants.dart' as constants;
@@ -175,6 +176,8 @@ class _PigpenCipherState extends State<_PigpenCipher> {
                   onChanged: (input) => submittedAnswer = input,
                 ),
               ),
+              _gap,
+              const PuzzleStatus(puzzleName: 'PigpenCipher',)
             ],
           ),
         );
@@ -194,6 +197,7 @@ class _PigpenCipherState extends State<_PigpenCipher> {
   void _win() {
     // TODO: add win information
     puzzleShowClue.value['GuessTheNumber'] = true;
+    puzzleDone.value['PigpenCipher'] = true;
   }
 
   void _lose() {
