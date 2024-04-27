@@ -21,6 +21,7 @@ import '../models/levels.dart';
 
 final puzzleShowClue = ValueNotifier<Map<String, bool>>({});
 final buttonOrderClueMap = ValueNotifier<Map<int, Widget>>({});
+final puzzleStatus = ValueNotifier<Map<String, bool>>({});
 
 class ScreenGame extends StatefulWidget {
   const ScreenGame({super.key, required this.levelData});
