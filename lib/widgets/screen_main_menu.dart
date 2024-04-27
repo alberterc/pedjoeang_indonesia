@@ -25,7 +25,7 @@ class _ScreenMainMenuState extends State<ScreenMainMenu> {
     return FutureBuilder<Levels>(
       future: _getLevelsData(),
       builder: (context, snapshot) {
-        if (snapshot.hasData) {
+        if (snapshot.hasData && snapshot.connectionState == ConnectionState.done) {
           return _getMainMenuScreen(palette, snapshot.data);
         } else if (snapshot.hasError) {
           return Text('${snapshot.error}');

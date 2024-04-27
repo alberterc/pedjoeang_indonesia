@@ -20,6 +20,7 @@ import '../game/style/palette.dart';
 import '../models/levels.dart';
 
 final puzzleShowClue = ValueNotifier<Map<String, bool>>({});
+final buttonOrderClueMap = ValueNotifier<Map<int, Widget>>({});
 
 class ScreenGame extends StatefulWidget {
   const ScreenGame({super.key, required this.levelData});
@@ -78,6 +79,7 @@ class _ScreenGameState extends State<ScreenGame> {
 
     List<String> buttonOrderClueList = puzzles[3].clueImages.cast<String>();
     String buttonOrderClue = buttonOrderClueList[Random().nextInt(buttonOrderClueList.length)];
+    _getOrderList(buttonOrderClue);
     ButtonOrder buttonOrder = ButtonOrder(
       clueImage: buttonOrderClue
     );
@@ -115,6 +117,14 @@ class _ScreenGameState extends State<ScreenGame> {
     List<int> shuffledNumList = List.from(list);
     shuffledNumList.shuffle();
     return shuffledNumList;
+  }
+
+  void _getOrderList(String clueImage) {
+    constants.splitImage(clueImage, 2, 7).then((clueMapList) {
+      var rand = Random().nextInt(clueMapList.length);
+      Map<int, Widget> pickedClueMap = clueMapList[rand];
+      buttonOrderClueMap.value = pickedClueMap;
+    });
   }
 }
 
