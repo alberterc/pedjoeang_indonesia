@@ -96,7 +96,7 @@ class Game extends StatelessWidget {
                               return Colors.white;
                             }
                             if (states.contains(MaterialState.focused)) {
-                              return Colors.white;
+                              return Colors.black;
                             }
                             if (states.contains(MaterialState.pressed)) {
                               return Colors.white;
@@ -110,7 +110,7 @@ class Game extends StatelessWidget {
                               return Colors.black;
                             }
                             if (states.contains(MaterialState.focused)) {
-                              return Colors.black;
+                              return Colors.white;
                             }
                             if (states.contains(MaterialState.pressed)) {
                               return Colors.black;

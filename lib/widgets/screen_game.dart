@@ -21,7 +21,7 @@ import '../models/levels.dart';
 
 final puzzleShowClue = ValueNotifier<Map<String, bool>>({});
 final buttonOrderClueMap = ValueNotifier<Map<int, Widget>>({});
-final puzzleStatus = ValueNotifier<Map<String, bool>>({});
+final puzzleDone = ValueNotifier<Map<String, bool>>({});
 
 class ScreenGame extends StatefulWidget {
   const ScreenGame({super.key, required this.levelData});
@@ -55,6 +55,7 @@ class _ScreenGameState extends State<ScreenGame> {
     final puzzles = levels[0].puzzles;
     for (var puzzle in puzzles) {
       puzzleShowClue.value[puzzle.type] = puzzle.initialShowClue;
+      puzzleDone.value[puzzle.type] = false;
     }
 
     List<int> slidePuzzleSolution = puzzles[0].solution.cast<int>();

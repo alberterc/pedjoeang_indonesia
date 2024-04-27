@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:pedjoeang_indonesia/widgets/partials/puzzle_body.dart';
+import 'package:pedjoeang_indonesia/widgets/partials/puzzle_status.dart';
 
 import '../../../widgets/partials/custom_close_button_icon.dart';
 import '../../../widgets/screen_game.dart';
@@ -119,14 +120,19 @@ class _GuessTheNumberState extends State<_GuessTheNumber> {
               ),
               _gap,
               TextButton(
+                style: ButtonStyle(
+                  backgroundColor: MaterialStateProperty.all(Colors.black),
+                ),
                 onPressed: () => _checkAnswer(),
                 child: Text(
                   'Kirim',
                   style: TextStyle(
                     fontSize: constants.fontSmall
                   ),
-                )
-              )
+                ),
+              ),
+              _gap,
+              const PuzzleStatus(puzzleName: 'GuessTheNumber',)
             ]
           ),
         );
@@ -147,6 +153,7 @@ class _GuessTheNumberState extends State<_GuessTheNumber> {
   void _win() {
     // TODO: add win information
     puzzleShowClue.value['ButtonOrder'] = true;
+    puzzleDone.value['GuessTheNumber'] = true;
   }
 
   void _lose() {

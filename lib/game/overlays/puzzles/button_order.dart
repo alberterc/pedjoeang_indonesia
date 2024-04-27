@@ -2,6 +2,7 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:pedjoeang_indonesia/widgets/partials/custom_close_button_icon.dart';
+import 'package:pedjoeang_indonesia/widgets/partials/puzzle_status.dart';
 
 import '../../../widgets/partials/puzzle_body.dart';
 import '../../../widgets/screen_game.dart';
@@ -95,6 +96,8 @@ class _ButtonOrderState extends State<_ButtonOrder> {
   List<int> keys = solution.keys.toList();
   late List<int> pickedItems;
 
+  static const _gap = SizedBox(height: 24.0);
+
   @override
   void initState() {
     super.initState();
@@ -141,33 +144,39 @@ class _ButtonOrderState extends State<_ButtonOrder> {
           ),
           body: SizedBox(
             width: widget.screenWidth * 0.25,
-            child: GridView.builder(
-              physics: const NeverScrollableScrollPhysics(),
-              shrinkWrap: true,
-              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 2,
-                mainAxisSpacing: 16.0,
-                crossAxisSpacing: 16.0
-              ),
-              itemCount: _selectedButton.length,
-              itemBuilder: (_, index) {
-                return TextButton(
-                  style: TextButton.styleFrom(
-                    backgroundColor: _selectedButton[index] ? Colors.white : Colors.black,
-                    foregroundColor: _selectedButton[index] ? Colors.black : Colors.white,
-                    side: BorderSide(
-                      color: _selectedButton[index] ? Colors.black : Colors.white,
-                      width: 2.0
-                    ),
+            child: Column(
+              children: [
+                GridView.builder(
+                  physics: const NeverScrollableScrollPhysics(),
+                  shrinkWrap: true,
+                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 2,
+                    mainAxisSpacing: 16.0,
+                    crossAxisSpacing: 16.0
                   ),
-                  onPressed: () {
-                    _isButtonDisabled[index] ? null : _checkButtonOrder(index, pickedItems[index]);
-                  },
-                  child: SizedBox(
-                    child: questionOrderList[pickedItems[index]]!
-                  )
-                );
-              }
+                  itemCount: _selectedButton.length,
+                  itemBuilder: (_, index) {
+                    return TextButton(
+                      style: TextButton.styleFrom(
+                        backgroundColor: _selectedButton[index] ? Colors.white : Colors.black,
+                        foregroundColor: _selectedButton[index] ? Colors.black : Colors.white,
+                        side: BorderSide(
+                          color: _selectedButton[index] ? Colors.black : Colors.white,
+                          width: 2.0
+                        ),
+                      ),
+                      onPressed: () {
+                        _isButtonDisabled[index] ? null : _checkButtonOrder(index, pickedItems[index]);
+                      },
+                      child: SizedBox(
+                        child: questionOrderList[pickedItems[index]]!
+                      )
+                    );
+                  }
+                ),
+                _gap,
+                const PuzzleStatus(puzzleName: 'ButtonOrder'),
+              ],
             ),
           )
         );
@@ -179,6 +188,7 @@ class _ButtonOrderState extends State<_ButtonOrder> {
     // TODO: add win information
     // puzzleShowClue.value['MainQuestion'] = true;
     debugPrint('win');
+    puzzleDone.value['ButtonOrder'] = true;
   }
 
   void _lose() {
