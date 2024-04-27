@@ -57,6 +57,7 @@ class LevelView extends PositionComponent with HasGameReference<PIGame> {
 
     mainPuzzle =  MainPuzzleBox()
       ..priority = renderPriority['foreground']!
+      ..puzzle = game.mainPuzzle
       ..size = Vector2(game.size.x - ((tableLeft + mainPuzzleLeft) * 2), game.size.y - ((tableTop + mainPuzzleTop) * 2))
       ..position = Vector2(tableLeft + mainPuzzleLeft, tableTop + mainPuzzleTop);
 

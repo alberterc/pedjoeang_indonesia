@@ -27,10 +27,10 @@ class Button extends PositionComponent with HasGameReference<PIGame>, TapCallbac
 
   set iconSprite(Sprite iconSprite) => icon = iconSprite;
 
-  final Function(TapUpEvent, String) onTapUpEvent;
+  final Function(TapUpEvent, String, bool) onTapUpEvent;
   String text = '';
   final bool showBorder; 
-  final bool showText;
+  bool showText;
   final bool showIcon;
   final Color color;
   TextPaint textPaint;
@@ -42,6 +42,10 @@ class Button extends PositionComponent with HasGameReference<PIGame>, TapCallbac
   late TextBoxComponent textComponent;
   late SpriteComponent iconComponent;
   
+  final _bgPaint = Paint();
+  final _borderPaint = Paint();
+  bool _isSelected = false;
+
   @override
   FutureOr<void> onLoad() {
     if (showText) {
@@ -55,7 +59,6 @@ class Button extends PositionComponent with HasGameReference<PIGame>, TapCallbac
           margins: EdgeInsets.zero
         )
       );
-
       add(textComponent);
     }
     else if (showIcon) {
@@ -74,20 +77,30 @@ class Button extends PositionComponent with HasGameReference<PIGame>, TapCallbac
   @override
   void render(Canvas canvas) {
     super.render(canvas);
+    
+    if (_isSelected) {
+      _bgPaint.color = Colors.white;
+      _borderPaint.color = Colors.black;
+    }
+    else {
+      _bgPaint.color = color;
+      _borderPaint.color = borderColor;
+    }
+
     if (showBorder) {
       canvas.drawRect(
         Rect.fromLTWH(padding, padding, size.x - (padding * 2), size.y - (padding * 2)),
-        Paint()..color = borderColor
+        _borderPaint
       );
       canvas.drawRect(
         Rect.fromLTWH(padding + borderWidth, padding + borderWidth, size.x - (padding * 2) - (borderWidth * 2), size.y - (padding * 2) - (borderWidth * 2)),
-        Paint()..color = color
+        _bgPaint
       );
     }
     else {
       canvas.drawRect(
         Rect.fromLTWH(padding, padding, size.x - (padding * 2), size.y - (padding * 2)),
-        Paint()..color = color
+        _bgPaint
       );
     }
   }
@@ -95,6 +108,7 @@ class Button extends PositionComponent with HasGameReference<PIGame>, TapCallbac
   @override
   void onTapUp(TapUpEvent event) {
     super.onTapUp(event);
-    onTapUpEvent(event, text);
+    _isSelected = !_isSelected;
+    onTapUpEvent(event, text, _isSelected);
   }
 }
