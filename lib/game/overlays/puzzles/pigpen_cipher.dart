@@ -1,3 +1,4 @@
+import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -18,7 +19,13 @@ class PigpenCipher {
   Widget build(BuildContext context, PIGame game) {
     final screenWidth = MediaQuery.of(context).size.width;
     final screenHeight = MediaQuery.of(context).size.height;
-    List<String> solutionList = solution.split(' ');
+
+    List<String> allSolution = solution.split(' ');
+    List<String> solutionList = [];
+    for(int i=0; i<5; i++) {
+      solutionList.add(allSolution[Random().nextInt(allSolution.length)]);
+    }
+
     List<Widget> clueImageWidgetList = [];
     for (var clue in clueImages) {
       clueImageWidgetList.add(

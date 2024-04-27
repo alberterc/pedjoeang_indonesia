@@ -18,7 +18,7 @@
                 {
                     "type": "PigpenCipher",
                     "title": "Dekripsi Teks",
-                    "solution": ["chair eagle house tablee"],
+                    "solution": ["dog oak key map bike knit rage bend chair eagle house table desert origin marble kettle hunting advance reverse dismiss"],
                     "clueTexts": [],
                     "clueImages": [
                         "assets/images/ui/game/pigpen_cipher.png"
@@ -45,6 +45,12 @@
                         "assets/images/ui/game/button_order_clue.png"
                     ],
                     "initialShowClue": false
+                }
+            ],
+            "main": [
+                {
+                    "type": "SlidePuzzle",
+                    "title": ""
                 }
             ]
         }
