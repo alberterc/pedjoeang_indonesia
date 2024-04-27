@@ -32,7 +32,7 @@ class VisualNovelView extends PositionComponent with DialogueView, HasGameRefere
     skipButton = Button(
       text: 'Skip',
       showText: false,
-      onTapUpEvent: (event, buttonName) {
+      onTapUpEvent: (event, buttonName, _) {
         debugPrint('$buttonName button pressed');
       },
       showBorder: false,
@@ -45,7 +45,7 @@ class VisualNovelView extends PositionComponent with DialogueView, HasGameRefere
     historyButton = Button(
       text: 'History',
       showText: false,
-      onTapUpEvent: (event, buttonName) {
+      onTapUpEvent: (event, buttonName, _) {
         debugPrint('$buttonName button pressed');
       },
       showBorder: false,
@@ -58,7 +58,7 @@ class VisualNovelView extends PositionComponent with DialogueView, HasGameRefere
     menuButton = Button(
       text: 'Menu',
       showText: false,
-      onTapUpEvent: (event, buttonName) {
+      onTapUpEvent: (event, buttonName, _) {
         game.overlays.add('PauseMenu');
       },
       showBorder: false,
@@ -71,7 +71,7 @@ class VisualNovelView extends PositionComponent with DialogueView, HasGameRefere
     autoButton = Button(
       text: 'Auto',
       showText: false,
-      onTapUpEvent: (event, buttonName) {
+      onTapUpEvent: (event, buttonName, _) {
         debugPrint('$buttonName button pressed');
       },
       showBorder: false,

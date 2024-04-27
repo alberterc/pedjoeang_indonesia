@@ -18,6 +18,7 @@ import '../game/overlays/puzzles/pigpen_cipher.dart';
 import '../game/overlays/puzzles/slide_puzzle.dart';
 import '../game/style/palette.dart';
 import '../models/levels.dart';
+import '../models/puzzle.dart';
 
 final puzzleShowClue = ValueNotifier<Map<String, bool>>({});
 final buttonOrderClueMap = ValueNotifier<Map<int, Widget>>({});
@@ -33,7 +34,6 @@ class ScreenGame extends StatefulWidget {
 }
 
 class _ScreenGameState extends State<ScreenGame> {
-  final _piGame = PIGame();
   /*
     store several variables here:
     - playerProgress (currentLevel)
@@ -52,6 +52,7 @@ class _ScreenGameState extends State<ScreenGame> {
     PauseMenu pauseMenu = const PauseMenu();
 
     final levels = widget.levelData.levels;
+    final mainPuzzle = widget.levelData.levels[0].mainPuzzle;
     final puzzles = levels[0].puzzles;
     for (var puzzle in puzzles) {
       puzzleShowClue.value[puzzle.type] = puzzle.initialShowClue;
@@ -86,22 +87,24 @@ class _ScreenGameState extends State<ScreenGame> {
       clueImage: buttonOrderClue
     );
 
+    final piGame = PIGame(mainPuzzle: mainPuzzle);
+
     return Scaffold(
       body: PopScope(
         canPop: false,
         onPopInvoked: (_) {
           for (var overlay in constants.flameOverlays) {
-            if (_piGame.overlays.isActive(overlay)) {
-              _piGame.overlays.remove(overlay);
+            if (piGame.overlays.isActive(overlay)) {
+              piGame.overlays.remove(overlay);
               break;
             }
             if (overlay == 'PauseMenu') {
-              _piGame.overlays.add('PauseMenu');
+              piGame.overlays.add('PauseMenu');
             }
           }
         },
         child: GameWidget<PIGame>(
-          game: _piGame,
+          game: piGame,
           overlayBuilderMap: {
             'MainClue': mainClue.build,
             'PauseMenu': pauseMenu.build,
@@ -131,6 +134,10 @@ class _ScreenGameState extends State<ScreenGame> {
 }
 
 class PIGame extends FlameGame {
+  PIGame({required this.mainPuzzle});
+
+  final Puzzle mainPuzzle;
+
   Palette get palette => Palette();
   set palette(Palette palette) => Palette();
 

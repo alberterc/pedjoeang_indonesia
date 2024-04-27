@@ -1,15 +1,21 @@
 import 'dart:async';
+import 'dart:math';
 
 import 'package:flame/components.dart';
 import 'package:flame/layout.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
+import '../../../models/puzzle.dart';
 import '../../../widgets/screen_game.dart';
 import '../../../constants/constants.dart' as constants;
 import '../menuComponents/button.dart';
 
+List<String> _solution = [];
+List<String> _selectedChars = [];
 
 class MainPuzzleBox extends PositionComponent with HasGameReference<PIGame> {
+  late Puzzle puzzle;
   late MainPuzzle mainPuzzle;
   late SpriteComponent background;
 
@@ -17,6 +23,7 @@ class MainPuzzleBox extends PositionComponent with HasGameReference<PIGame> {
   FutureOr<void> onLoad() {
     mainPuzzle = MainPuzzle()
       ..anchor = Anchor.center
+      ..puzzle = puzzle
       ..position = size / 2
       ..size = Vector2(size.x * 0.725, size.y * 0.65);
 
@@ -37,13 +44,14 @@ class MainPuzzleBox extends PositionComponent with HasGameReference<PIGame> {
 }
 
 class MainPuzzle extends PositionComponent {
+  late Puzzle puzzle;
   late TextBoxComponent question;
   late CellsBox cellsBox;
 
   @override
   FutureOr<void> onLoad() {
     question = TextBoxComponent(
-      text: '[Pertanyaan mengenai sejarah penjajahan di Indonesia]',
+      text: puzzle.title,
       textRenderer: TextPaint(
         style: TextStyle(
           fontSize: constants.fontTinyLarge,
@@ -61,9 +69,10 @@ class MainPuzzle extends PositionComponent {
     );
 
     cellsBox = CellsBox()
-      ..size = Vector2(size.x * 0.5, size.x * 0.4)
       ..anchor = Anchor.topCenter
       ..grid = 5
+      ..puzzle = puzzle
+      ..size = Vector2(size.x * 0.5, size.x * 0.4)
       ..position = Vector2(question.size.x / 2, question.size.y);
 
     addAll([
@@ -79,23 +88,39 @@ class CellsBox extends PositionComponent with HasGameReference<PIGame> {
   int get gridSize => grid;
   set gridSize(int gridSize) => grid = gridSize;
 
+  late Puzzle puzzle;
   late int grid;
   late List<List<Button>> cells;
 
   @override
   FutureOr<void> onLoad() {
+    String solution = puzzle.clueTexts.first.toUpperCase();
+    List<String> allChars = List.generate(26, (i) => String.fromCharCode(i + 65)) + List.generate(10, (i) => i.toString());
+    List<String> words = solution.split(' ');
+    List<String> gridChar = [];
+
+    for (String word in words) {
+      var chars = word.split('');
+      for (String char in chars) {
+        if (allChars.contains(char)) {
+          allChars.remove(char);
+        }
+      }
+      _solution.addAll(chars);
+      gridChar.addAll(chars);
+    }
+    int solutionOnlyCharLength = gridChar.length;
+    for (int i = 0; i < grid * grid - solutionOnlyCharLength; i++) {
+      gridChar.add(allChars[Random().nextInt(allChars.length)]);
+    }
+    gridChar.shuffle();
+
     cells = List.generate(grid, (i) => List.generate(grid, (j) => Button(
-      onTapUpEvent: (event, _) {
-        
+      onTapUpEvent: (event, _, isSelected) {
+        isSelected ? _selectedChars.add(gridChar[i * grid + j]) : _selectedChars.remove(gridChar[i * grid + j]);
+        _checkAnswer();
       },
-      text: '',
-      textPaint: TextPaint(
-        style: TextStyle(
-          fontSize: constants.fontTiny,
-          color: constants.fontColorSecondary,
-          fontFamily: 'Pixeloid'
-        )
-      ),
+      text: gridChar[i * grid + j],
       showBorder: true,
       showText: true,
       color: Colors.black
@@ -235,5 +260,21 @@ class CellsBox extends PositionComponent with HasGameReference<PIGame> {
     }
 
     return super.onLoad();
+  }
+
+  void _checkAnswer() {
+    print('_selectedChars.length: ${_selectedChars.length}');
+    print('_solution.length: ${_solution.length}');
+    var selectedSort = _selectedChars..sort();
+    var solutionSort = _solution..sort();
+    if (selectedSort.length == solutionSort.length) {
+      if (listEquals(selectedSort, solutionSort)) {
+        _win();
+      }
+    }
+  }
+
+  void _win() {
+    // TODO: add win information
   }
 }

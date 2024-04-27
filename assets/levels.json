@@ -47,12 +47,14 @@
                     "initialShowClue": false
                 }
             ],
-            "main": [
-                {
-                    "type": "SlidePuzzle",
-                    "title": ""
-                }
-            ]
+            "mainPuzzle": {
+                "type": "MainPuzzle",
+                "title": "Pertanyaan mengenai sejarah penjajahan di Indonesia",
+                "solution": [],
+                "clueTexts": ["Jawaban Sejarah"],
+                "clueImages": [],
+                "initialShowClue": false
+            }
         }
     ]
 }
