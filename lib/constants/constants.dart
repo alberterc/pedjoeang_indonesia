@@ -14,21 +14,21 @@ Color invertColor(Color color) {
   );
 }
 
-Future <List<Map<int, Uint8List>>> splitImage(String path, int widthDivider, int heigthDivider) async {
+Future <List<Map<int, Widget>>> splitImage(String path, int widthDivider, int heigthDivider) async {
   img_lib.Image? image = await decodeAsset(path);
 
   if (image != null) {
-    List<Map<int, Uint8List>> outputImageList = [];
+    List<Map<int, Widget>> outputImageList = [];
     int x = 0, y = 0;
     int width = (image.width / widthDivider).floor();
     int height = (image.height / heigthDivider).floor();
 
     for (int i = 0; i < widthDivider; i++) {
-      Map<int, Uint8List> outputMap = {};
+      Map<int, Widget> outputMap = {};
       for (int j = 0; j < heigthDivider; j++) {
         img_lib.Image croppedImage = img_lib.copyCrop(image, x: x, y: y, width: width, height: height);
         outputMap.addAll({
-          j + 1: img_lib.encodePng(croppedImage)
+          j + 1: Image.memory(img_lib.encodePng(croppedImage))
         });
         y += height;
       }
