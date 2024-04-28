@@ -4,6 +4,7 @@ import 'dart:math';
 import 'package:flame/components.dart';
 import 'package:flame/game.dart';
 import 'package:flutter/material.dart';
+import 'package:pedjoeang_indonesia/game/overlays/main_correct_answer.dart';
 // import 'package:flutter/services.dart';
 // import 'package:jenny/jenny.dart';
 
@@ -59,6 +60,11 @@ class _ScreenGameState extends State<ScreenGame> {
       puzzleDone.value[puzzle.type] = false;
     }
 
+    MainCorrectAnswer mainCorrectAnswer = MainCorrectAnswer(
+      question: mainPuzzle.title,
+      solution: mainPuzzle.clueTexts[0]
+    );
+
     List<int> slidePuzzleSolution = puzzles[0].solution.cast<int>();
     List<String> slidePuzzleClue = puzzles[0].clueTexts;
     SlidePuzzle slidePuzzle = SlidePuzzle(
@@ -107,6 +113,7 @@ class _ScreenGameState extends State<ScreenGame> {
           game: piGame,
           overlayBuilderMap: {
             'MainClue': mainClue.build,
+            'MainCorrectAnswer': mainCorrectAnswer.build,
             'PauseMenu': pauseMenu.build,
             'SlidePuzzle': slidePuzzle.build,
             'PigpenCipher': pigpenCipher.build,
