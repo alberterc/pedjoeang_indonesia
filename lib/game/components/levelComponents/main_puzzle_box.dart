@@ -131,7 +131,7 @@ class CellsBox extends PositionComponent with HasGameReference<PIGame> {
       ..anchor = Anchor.center
     ));
 
-    int countLeft = grid - 1, 
+    int countLeft = grid - 1,
         countRight = grid % 2 != 0 ? 2 : 1,
         countTop = grid - 1,
         countBottom = grid % 2 != 0 ? 2 : 1;
@@ -263,8 +263,6 @@ class CellsBox extends PositionComponent with HasGameReference<PIGame> {
   }
 
   void _checkAnswer() {
-    print('_selectedChars.length: ${_selectedChars.length}');
-    print('_solution.length: ${_solution.length}');
     var selectedSort = _selectedChars..sort();
     var solutionSort = _solution..sort();
     if (selectedSort.length == solutionSort.length) {

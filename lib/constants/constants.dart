@@ -84,5 +84,7 @@ const flameOverlays = [
   'PigpenCipher',
   'GuessTheNumber',
   'ButtonOrder',
+  'MainClue',
+  'MainCorrectAnswer',
   'PauseMenu' // has to be the last index
 ];

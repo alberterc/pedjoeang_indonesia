@@ -1,21 +1,28 @@
 import 'package:flutter/material.dart';
 
 import '../../widgets/screen_game.dart';
+import '../../constants/constants.dart' as constants;
 
-class MainClue {
-  const MainClue();
-  
+class MainCorrectAnswer {
+  const MainCorrectAnswer({
+    required this.question,
+    required this.solution
+  });
+
+  final String question;
+  final String solution;
+
   Widget build(BuildContext context, PIGame game) {
     final screenWidth = MediaQuery.of(context).size.width;
     final screenHeight = MediaQuery.of(context).size.height;
     return PopScope(
       canPop: false,
       onPopInvoked: (_) {
-        game.overlays.remove('MainClue');
+        game.overlays.remove('MainCorrectAnswer');
       },
       child: GestureDetector(
         onTap: () {
-          game.overlays.remove('MainClue');
+          game.overlays.remove('MainCorrectAnswer');
         },
         child: Container(
           color: const Color.fromARGB(117, 0, 0, 0),
@@ -30,13 +37,24 @@ class MainClue {
                   fit: BoxFit.fill
                 )
               ),
-              child: const Center(
-                child: Text(
-                  'Petunjuk Utama Tidak Tersedia',
-                  style: TextStyle(
-                    color: Colors.black,
+              child: Column(
+                children: [
+                  Text(
+                    question,
+                    style: TextStyle(
+                      color: Colors.black,
+                      fontSize: constants.fontTinyLarge
+                    )
+                  ),
+                  const SizedBox(height: 8.0),
+                  Text(
+                    solution,
+                    style: TextStyle(
+                      color: Colors.black,
+                      fontSize: constants.fontTinyLarge
+                    )
                   )
-                )
+                ],
               ),
             ),
           ),
