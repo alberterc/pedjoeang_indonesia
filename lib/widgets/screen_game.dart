@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'dart:math';
+import 'dart:ui' as dart_ui;
 
 import 'package:flame/components.dart';
 import 'package:flame/game.dart';
@@ -24,6 +25,10 @@ import '../models/puzzle.dart';
 final puzzleShowClue = ValueNotifier<Map<String, bool>>({});
 final buttonOrderClueMap = ValueNotifier<Map<int, Widget>>({});
 final puzzleDone = ValueNotifier<Map<String, bool>>({});
+late List<String> mainPuzzleShuffledSolution;
+late List<String> mainPuzzleSelectedItems;
+late bool isMainPuzzleCorrect;
+late dart_ui.Image mainPuzzleCellsBoxSnapshot;
 
 class ScreenGame extends StatefulWidget {
   const ScreenGame({super.key, required this.levelData});
@@ -49,6 +54,10 @@ class _ScreenGameState extends State<ScreenGame> {
 
   @override
   Widget build(BuildContext context) {
+    mainPuzzleShuffledSolution = [];
+    mainPuzzleSelectedItems = [];
+    isMainPuzzleCorrect = false;
+    
     MainClue mainClue = const MainClue();
     PauseMenu pauseMenu = const PauseMenu();
 

@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'dart:math';
+import 'dart:ui' as dart_ui;
 
 import 'package:flame/components.dart';
 import 'package:flame/layout.dart';
@@ -10,9 +11,6 @@ import '../../../models/puzzle.dart';
 import '../../../widgets/screen_game.dart';
 import '../../../constants/constants.dart' as constants;
 import '../menuComponents/button.dart';
-
-List<String> _solution = [];
-List<String> _selectedChars = [];
 
 class MainPuzzleBox extends PositionComponent with HasGameReference<PIGame> {
   late Puzzle puzzle;
@@ -68,7 +66,10 @@ class MainPuzzle extends PositionComponent {
       )
     );
 
-    cellsBox = CellsBox()
+    cellsBox = CellsBox(
+      getCellsBoxImage: _takeCellsBoxSnapshot
+    )
+      ..renderSnapshot = false
       ..anchor = Anchor.topCenter
       ..grid = 5
       ..puzzle = puzzle
@@ -82,12 +83,20 @@ class MainPuzzle extends PositionComponent {
 
     return super.onLoad();
   }
+
+  dart_ui.Image _takeCellsBoxSnapshot() {
+    cellsBox.takeSnapshot();
+    return cellsBox.snapshotAsImage((size.x * 0.5).floor(), (size.x * 0.4).floor());
+  }
 }
 
-class CellsBox extends PositionComponent with HasGameReference<PIGame> {
+class CellsBox extends PositionComponent with HasGameReference<PIGame>, Snapshot {
+  CellsBox({required this.getCellsBoxImage});
+  
   int get gridSize => grid;
   set gridSize(int gridSize) => grid = gridSize;
 
+  dart_ui.Image Function() getCellsBoxImage;
   late Puzzle puzzle;
   late int grid;
   late List<List<Button>> cells;
@@ -106,7 +115,7 @@ class CellsBox extends PositionComponent with HasGameReference<PIGame> {
           allChars.remove(char);
         }
       }
-      _solution.addAll(chars);
+      mainPuzzleShuffledSolution.addAll(chars);
       gridChar.addAll(chars);
     }
     int solutionOnlyCharLength = gridChar.length;
@@ -117,7 +126,7 @@ class CellsBox extends PositionComponent with HasGameReference<PIGame> {
 
     cells = List.generate(grid, (i) => List.generate(grid, (j) => Button(
       onTapUpEvent: (event, _, isSelected) {
-        isSelected ? _selectedChars.add(gridChar[i * grid + j]) : _selectedChars.remove(gridChar[i * grid + j]);
+        isSelected ? mainPuzzleSelectedItems.add(gridChar[i * grid + j]) : mainPuzzleSelectedItems.remove(gridChar[i * grid + j]);
         _checkAnswer();
       },
       text: gridChar[i * grid + j],
@@ -263,16 +272,28 @@ class CellsBox extends PositionComponent with HasGameReference<PIGame> {
   }
 
   void _checkAnswer() {
-    var selectedSort = _selectedChars..sort();
-    var solutionSort = _solution..sort();
+    var selectedSort = mainPuzzleSelectedItems..sort();
+    var solutionSort = mainPuzzleShuffledSolution..sort();
     if (selectedSort.length == solutionSort.length) {
       if (listEquals(selectedSort, solutionSort)) {
         _win();
       }
+      else {
+        _lose();
+      }
     }
+    else {
+      _lose();
+    }
+    mainPuzzleCellsBoxSnapshot = getCellsBoxImage();
   }
 
   void _win() {
     // TODO: add win information
+    isMainPuzzleCorrect = true;
+  }
+
+  void _lose() {
+    isMainPuzzleCorrect = false;
   }
 }
