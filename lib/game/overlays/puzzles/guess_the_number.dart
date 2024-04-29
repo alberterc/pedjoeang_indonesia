@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:pedjoeang_indonesia/widgets/partials/puzzle_body.dart';
-import 'package:pedjoeang_indonesia/widgets/partials/puzzle_status.dart';
 
 import '../../../widgets/partials/custom_close_button_icon.dart';
+import '../../../widgets/partials/puzzle_body.dart';
+import '../../../widgets/partials/puzzle_status.dart';
 import '../../../widgets/screen_game.dart';
 import '../../../constants/constants.dart' as constants;
 
 late String solution;
+late bool _isPuzzleDone;
 
 class GuessTheNumber {
   const GuessTheNumber({
@@ -93,6 +94,18 @@ class _GuessTheNumberState extends State<_GuessTheNumber> {
   var textEditingController = List.generate(4, (index) => TextEditingController());
 
   @override
+  void initState() {
+    super.initState();
+    _isPuzzleDone = puzzleDone.value['GuessTheNumber']!;
+  }
+
+  @override
+  void setState(VoidCallback fn) {
+    super.setState(fn);
+    _isPuzzleDone = puzzleDone.value['GuessTheNumber']!;
+  }
+
+  @override
   Widget build(BuildContext context) {
     return ValueListenableBuilder(
       valueListenable: puzzleShowClue,
@@ -123,7 +136,7 @@ class _GuessTheNumberState extends State<_GuessTheNumber> {
                 style: ButtonStyle(
                   backgroundColor: MaterialStateProperty.all(Colors.black),
                 ),
-                onPressed: () => _checkAnswer(),
+                onPressed: () => setState(() => _checkAnswer()),
                 child: Text(
                   'Kirim',
                   style: TextStyle(
@@ -132,7 +145,10 @@ class _GuessTheNumberState extends State<_GuessTheNumber> {
                 ),
               ),
               _gap,
-              const PuzzleStatus(puzzleName: 'GuessTheNumber',)
+              PuzzleStatus(
+                puzzleName: 'GuessTheNumber',
+                isDone: _isPuzzleDone
+              ),
             ]
           ),
         );
