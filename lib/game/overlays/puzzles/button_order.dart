@@ -14,9 +14,11 @@ late bool _isPuzzleDone;
 
 class ButtonOrder {
   const ButtonOrder({
+    required this.order,
     required this.clueImage
   });
 
+  final int order;
   final String clueImage;
 
   Widget build(BuildContext context, PIGame game) {
@@ -26,6 +28,7 @@ class ButtonOrder {
     solution = buttonOrderClueMap.value;
 
     _ButtonOrder buttonOrder = _ButtonOrder(
+      puzzleOrder: order,
       screenWidth: screenWidth,
       clueList: solution,
       clueImageWidget: Image(
@@ -75,11 +78,13 @@ class ButtonOrder {
 
 class _ButtonOrder extends StatefulWidget {
   const _ButtonOrder({
+    required this.puzzleOrder,
     required this.screenWidth,
     required this.clueList,
     required this.clueImageWidget
   });
   
+  final int puzzleOrder;
   final double screenWidth;
   final Map<int, Widget> clueList;
   final Widget clueImageWidget;
@@ -191,10 +196,13 @@ class _ButtonOrderState extends State<_ButtonOrder> {
   }
 
   void _win() {
-    // TODO: add win information
-    // puzzleShowClue.value['MainQuestion'] = true;
-    debugPrint('win');
     puzzleDone.value['ButtonOrder'] = true;
+    if (!puzzleDone.value.containsValue(false)) {
+      puzzleShowClue.value['MainPuzzle'] = true;
+    }
+    if (puzzles.length != widget.puzzleOrder) {
+      puzzleShowClue.value[puzzles[widget.puzzleOrder].type] = true;
+    }
   }
 
   void _lose() {

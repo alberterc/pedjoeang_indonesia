@@ -13,10 +13,12 @@ late bool _isPuzzleDone;
 
 class GuessTheNumber {
   const GuessTheNumber({
+    required this.order,
     required this.solutions,
     required this.clueTexts
   });
 
+  final int order;
   final List<String> solutions;
   final List<dynamic> clueTexts;
 
@@ -39,6 +41,7 @@ class GuessTheNumber {
     solution = solutions[random];
 
     _GuessTheNumber guessTheNumber = _GuessTheNumber(
+      puzzleOrder: order,
       clueTextWidgetList: clueTextWidgetList
     );
 
@@ -84,9 +87,11 @@ class GuessTheNumber {
 
 class _GuessTheNumber extends StatefulWidget {
   const _GuessTheNumber({
+    required this.puzzleOrder,
     required this.clueTextWidgetList
   });
 
+  final int puzzleOrder;
   final List<Widget> clueTextWidgetList;
 
   @override
@@ -171,10 +176,13 @@ class _GuessTheNumberState extends State<_GuessTheNumber> {
   }
 
   void _win() {
-    print('win');
-    // TODO: add win information
-    puzzleShowClue.value['ButtonOrder'] = true;
     puzzleDone.value['GuessTheNumber'] = true;
+    if (!puzzleDone.value.containsValue(false)) {
+      puzzleShowClue.value['MainPuzzle'] = true;
+    }
+    if (puzzles.length != widget.puzzleOrder) {
+      puzzleShowClue.value[puzzles[widget.puzzleOrder].type] = true;
+    }
   }
 
   void _lose() {

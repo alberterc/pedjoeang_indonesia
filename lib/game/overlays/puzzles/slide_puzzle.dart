@@ -11,12 +11,14 @@ late bool _isPuzzleDone;
 
 class SlidePuzzle {
   const SlidePuzzle({
+    required this.order,
     required this.boardSize,
     required this.solution,
     required this.shuffledNumList,
     required this.clueTexts
   });
 
+  final int order;
   final int boardSize;
   final List<int> solution;
   final List<int> shuffledNumList;
@@ -39,6 +41,7 @@ class SlidePuzzle {
     }
     _SlidePuzzle slidePuzzle = _SlidePuzzle(
       game: game,
+      puzzleOrder: order,
       boardSize: boardSize,
       solution: solution,
       screenWidth: screenWidth,
@@ -89,6 +92,7 @@ class SlidePuzzle {
 class _SlidePuzzle extends StatefulWidget {
   const _SlidePuzzle({
     required this.game,
+    required this.puzzleOrder,
     required this.boardSize,
     required this.solution,
     required this.screenWidth,
@@ -97,6 +101,7 @@ class _SlidePuzzle extends StatefulWidget {
   });
   
   final PIGame game;
+  final int puzzleOrder;
   final int boardSize;
   final List<int> solution;
   final double screenWidth;
@@ -188,13 +193,12 @@ class _SlidePuzzleState extends State<_SlidePuzzle> {
                         ),
                         onPressed: () async {
                           List<int> newList = await _onTileClick(boardNumbers, await _getCurrentIndex(boardNumbers, boardNumbers[index]));
-                          // _win(widget.game); // TODO: for debug purposes only
                           setState(() {
                             boardNumbers = newList;
                             if (_checkAnswer(boardNumbers, solution)) {
                               _win(widget.game);
-                              _isPuzzleDone = puzzleDone.value['SlidePuzzle']!;
                             }
+                            _isPuzzleDone = puzzleDone.value['SlidePuzzle']!;
                           });
                         },
                         child: Text(
@@ -221,9 +225,13 @@ class _SlidePuzzleState extends State<_SlidePuzzle> {
   }
 
   void _win(PIGame game) {
-    // TODO: add win information
-    puzzleShowClue.value['PigpenCipher'] = true;
     puzzleDone.value['SlidePuzzle'] = true;
+    if (!puzzleDone.value.containsValue(false)) {
+      puzzleShowClue.value['MainPuzzle'] = true;
+    }
+    if (puzzles.length != widget.puzzleOrder) {
+      puzzleShowClue.value[puzzles[widget.puzzleOrder].type] = true;
+    }
   }
 
   bool _checkAnswer(List<int> boardNumbers, List<int> solution) {

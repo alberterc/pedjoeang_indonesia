@@ -5,7 +5,6 @@ import 'dart:ui' as dart_ui;
 import 'package:flame/components.dart';
 import 'package:flame/game.dart';
 import 'package:flutter/material.dart';
-import 'package:transparent_image/transparent_image.dart';
 
 import '../constants/constants.dart' as constants;
 import '../game/components/levels_view.dart';
@@ -23,7 +22,9 @@ import '../models/puzzle.dart';
 final puzzleShowClue = ValueNotifier<Map<String, bool>>({});
 final buttonOrderClueMap = ValueNotifier<Map<int, Widget>>({});
 final puzzleDone = ValueNotifier<Map<String, bool>>({});
+late List<Puzzle> puzzles;
 late List<String> mainPuzzleShuffledSolution;
+late List<String> mainPuzzleShuffledSolutionCoords;
 late List<String> mainPuzzleSelectedItems;
 late bool isMainPuzzleCorrect;
 late dart_ui.Image mainPuzzleCellsBoxSnapshot;
@@ -54,47 +55,43 @@ class _ScreenGameState extends State<ScreenGame> {
   Widget build(BuildContext context) {
     mainPuzzleShuffledSolution = [];
     mainPuzzleSelectedItems = [];
+    mainPuzzleShuffledSolutionCoords = [];
     isMainPuzzleCorrect = false;
-    dart_ui.decodeImageFromList(
-      kTransparentImage,
-      (dart_ui.Image image) {
-        mainPuzzleCellsBoxSnapshot = image;
-      }
-    );
     
     MainClue mainClue = const MainClue();
     PauseMenu pauseMenu = const PauseMenu();
 
     final levels = widget.levelData.levels;
     final mainPuzzle = widget.levelData.levels[0].mainPuzzle;
-    final puzzles = levels[0].puzzles;
+    puzzles = levels[0].puzzles;
     for (var puzzle in puzzles) {
       puzzleShowClue.value[puzzle.type] = puzzle.initialShowClue;
       puzzleDone.value[puzzle.type] = false;
     }
+    puzzleShowClue.value['MainPuzzle'] = mainPuzzle.initialShowClue;
 
     MainCorrectAnswer mainCorrectAnswer = MainCorrectAnswer(
       question: mainPuzzle.title,
       solution: mainPuzzle.clueTexts[0]
     );
-
-    List<int> slidePuzzleSolution = puzzles[0].solution.cast<int>();
-    List<String> slidePuzzleClue = puzzles[0].clueTexts.cast<String>();
+    
     SlidePuzzle slidePuzzle = SlidePuzzle(
+      order: puzzles[0].order,
       boardSize: 9,
-      solution: slidePuzzleSolution,
-      shuffledNumList: _shuffleBoard(slidePuzzleSolution),
-      clueTexts: slidePuzzleClue
+      solution: puzzles[0].solution.cast<int>(),
+      shuffledNumList: _shuffleBoard(puzzles[0].solution.cast<int>()),
+      clueTexts: puzzles[0].clueTexts.cast<String>()
     );
 
-    String pigpenCipherSolution = puzzles[1].solution[0];
-    List<String> pigpenCipherClue = puzzles[1].clueImages.cast<String>();
+    
     PigpenCipher pigpenCipher = PigpenCipher(
-      solution: pigpenCipherSolution,
-      clueImages: pigpenCipherClue
+      order: puzzles[1].order,
+      solution: puzzles[1].solution[0],
+      clueImages: puzzles[1].clueImages.cast<String>()
     );
 
     GuessTheNumber guessTheNumber = GuessTheNumber(
+      order: puzzles[2].order,
       solutions: puzzles[2].solution.cast<String>(),
       clueTexts: puzzles[2].clueTexts
     );
@@ -103,6 +100,7 @@ class _ScreenGameState extends State<ScreenGame> {
     String buttonOrderClue = buttonOrderClueList[Random().nextInt(buttonOrderClueList.length)];
     _getOrderList(buttonOrderClue);
     ButtonOrder buttonOrder = ButtonOrder(
+      order: puzzles[3].order,
       clueImage: buttonOrderClue
     );
 

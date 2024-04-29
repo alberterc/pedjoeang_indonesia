@@ -4,10 +4,11 @@ import '../../widgets/screen_game.dart';
 
 class MainClue {
   const MainClue();
-  
+    
   Widget build(BuildContext context, PIGame game) {
     final screenWidth = MediaQuery.of(context).size.width;
     final screenHeight = MediaQuery.of(context).size.height;
+
     return PopScope(
       canPop: false,
       onPopInvoked: (_) {
@@ -30,13 +31,27 @@ class MainClue {
                   fit: BoxFit.fill
                 )
               ),
-              child: const Center(
-                child: Text(
-                  'Petunjuk Utama Tidak Tersedia',
-                  style: TextStyle(
-                    color: Colors.black,
-                  )
-                )
+              child: ValueListenableBuilder(
+                valueListenable: puzzleShowClue,
+                builder: (context, value, _) {
+                  return Center(
+                    child: value['MainPuzzle']! ? Wrap(
+                      spacing: 8.0,
+                      runSpacing: 8.0,
+                      crossAxisAlignment: WrapCrossAlignment.center,
+                      alignment: WrapAlignment.center,
+                      children: [
+                        for (String coord in mainPuzzleShuffledSolutionCoords)
+                          Text(coord)
+                      ],
+                    ) : const Text(
+                      'Petunjuk Utama Tidak Tersedia',
+                      style: TextStyle(
+                        color: Colors.black,
+                      )
+                    )
+                  );
+                }
               ),
             ),
           ),
