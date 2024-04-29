@@ -5,14 +5,12 @@ import 'dart:ui' as dart_ui;
 import 'package:flame/components.dart';
 import 'package:flame/game.dart';
 import 'package:flutter/material.dart';
-import 'package:pedjoeang_indonesia/game/overlays/main_correct_answer.dart';
-// import 'package:flutter/services.dart';
-// import 'package:jenny/jenny.dart';
+import 'package:transparent_image/transparent_image.dart';
 
 import '../constants/constants.dart' as constants;
 import '../game/components/levels_view.dart';
-// import '../game/components/visual_novel_view.dart';
 import '../game/overlays/main_clue.dart';
+import '../game/overlays/main_correct_answer.dart';
 import '../game/overlays/pause_menu.dart';
 import '../game/overlays/puzzles/button_order.dart';
 import '../game/overlays/puzzles/guess_the_number.dart';
@@ -57,6 +55,12 @@ class _ScreenGameState extends State<ScreenGame> {
     mainPuzzleShuffledSolution = [];
     mainPuzzleSelectedItems = [];
     isMainPuzzleCorrect = false;
+    dart_ui.decodeImageFromList(
+      kTransparentImage,
+      (dart_ui.Image image) {
+        mainPuzzleCellsBoxSnapshot = image;
+      }
+    );
     
     MainClue mainClue = const MainClue();
     PauseMenu pauseMenu = const PauseMenu();
