@@ -1,3 +1,4 @@
+import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -17,13 +18,16 @@ class GuessTheNumber {
   });
 
   final List<String> solutions;
-  final List<String> clueTexts;
+  final List<dynamic> clueTexts;
 
   Widget build(BuildContext context, PIGame game) {
     final screenWidth = MediaQuery.of(context).size.width;
     final screenHeight = MediaQuery.of(context).size.height;
+
+    var random = Random().nextInt(solutions.length);
+    List<String> randomClue = clueTexts[random].cast<String>();
     List<Widget> clueTextWidgetList = [];
-    for (var clue in clueTexts) {
+    for (var clue in randomClue) {
       clueTextWidgetList.add(
         Text(
           clue,
@@ -32,7 +36,7 @@ class GuessTheNumber {
       );
     }
 
-    solution = solutions[0];
+    solution = solutions[random];
 
     _GuessTheNumber guessTheNumber = _GuessTheNumber(
       clueTextWidgetList: clueTextWidgetList
@@ -167,6 +171,7 @@ class _GuessTheNumberState extends State<_GuessTheNumber> {
   }
 
   void _win() {
+    print('win');
     // TODO: add win information
     puzzleShowClue.value['ButtonOrder'] = true;
     puzzleDone.value['GuessTheNumber'] = true;

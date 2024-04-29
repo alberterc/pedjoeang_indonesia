@@ -3,6 +3,7 @@ import 'package:go_router/go_router.dart';
 import 'models/levels.dart';
 import 'widgets/screen_title.dart';
 import 'widgets/screen_main_menu.dart';
+import 'widgets/screen_intro.dart';
 import 'widgets/screen_game.dart';
 
 final router = GoRouter(
@@ -14,6 +15,10 @@ final router = GoRouter(
         GoRoute(
           path: 'main_menu',
           builder: (context, state) => const ScreenMainMenu(),
+        ),
+        GoRoute(
+          path: 'intro',
+          builder: (context, state) => const ScreenIntro(),
         ),
         GoRoute(
           path: 'game',

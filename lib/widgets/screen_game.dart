@@ -79,7 +79,7 @@ class _ScreenGameState extends State<ScreenGame> {
     );
 
     List<int> slidePuzzleSolution = puzzles[0].solution.cast<int>();
-    List<String> slidePuzzleClue = puzzles[0].clueTexts;
+    List<String> slidePuzzleClue = puzzles[0].clueTexts.cast<String>();
     SlidePuzzle slidePuzzle = SlidePuzzle(
       boardSize: 9,
       solution: slidePuzzleSolution,
@@ -186,7 +186,7 @@ class PIGame extends FlameGame {
 
     // load image assets for game
     bgSprite = await loadSprite('ui/game/BG_Mini_Castle_Dark_Gray.png', srcSize: Vector2(600, 360));
-    tableSprite = await loadSprite('ui/game/BG_Mini_Ground_Dark.png');
+    tableSprite = await loadSprite('ui/game/Table.png');
     mainPuzzleBgSprite = await loadSprite('ui/game/broken_paper.png');
     smallPuzzleBgSprite = await loadSprite('ui/game/small_paper.png');
     smallPuzzleIcon = [

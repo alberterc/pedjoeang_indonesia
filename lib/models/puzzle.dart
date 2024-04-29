@@ -11,7 +11,7 @@ class Puzzle {
   final String type;
   final String title;
   final List<dynamic> solution;
-  final List<String> clueTexts;
+  final List<dynamic> clueTexts;
   final List<String> clueImages;
   final bool initialShowClue;
 
@@ -19,7 +19,7 @@ class Puzzle {
     final type = json['type'];
     final title = json['title'];
     final solution = List<dynamic>.from(json['solution']);
-    final clueTexts = List<String>.from(json['clueTexts']);
+    final clueTexts = List<dynamic>.from(json['clueTexts']);
     final clueImages = List<String>.from(json['clueImages']);
     final initialShowClue = json['initialShowClue'];
 
