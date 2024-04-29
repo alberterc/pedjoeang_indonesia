@@ -4,7 +4,7 @@ import 'package:flame/components.dart';
 
 import '../../../widgets/screen_game.dart';
 
-class LevelTable extends PositionComponent with HasGameReference<PIGame> {
+class LevelTable extends PositionComponent with HasGameReference<PIGame>, Snapshot {
   late SpriteComponent background;
   late Sprite sprite;
 
