@@ -1,12 +1,14 @@
 import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:pedjoeang_indonesia/widgets/partials/puzzle_status.dart';
 
+import '../../../widgets/partials/puzzle_status.dart';
 import '../../../widgets/screen_game.dart';
 import '../../../constants/constants.dart' as constants;
 import '../../../widgets/partials/custom_close_button_icon.dart';
 import '../../../widgets/partials/puzzle_body.dart';
+
+late bool _isPuzzleDone;
 
 class PigpenCipher {
   const PigpenCipher({
@@ -95,6 +97,18 @@ class _PigpenCipher extends StatefulWidget {
 
 class _PigpenCipherState extends State<_PigpenCipher> {
   static const _gap = SizedBox(height: 24.0);
+
+  @override
+  void initState() {
+    super.initState();
+    _isPuzzleDone = puzzleDone.value['PigpenCipher']!;
+  }
+
+  @override
+  void setState(VoidCallback fn) {
+    super.setState(fn);
+    _isPuzzleDone = puzzleDone.value['PigpenCipher']!;
+  }
   
   @override
   Widget build(BuildContext context) {
@@ -149,9 +163,7 @@ class _PigpenCipherState extends State<_PigpenCipher> {
                     suffixIcon: Container(
                       margin: const EdgeInsets.symmetric(horizontal: 2.0, vertical: 2.0),
                       child: TextButton(
-                        onPressed: () {
-                          _checkAnswer(submittedAnswer, widget.solutionList.join(' '));
-                        },
+                        onPressed: () => setState(() => _checkAnswer(submittedAnswer, widget.solutionList.join(' '))),
                         child: Text(
                           'Kirim',
                           style: TextStyle(
@@ -177,7 +189,10 @@ class _PigpenCipherState extends State<_PigpenCipher> {
                 ),
               ),
               _gap,
-              const PuzzleStatus(puzzleName: 'PigpenCipher',)
+              PuzzleStatus(
+                puzzleName: 'PigpenCipher',
+                isDone: _isPuzzleDone
+              )
             ],
           ),
         );

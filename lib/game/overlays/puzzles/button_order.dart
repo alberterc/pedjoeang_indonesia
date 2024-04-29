@@ -1,15 +1,16 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
-import 'package:pedjoeang_indonesia/widgets/partials/custom_close_button_icon.dart';
-import 'package:pedjoeang_indonesia/widgets/partials/puzzle_status.dart';
 
+import '../../../widgets/partials/custom_close_button_icon.dart';
 import '../../../widgets/partials/puzzle_body.dart';
+import '../../../widgets/partials/puzzle_status.dart';
 import '../../../widgets/screen_game.dart';
 
 late Map<int, Widget> solution;
 final List<int> _selectedButtonText = [];
 bool _isCorrectOrder = true;
+late bool _isPuzzleDone;
 
 class ButtonOrder {
   const ButtonOrder({
@@ -103,6 +104,7 @@ class _ButtonOrderState extends State<_ButtonOrder> {
     super.initState();
     _selectedButton = [false, false, false, false];
     _isButtonDisabled = [false, false, false, false];
+    _isPuzzleDone = puzzleDone.value['ButtonOrder']!;
 
     for (int i = 0; i < 4; i++) {
       var keyIndex = Random().nextInt(keys.length);
@@ -124,6 +126,7 @@ class _ButtonOrderState extends State<_ButtonOrder> {
       }
       _selectedButtonText.add(selectedItem);
       _checkAnswer();
+      _isPuzzleDone = puzzleDone.value['ButtonOrder']!;
     });
   }
 
@@ -175,7 +178,10 @@ class _ButtonOrderState extends State<_ButtonOrder> {
                   }
                 ),
                 _gap,
-                const PuzzleStatus(puzzleName: 'ButtonOrder'),
+                PuzzleStatus(
+                  puzzleName: 'ButtonOrder',
+                  isDone: _isPuzzleDone
+                ),
               ],
             ),
           )

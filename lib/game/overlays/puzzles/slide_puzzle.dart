@@ -1,11 +1,13 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:pedjoeang_indonesia/widgets/partials/puzzle_status.dart';
 
+import '../../../widgets/partials/puzzle_status.dart';
 import '../../../widgets/screen_game.dart';
 import '../../../widgets/partials/custom_close_button_icon.dart';
 import '../../../widgets/partials/puzzle_body.dart';
 import '../../../constants/constants.dart' as constants;
+
+late bool _isPuzzleDone;
 
 class SlidePuzzle {
   const SlidePuzzle({
@@ -109,6 +111,12 @@ class _SlidePuzzleState extends State<_SlidePuzzle> {
   static const _gap = SizedBox(height: 24.0);
 
   @override
+  void initState() {
+    super.initState();
+    _isPuzzleDone = puzzleDone.value['SlidePuzzle']!;
+  }
+
+  @override
   Widget build(BuildContext context) {
     final int boardSize = widget.boardSize;
     final List<int> solution = widget.solution;
@@ -180,13 +188,14 @@ class _SlidePuzzleState extends State<_SlidePuzzle> {
                         ),
                         onPressed: () async {
                           List<int> newList = await _onTileClick(boardNumbers, await _getCurrentIndex(boardNumbers, boardNumbers[index]));
+                          // _win(widget.game); // TODO: for debug purposes only
                           setState(() {
                             boardNumbers = newList;
+                            if (_checkAnswer(boardNumbers, solution)) {
+                              _win(widget.game);
+                              _isPuzzleDone = puzzleDone.value['SlidePuzzle']!;
+                            }
                           });
-                          if (await _checkAnswer(boardNumbers, solution)) {
-                            _win(widget.game);
-                          }
-                          // _win(widget.game); // TODO: for debug purposes only
                         },
                         child: Text(
                           '${boardNumbers[index]}',
@@ -199,7 +208,10 @@ class _SlidePuzzleState extends State<_SlidePuzzle> {
                   }
                 ),
                 _gap,
-                const PuzzleStatus(puzzleName: 'SlidePuzzle'),
+                PuzzleStatus(
+                  puzzleName: 'SlidePuzzle',
+                  isDone: _isPuzzleDone
+                ),
               ],
             )
           ),
@@ -214,7 +226,7 @@ class _SlidePuzzleState extends State<_SlidePuzzle> {
     puzzleDone.value['SlidePuzzle'] = true;
   }
 
-  Future<bool> _checkAnswer(List<int> boardNumbers, List<int> solution) async {
+  bool _checkAnswer(List<int> boardNumbers, List<int> solution) {
     return listEquals(boardNumbers, solution);
   }
 
