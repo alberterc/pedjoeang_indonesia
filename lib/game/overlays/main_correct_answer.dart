@@ -29,31 +29,67 @@ class MainCorrectAnswer {
           child: Center(
             child: Container(
               padding: const EdgeInsets.all(8.0),
-              height: screenHeight * 0.6,
-              width: screenWidth * 0.3,
+              height: screenHeight * 0.75,
+              width: screenWidth * 0.65,
               decoration: const BoxDecoration(
                 image: DecorationImage(
                   image: AssetImage('assets/images/ui/old_paper.png'),
                   fit: BoxFit.fill
                 )
               ),
-              child: Column(
+              child: isMainPuzzleCorrect ? Wrap(
+                alignment: WrapAlignment.spaceEvenly,
+                crossAxisAlignment: WrapCrossAlignment.center,
                 children: [
-                  Text(
-                    question,
-                    style: TextStyle(
-                      color: Colors.black,
-                      fontSize: constants.fontTinyLarge
-                    )
+                  RawImage(
+                    image: mainPuzzleCellsBoxSnapshot,
                   ),
-                  const SizedBox(height: 8.0),
-                  Text(
-                    solution,
-                    style: TextStyle(
-                      color: Colors.black,
-                      fontSize: constants.fontTinyLarge
-                    )
+                  Column(
+                    children: [
+                      Text(
+                        question,
+                        style: TextStyle(
+                          color: Colors.black,
+                          fontSize: constants.fontTinyLarge
+                        )
+                      ),
+                      const SizedBox(height: 8.0),
+                      Text(
+                        solution,
+                        style: TextStyle(
+                          color: Colors.black,
+                          fontSize: constants.fontTinyLarge
+                        )
+                      )
+                    ],
                   )
+                ],
+              ) : Wrap (
+                alignment: WrapAlignment.spaceEvenly,
+                crossAxisAlignment: WrapCrossAlignment.center,
+                children: [
+                  RawImage(
+                    image: mainPuzzleCellsBoxSnapshot,
+                  ),
+                  Column(
+                    children: [
+                      Text(
+                        'Wrong Answer',
+                        style: TextStyle(
+                          color: Colors.black,
+                          fontSize: constants.fontTinyLarge
+                        )
+                      ),
+                      const SizedBox(height: 8.0),
+                      Text(
+                        'Try Again',
+                        style: TextStyle(
+                          color: Colors.black,
+                          fontSize: constants.fontTinyLarge
+                        )
+                      )
+                    ],
+                  ),
                 ],
               ),
             ),
