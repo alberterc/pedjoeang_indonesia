@@ -81,6 +81,8 @@ class MainPuzzle extends PositionComponent {
       cellsBox
     ]);
 
+    mainPuzzleCellsBoxSnapshot = _takeCellsBoxSnapshot();
+
     return super.onLoad();
   }
 
@@ -120,9 +122,23 @@ class CellsBox extends PositionComponent with HasGameReference<PIGame>, Snapshot
     }
     int solutionOnlyCharLength = gridChar.length;
     for (int i = 0; i < grid * grid - solutionOnlyCharLength; i++) {
-      gridChar.add(allChars[Random().nextInt(allChars.length)]);
+      var random = Random().nextInt(allChars.length);
+      gridChar.add(allChars[random]);
     }
     gridChar.shuffle();
+    var gridCharMap = { for (int i = 0; i < gridChar.length; i++) i: gridChar[i] };
+    List<int> mainPuzzleShuffledSolutionIndex = [];
+    for (int i = 0; i < mainPuzzleShuffledSolution.length; i++) {
+      mainPuzzleShuffledSolutionIndex.add(gridCharMap.keys.firstWhere((key) => gridCharMap[key] == mainPuzzleShuffledSolution[i]));
+      gridCharMap.remove(gridCharMap.keys.firstWhere((key) => gridCharMap[key] == mainPuzzleShuffledSolution[i]));
+    }
+    for (int i = 0; i < grid; i++) {
+      for (int j = 0; j < grid; j++) {
+        if (mainPuzzleShuffledSolutionIndex.contains(i * grid + j)) {
+          mainPuzzleShuffledSolutionCoords.add('${i + 1}${String.fromCharCode(j + 65)}');
+        }
+      }
+    }
 
     cells = List.generate(grid, (i) => List.generate(grid, (j) => Button(
       onTapUpEvent: (event, _, isSelected) {
@@ -289,7 +305,6 @@ class CellsBox extends PositionComponent with HasGameReference<PIGame>, Snapshot
   }
 
   void _win() {
-    // TODO: add win information
     isMainPuzzleCorrect = true;
   }
 

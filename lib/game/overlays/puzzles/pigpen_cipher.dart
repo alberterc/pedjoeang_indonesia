@@ -12,10 +12,12 @@ late bool _isPuzzleDone;
 
 class PigpenCipher {
   const PigpenCipher({
+    required this.order,
     required this.solution,
     required this.clueImages
   });
 
+  final int order;
   final String solution;
   final List<String> clueImages;
 
@@ -40,6 +42,7 @@ class PigpenCipher {
       );
     }
     _PigpenCipher pigpenCipher = _PigpenCipher(
+      puzzleOrder: order,
       solutionList: solutionList,
       clueImageWidgetList: clueImageWidgetList
     );
@@ -86,10 +89,12 @@ class PigpenCipher {
 
 class _PigpenCipher extends StatefulWidget {
   const _PigpenCipher({
+    required this.puzzleOrder,
     required this.solutionList,
     required this.clueImageWidgetList
   });
 
+  final int puzzleOrder;
   final List<String> solutionList;
   final List<Widget> clueImageWidgetList;
 
@@ -212,9 +217,13 @@ class _PigpenCipherState extends State<_PigpenCipher> {
   }
 
   void _win() {
-    // TODO: add win information
-    puzzleShowClue.value['GuessTheNumber'] = true;
     puzzleDone.value['PigpenCipher'] = true;
+    if (!puzzleDone.value.containsValue(false)) {
+      puzzleShowClue.value['MainPuzzle'] = true;
+    }
+    if (puzzles.length != widget.puzzleOrder) {
+      puzzleShowClue.value[puzzles[widget.puzzleOrder].type] = true;
+    }
   }
 
   void _lose() {
