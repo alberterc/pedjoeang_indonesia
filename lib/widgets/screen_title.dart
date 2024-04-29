@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:provider/provider.dart';
 import 'package:go_router/go_router.dart';
 
@@ -54,14 +53,12 @@ class ScreenTitle extends StatelessWidget {
                   child: Image.asset('assets/images/ui/menu/game_title.png')
                 ),
                 _gap,
-                Container(
-                  child: Text(
-                    'Click to start',
-                    style: TextStyle(
-                      color: palette.fontMain.color,
-                      fontSize: constants.fontSmall
-                    )
-                  ),
+                Text(
+                  'Click to start',
+                  style: TextStyle(
+                    color: palette.fontMain.color,
+                    fontSize: constants.fontSmall
+                  )
                 )
               ],
             )

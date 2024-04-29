@@ -44,9 +44,6 @@ class PuzzleBody extends StatelessWidget {
               padding: const EdgeInsets.all(8.0),
               height: screenHeight * 0.6,
               width: screenWidth * 0.3,
-              decoration: BoxDecoration(
-                // border: Border.all(color: Colors.black),
-              ),
               child: showClue ? 
                 clue ?? Center(
                   child: Text(
