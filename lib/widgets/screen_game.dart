@@ -186,7 +186,7 @@ class PIGame extends FlameGame {
 
     // load image assets for game
     bgSprite = await loadSprite('ui/game/BG_Mini_Castle_Dark_Gray.png', srcSize: Vector2(600, 360));
-    tableSprite = await loadSprite('ui/game/Table.png');
+    tableSprite = await loadSprite('ui/game/table.png');
     mainPuzzleBgSprite = await loadSprite('ui/game/broken_paper.png');
     smallPuzzleBgSprite = await loadSprite('ui/game/small_paper.png');
     smallPuzzleIcon = [

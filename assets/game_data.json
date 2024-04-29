@@ -1,5 +1,7 @@
 {
-    "intro": {"text": "dattaaaa"},
+    "intro": {
+        "text": "dattaaaa"
+    },
     "levels": [
         {
             "level": 1,
