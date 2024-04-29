@@ -7,44 +7,33 @@ import 'package:go_router/go_router.dart';
 
 import '../constants/constants.dart' as constants;
 import '../game/style/palette.dart';
+import '../models/game_data.dart';
 import '../models/levels.dart';
 
 class ScreenIntro extends StatefulWidget {
   const ScreenIntro({
-    super.key, 
-    // required this.introText
+    super.key,
+    required this.gameData
   });
 
-  // final String introText;
+  final GameData gameData; 
 
   @override
   State<ScreenIntro> createState() => _ScreenIntroState();
 }
-  // static const _gap = SizedBox(height: 48.0);
 
 class _ScreenIntroState extends State<ScreenIntro> {
   @override
   Widget build(BuildContext context) {
     final palette = context.watch<Palette>();
-
-    return FutureBuilder<Levels>(
-      future: _getLevelsData(),
-      builder: (context, snapshot) {
-        if (snapshot.hasData && snapshot.connectionState == ConnectionState.done) {
-          return _getIntroScreen(palette, snapshot.data);
-        } else if (snapshot.hasError) {
-          return Text('${snapshot.error}');
-        }
-        return const CircularProgressIndicator();
-      },
-    );
+    return _getIntroScreen(palette, widget.gameData.levels);
   }
 
-    Widget _getIntroScreen(Palette palette, Levels? levels) {
+  Widget _getIntroScreen(Palette palette, Levels? levels) {
     return Scaffold(
       body: GestureDetector(
         onTap: () {
-          GoRouter.of(context).push(
+          GoRouter.of(context).pushReplacement(
             '/game',
             extra: {
               'levels': levels

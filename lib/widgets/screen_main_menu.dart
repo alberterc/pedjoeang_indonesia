@@ -8,7 +8,7 @@ import 'package:go_router/go_router.dart';
 
 import '../constants/constants.dart' as constants;
 import '../game/style/palette.dart';
-import '../models/levels.dart';
+import '../models/game_data.dart';
 
 class ScreenMainMenu extends StatefulWidget {
   const ScreenMainMenu({super.key});
@@ -22,8 +22,8 @@ class _ScreenMainMenuState extends State<ScreenMainMenu> {
   Widget build(BuildContext context) {
     final palette = context.watch<Palette>();
 
-    return FutureBuilder<Levels>(
-      future: _getLevelsData(),
+    return FutureBuilder<GameData>(
+      future: _getGameData(),
       builder: (context, snapshot) {
         if (snapshot.hasData && snapshot.connectionState == ConnectionState.done) {
           return _getMainMenuScreen(palette, snapshot.data);
@@ -35,7 +35,7 @@ class _ScreenMainMenuState extends State<ScreenMainMenu> {
     );
   }
 
-  Widget _getMainMenuScreen(Palette palette, Levels? levels) {
+  Widget _getMainMenuScreen(Palette palette, GameData? gameData) {
     return Scaffold(
       body: Container(
         width: MediaQuery.of(context).size.width,
@@ -108,7 +108,7 @@ class _ScreenMainMenuState extends State<ScreenMainMenu> {
                         width: 8.0
                       )
                     ),
-                    child: _getGameMainMenu(palette, levels)
+                    child: _getGameMainMenu(palette, gameData)
                   ),
                   SizedBox(
                     width: MediaQuery.of(context).size.width / 3.75,
@@ -129,7 +129,7 @@ class _ScreenMainMenuState extends State<ScreenMainMenu> {
     );
   }
 
-  Widget _getGameMainMenu(Palette palette, Levels? levels) {
+  Widget _getGameMainMenu(Palette palette, GameData? gameData) {
     return Wrap(
       alignment: WrapAlignment.center,
       runAlignment: WrapAlignment.center,
@@ -138,9 +138,9 @@ class _ScreenMainMenuState extends State<ScreenMainMenu> {
       children: [
         _getTextButton('Mulai Main', () {
           GoRouter.of(context).push(
-            '/game',
+            '/intro',
             extra: {
-              'levels': levels
+              'gameData': gameData
             }
           );
         }),
@@ -211,11 +211,11 @@ class _ScreenMainMenuState extends State<ScreenMainMenu> {
     );
   }
 
-  Future<Levels> _getLevelsData() async {
-    final levelsJsonStr = await rootBundle.loadString('assets/game_data.json');
-    final levelsJson = jsonDecode(levelsJsonStr);
-    final parsedLevelsJson = Levels.fromJson(levelsJson);
+  Future<GameData> _getGameData() async {
+    final gameDataJsonStr = await rootBundle.loadString('assets/game_data.json');
+    final gameDataJson = jsonDecode(gameDataJsonStr);
+    final parsedGameDataJson = GameData.fromJson(gameDataJson);
 
-    return parsedLevelsJson;
+    return parsedGameDataJson;
   }
 }

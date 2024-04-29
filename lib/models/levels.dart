@@ -7,9 +7,9 @@ class Levels {
 
   final List<Level> levels;
 
-  factory Levels.fromJson(Map<String, dynamic> json) {
+  factory Levels.fromJson(List<dynamic> json) {
     final levels = List<Level>.from(
-      json['levels'].map((x) => Level.fromJson(x))
+      json.map((x) => Level.fromJson(x))
     );
     return Levels(
       levels: levels

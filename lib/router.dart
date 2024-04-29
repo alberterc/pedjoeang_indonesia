@@ -1,5 +1,6 @@
 import 'package:go_router/go_router.dart';
 
+import 'models/game_data.dart';
 import 'models/levels.dart';
 import 'widgets/screen_title.dart';
 import 'widgets/screen_main_menu.dart';
@@ -18,7 +19,10 @@ final router = GoRouter(
         ),
         GoRoute(
           path: 'intro',
-          builder: (context, state) => const ScreenIntro(),
+          builder: (context, state) {
+            Map<String, GameData?> data = state.extra as Map<String, GameData?>;
+            return ScreenIntro(gameData: data['gameData']!);
+          },
         ),
         GoRoute(
           path: 'game',
