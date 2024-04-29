@@ -212,7 +212,7 @@ class _ScreenMainMenuState extends State<ScreenMainMenu> {
   }
 
   Future<Levels> _getLevelsData() async {
-    final levelsJsonStr = await rootBundle.loadString('assets/levels.json');
+    final levelsJsonStr = await rootBundle.loadString('assets/game_data.json');
     final levelsJson = jsonDecode(levelsJsonStr);
     final parsedLevelsJson = Levels.fromJson(levelsJson);
 
