@@ -26,7 +26,9 @@ class PigpenCipher {
     List<String> allSolution = solution.split(' ');
     List<String> solutionList = [];
     for(int i=0; i<5; i++) {
-      solutionList.add(allSolution[Random().nextInt(allSolution.length)]);
+      var random = Random().nextInt(allSolution.length);
+      solutionList.add(allSolution[random]);
+      allSolution.remove(allSolution[random]);
     }
 
     List<Widget> clueImageWidgetList = [];
