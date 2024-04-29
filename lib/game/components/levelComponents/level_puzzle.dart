@@ -7,7 +7,7 @@ import 'package:flame/components.dart';
 import '../../../widgets/screen_game.dart';
 import '../../../constants/constants.dart' as constants;
 
-class LevelPuzzle extends PositionComponent with HasGameReference<PIGame>, TapCallbacks {
+class LevelPuzzle extends PositionComponent with HasGameReference<PIGame>, TapCallbacks, Snapshot {
   LevelPuzzle({
     required this.onTapUpEvent
   });
