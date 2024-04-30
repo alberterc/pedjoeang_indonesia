@@ -1,4 +1,6 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 
 import '../../widgets/screen_game.dart';
 import '../../constants/constants.dart' as constants;
@@ -39,56 +41,92 @@ class MainCorrectAnswer {
               ),
               child: isMainPuzzleCorrect ? Wrap(
                 alignment: WrapAlignment.spaceEvenly,
+                runAlignment: WrapAlignment.center,
                 crossAxisAlignment: WrapCrossAlignment.center,
                 children: [
                   RawImage(
+                    alignment: Alignment.bottomCenter,
                     image: mainPuzzleCellsBoxSnapshot,
                   ),
-                  Column(
-                    children: [
-                      Text(
-                        question,
-                        style: TextStyle(
-                          color: Colors.black,
-                          fontSize: constants.fontTinyLarge
+                  SizedBox(
+                    width: screenWidth * 0.3,
+                    child: Column(
+                      children: [
+                        Text(
+                          question,
+                          style: TextStyle(
+                            color: Colors.black,
+                            fontSize: constants.fontTinyLarge
+                          )
+                        ),
+                        const SizedBox(height: 16.0),
+                        Text(
+                          solution,
+                          style: TextStyle(
+                            color: Colors.black,
+                            fontSize: constants.fontTinyLarge
+                          )
+                        ),
+                        TextButton(
+                          onPressed: () => game.overlays.remove('MainCorrectAnswer'),
+                          style: TextButton.styleFrom(
+                            padding: const EdgeInsets.all(8.0),
+                            minimumSize: Size.zero,
+                          ),
+                          child: Text(
+                            'Puzzle Berikutnya',
+                            style: TextStyle(
+                                fontSize: constants.fontTiny
+                            )
+                          ),
                         )
-                      ),
-                      const SizedBox(height: 8.0),
-                      Text(
-                        solution,
-                        style: TextStyle(
-                          color: Colors.black,
-                          fontSize: constants.fontTinyLarge
-                        )
-                      )
-                    ],
+                      ],
+                    ),
                   )
                 ],
               ) : Wrap (
                 alignment: WrapAlignment.spaceEvenly,
+                runAlignment: WrapAlignment.center,
                 crossAxisAlignment: WrapCrossAlignment.center,
                 children: [
                   RawImage(
                     image: mainPuzzleCellsBoxSnapshot,
                   ),
-                  Column(
-                    children: [
-                      Text(
-                        'Wrong Answer',
-                        style: TextStyle(
-                          color: Colors.black,
-                          fontSize: constants.fontTinyLarge
+                  SizedBox(
+                    width: screenWidth * 0.3,
+                    child: Column(
+                      children: [
+                        Text(
+                          question,
+                          style: TextStyle(
+                            color: Colors.black,
+                            fontSize: constants.fontTinyLarge
+                          )
+                        ),
+                        const SizedBox(height: 16.0),
+                        Text(
+                          'Salah Bro, coba lagi :)',
+                          style: TextStyle(
+                            color: Colors.black,
+                            fontSize: constants.fontTinyLarge
+                          )
+                        ),
+                        const SizedBox(height: 16.0),
+                        TextButton(
+                          onPressed: () => game.overlays.remove('MainCorrectAnswer'),
+                          style: TextButton.styleFrom(
+                            padding: const EdgeInsets.all(8.0),
+                            minimumSize: Size.zero,
+                          ),
+                          child: Text(
+                            'Puzzle Berikutnya',
+                            style: TextStyle(
+                                fontSize: constants.fontTiny
+                            )
+                          ),
                         )
-                      ),
-                      const SizedBox(height: 8.0),
-                      Text(
-                        'Try Again',
-                        style: TextStyle(
-                          color: Colors.black,
-                          fontSize: constants.fontTinyLarge
-                        )
-                      )
-                    ],
+                      ],
+                    ),
                   ),
                 ],
               ),
