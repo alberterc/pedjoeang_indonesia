@@ -1,6 +1,6 @@
 {
     "intro": {
-        "text": "dattaaaa"
+        "text": "Di dalam ruang penyimpanan yang redup di sebuah museum yang terlupakan, seorang sejarawan menemukan sebuah artefak yang hilang dari waktu—sebuah buku yang sudah tua terikat dengan kulit kuno, halamannya menceritakan kisah-kisah peradaban yang telah lama hilang. Saat ia dengan hati-hati membersihkan debu dari masa lalu, tulisan kriptik di dalamnya bergerak di depan mata, menunjukkan adanya rahasia yang tersembunyi di dalamnya. Didorong oleh keinginan untuk mengetahui lebih banyak, sejarawan itu memulai perjalanan penemuan, setiap halaman adalah teka-teki yang menunggu untuk dipecahkan."
     },
     "levels": [
         {
@@ -34,11 +34,15 @@
                     "order": 3,
                     "type": "GuessTheNumber",
                     "title": "Tebak Angka",
-                    "solution": ["1234", "2341", "3412", "4123", "4321"],
+                    "solution": ["1234", "2341", "3412", "4123", "6009"],
                     "clueTexts": [
                         [
                             "Digit pertama",
                             "Digit kedua"
+                        ],
+                        [
+                            "Digit kedua",
+                            "Digit ketiga"
                         ],
                         [
                             "Digit ketiga",
@@ -49,8 +53,8 @@
                             "Digit pertama"
                         ],
                         [
-                            "Digit keempat",
-                            "Digit ketiga"
+                            "Digit keenam",
+                            "Digit kesembilan"
                         ]
                     ],
                     "clueImages": [],
@@ -75,7 +79,7 @@
                 "solution": [],
                 "clueTexts": ["Jawaban Sejarah"],
                 "clueImages": [],
-                "initialShowClue": false
+                "initialShowClue": true
             }
         }
     ]
