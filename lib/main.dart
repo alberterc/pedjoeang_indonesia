@@ -2,19 +2,38 @@ import 'package:flutter/material.dart';
 import 'package:flame/flame.dart';
 import 'package:provider/provider.dart';
 import 'package:sizer/sizer.dart';
+import 'package:sqflite/sqflite.dart';
+import 'package:path/path.dart';
 
 import 'constants/constants.dart' as constants;
+import 'models/player.dart';
+import 'provider/player_provider.dart';
 import 'router.dart';
 import 'app_lifecycle/app_lifecycle.dart';
 import 'game/style/palette.dart';
 
+late PlayerProvider playerProvider;
+
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Flame.device.fullScreen();
-  await Flame.device.setLandscape();
-
+  await Flame.device.setLandscapeRightOnly();
+  
   // pre-load bgm audio file
   // await FlameAudio.audioCache.load('music/bgm.mp3');
+
+  playerProvider = PlayerProvider(
+    dbPath: join(await getDatabasesPath(), 'player_database.db'),
+    dbVersion: 1
+  );
+  await playerProvider.ready;
+
+  // playerProvider.deleteAll(); // delete all player data
+
+  // create new player data if it doesn't exist
+  if ((await playerProvider.getPlayers()).isEmpty) {
+    playerProvider.insertPlayer(Player(id: 0, currLevel: 1, unlockedLevelCount: 1));
+  }
 
   runApp(const Game());
 }

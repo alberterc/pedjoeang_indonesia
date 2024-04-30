@@ -1,7 +1,8 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
+import 'package:go_router/go_router.dart';
 
+import '../../main.dart';
+import '../../models/player.dart';
 import '../../widgets/screen_game.dart';
 import '../../constants/constants.dart' as constants;
 
@@ -67,8 +68,27 @@ class MainCorrectAnswer {
                             fontSize: constants.fontTinyLarge
                           )
                         ),
-                        TextButton(
-                          onPressed: () => game.overlays.remove('MainCorrectAnswer'),
+                        playerData.unlockedLevelCount < levelsData.levels.length ? TextButton(
+                          onPressed: () async {
+                            game.overlays.remove('MainCorrectAnswer');
+
+                            // update player data: unlocked next level
+                            playerProvider.updatePlayer(
+                              Player(
+                                id: playerData.id,
+                                currLevel: playerData.currLevel + 1,
+                                unlockedLevelCount: playerData.currLevel + 1 > playerData.unlockedLevelCount ? playerData.unlockedLevelCount + 1 : playerData.unlockedLevelCount
+                              )
+                            );
+
+                            GoRouter.of(context).pushReplacement(
+                              '/game',
+                              extra: {
+                                'levelsData': levelsData,
+                                'playerData': (await playerProvider.getPlayers()).first
+                              }
+                            );
+                          },
                           style: TextButton.styleFrom(
                             padding: const EdgeInsets.all(8.0),
                             minimumSize: Size.zero,
@@ -79,7 +99,7 @@ class MainCorrectAnswer {
                                 fontSize: constants.fontTiny
                             )
                           ),
-                        )
+                        ) : Container()
                       ],
                     ),
                   )
@@ -111,20 +131,6 @@ class MainCorrectAnswer {
                             fontSize: constants.fontTinyLarge
                           )
                         ),
-                        const SizedBox(height: 16.0),
-                        TextButton(
-                          onPressed: () => game.overlays.remove('MainCorrectAnswer'),
-                          style: TextButton.styleFrom(
-                            padding: const EdgeInsets.all(8.0),
-                            minimumSize: Size.zero,
-                          ),
-                          child: Text(
-                            'Puzzle Berikutnya',
-                            style: TextStyle(
-                                fontSize: constants.fontTiny
-                            )
-                          ),
-                        )
                       ],
                     ),
                   ),

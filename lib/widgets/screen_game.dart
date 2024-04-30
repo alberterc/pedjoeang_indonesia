@@ -16,7 +16,9 @@ import '../game/overlays/puzzles/guess_the_number.dart';
 import '../game/overlays/puzzles/pigpen_cipher.dart';
 import '../game/overlays/puzzles/slide_puzzle.dart';
 import '../game/style/palette.dart';
+import '../main.dart';
 import '../models/levels.dart';
+import '../models/player.dart';
 import '../models/puzzle.dart';
 
 final puzzleShowClue = ValueNotifier<Map<String, bool>>({});
@@ -28,110 +30,150 @@ late List<String> mainPuzzleShuffledSolutionCoords;
 late List<String> mainPuzzleSelectedItems;
 late bool isMainPuzzleCorrect;
 late dart_ui.Image mainPuzzleCellsBoxSnapshot;
+late Levels levelsData;
+late Player playerData;
+
+late List<String> _puzzleType;
 
 class ScreenGame extends StatefulWidget {
-  const ScreenGame({super.key, required this.levelData});
+  const ScreenGame({
+    super.key,
+    required this.levelsData
+  });
 
-  final Levels levelData;
+  final Levels levelsData;
 
   @override
   State<ScreenGame> createState() => _ScreenGameState();
 }
 
 class _ScreenGameState extends State<ScreenGame> {
-  /*
-    store several variables here:
-    - playerProgress (currentLevel)
-    - each puzzle solution
-
-    when the player clicked the "Submit" button in the level view 
-    and the answer is correct:
-    - update playerProgress (to the next level)
-    - close/pop that ScreenGame widget then start a new ScreenGame widget the
-      updated playerProgress and new puzzle solutions
-   */
-
   @override
   Widget build(BuildContext context) {
     mainPuzzleShuffledSolution = [];
     mainPuzzleSelectedItems = [];
     mainPuzzleShuffledSolutionCoords = [];
     isMainPuzzleCorrect = false;
-    
+    _puzzleType = [];
+
     MainClue mainClue = const MainClue();
     PauseMenu pauseMenu = const PauseMenu();
 
-    final levels = widget.levelData.levels;
-    final mainPuzzle = widget.levelData.levels[0].mainPuzzle;
-    puzzles = levels[0].puzzles;
-    for (var puzzle in puzzles) {
-      puzzleShowClue.value[puzzle.type] = puzzle.initialShowClue;
-      puzzleDone.value[puzzle.type] = false;
-    }
-    puzzleShowClue.value['MainPuzzle'] = mainPuzzle.initialShowClue;
-
-    MainCorrectAnswer mainCorrectAnswer = MainCorrectAnswer(
-      question: mainPuzzle.title,
-      solution: mainPuzzle.clueTexts[0]
-    );
-    
-    SlidePuzzle slidePuzzle = SlidePuzzle(
-      order: puzzles[0].order,
-      boardSize: 9,
-      solution: puzzles[0].solution.cast<int>(),
-      shuffledNumList: _shuffleBoard(puzzles[0].solution.cast<int>()),
-      clueTexts: puzzles[0].clueTexts.cast<String>()
-    );
-
-    
-    PigpenCipher pigpenCipher = PigpenCipher(
-      order: puzzles[1].order,
-      solution: puzzles[1].solution[0],
-      clueImages: puzzles[1].clueImages.cast<String>()
-    );
-
-    GuessTheNumber guessTheNumber = GuessTheNumber(
-      order: puzzles[2].order,
-      solutions: puzzles[2].solution.cast<String>(),
-      clueTexts: puzzles[2].clueTexts
-    );
-
-    List<String> buttonOrderClueList = puzzles[3].clueImages.cast<String>();
-    String buttonOrderClue = buttonOrderClueList[Random().nextInt(buttonOrderClueList.length)];
-    _getOrderList(buttonOrderClue);
-    ButtonOrder buttonOrder = ButtonOrder(
-      order: puzzles[3].order,
-      clueImage: buttonOrderClue
-    );
-
-    final piGame = PIGame(mainPuzzle: mainPuzzle);
-
     return Scaffold(
-      body: PopScope(
-        canPop: false,
-        onPopInvoked: (_) {
-          for (var overlay in constants.flameOverlays) {
-            if (piGame.overlays.isActive(overlay)) {
-              piGame.overlays.remove(overlay);
-              break;
+      body: FutureBuilder(
+        future: playerProvider.getPlayers(),
+        builder: (context, snapshot) {
+          if (snapshot.hasData && snapshot.connectionState == ConnectionState.done) {
+            playerData = snapshot.data![0];
+
+            // Update player data: change current level
+            if (playerData.currLevel + 1 <= playerData.unlockedLevelCount) {
+              playerProvider.updatePlayer(
+                Player(
+                  id: playerData.id,
+                  currLevel: playerData.currLevel + 1,
+                  unlockedLevelCount: playerData.unlockedLevelCount
+                )
+              );
             }
-            if (overlay == 'PauseMenu') {
-              piGame.overlays.add('PauseMenu');
+
+            levelsData = widget.levelsData;
+            final levels = levelsData.levels;
+            final mainPuzzle = levels[playerData.currLevel - 1].mainPuzzle;
+            puzzles = levels[playerData.currLevel - 1].puzzles;
+
+            Map<String, Widget Function(BuildContext, PIGame)> overlayMap = {};
+
+            MainCorrectAnswer mainCorrectAnswer = MainCorrectAnswer(
+              question: mainPuzzle.title,
+              solution: mainPuzzle.clueTexts[0]
+            );
+
+            overlayMap.addAll(
+              {
+                'MainClue': mainClue.build,
+                'MainCorrectAnswer': mainCorrectAnswer.build,
+                'PauseMenu': pauseMenu.build
+              }
+            );
+
+            for (var puzzle in puzzles) {
+              puzzleShowClue.value[puzzle.type] = puzzle.initialShowClue;
+              puzzleDone.value[puzzle.type] = false;
+              _puzzleType.add(puzzle.type);
+
+              if (puzzle.type == 'SlidePuzzle') {
+                SlidePuzzle slidePuzzle = SlidePuzzle(
+                  order: puzzle.order,
+                  boardSize: 9,
+                  solution: puzzle.solution.cast<int>(),
+                  shuffledNumList: _shuffleBoard(puzzle.solution.cast<int>()),
+                  clueTexts: puzzle.clueTexts.cast<String>()
+                );
+                overlayMap.addAll({
+                  puzzle.type: slidePuzzle.build
+                });
+              }
+              else if (puzzle.type == 'PigpenCipher') {
+                PigpenCipher pigpenCipher = PigpenCipher(
+                  order: puzzle.order,
+                  solution: puzzle.solution[0],
+                  clueImages: puzzle.clueImages.cast<String>()
+                );
+                overlayMap.addAll({
+                  puzzle.type: pigpenCipher.build
+                });
+              }
+              else if (puzzle.type == 'GuessTheNumber') {
+                GuessTheNumber guessTheNumber = GuessTheNumber(
+                  order: puzzle.order,
+                  solutions: puzzle.solution.cast<String>(),
+                  clueTexts: puzzle.clueTexts
+                );
+                overlayMap.addAll({
+                  puzzle.type: guessTheNumber.build
+                });
+              }
+              else if (puzzle.type == 'ButtonOrder') {
+                List<String> buttonOrderClueList = puzzles[3].clueImages.cast<String>();
+                String buttonOrderClue = buttonOrderClueList[Random().nextInt(buttonOrderClueList.length)];
+                _getOrderList(buttonOrderClue);
+                ButtonOrder buttonOrder = ButtonOrder(
+                  order: puzzle.order,
+                  clueImage: buttonOrderClue
+                );
+                overlayMap.addAll({
+                  puzzle.type: buttonOrder.build
+                });
+              }
             }
+            puzzleShowClue.value['MainPuzzle'] = mainPuzzle.initialShowClue;
+            
+            final piGame = PIGame(mainPuzzle: mainPuzzle);
+
+            return PopScope(
+              canPop: false,
+              onPopInvoked: (_) {
+                for (var overlay in constants.flameOverlays) {
+                  if (piGame.overlays.isActive(overlay)) {
+                    piGame.overlays.remove(overlay);
+                    break;
+                  }
+                  if (overlay == 'PauseMenu') {
+                    piGame.overlays.add('PauseMenu');
+                  }
+                }
+              },
+              child: GameWidget<PIGame>(
+                game: piGame,
+                overlayBuilderMap: overlayMap,
+              ),
+            );
           }
-        },
-        child: GameWidget<PIGame>(
-          game: piGame,
-          overlayBuilderMap: {
-            'MainClue': mainClue.build,
-            'MainCorrectAnswer': mainCorrectAnswer.build,
-            'PauseMenu': pauseMenu.build,
-            'SlidePuzzle': slidePuzzle.build,
-            'PigpenCipher': pigpenCipher.build,
-            'GuessTheNumber': guessTheNumber.build,
-            'ButtonOrder': buttonOrder.build
-          },
-        )
+          return const Center(
+            child: CircularProgressIndicator(),
+          );
+        }
       ),
     );
   }
@@ -217,13 +259,8 @@ class PIGame extends FlameGame {
     // add(_visualNovelView);
 
     levelView = LevelView(
-      puzzleCount: 4,
-      puzzleTypes: [
-        'SlidePuzzle',
-        'PigpenCipher',
-        'GuessTheNumber',
-        'ButtonOrder'
-      ]
+      puzzleCount: puzzles.length,
+      puzzleTypes: _puzzleType
     );
     add(levelView);
 
