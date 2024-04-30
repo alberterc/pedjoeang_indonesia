@@ -206,7 +206,6 @@ class _ButtonOrderState extends State<_ButtonOrder> {
   }
 
   void _lose() {
-    // TODO: add lose information
     _reset();
   }
 
