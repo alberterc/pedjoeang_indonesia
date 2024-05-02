@@ -57,7 +57,7 @@ class PigpenCipher {
         height: screenHeight,
         decoration: const BoxDecoration(
           image: DecorationImage(
-            image: AssetImage('assets/images/ui/old_paper.png'),
+            image: AssetImage('assets/images/old_paper.png'),
             fit: BoxFit.fill
           )
         ),
@@ -227,6 +227,6 @@ class _PigpenCipherState extends State<_PigpenCipher> {
   }
 
   void _lose() {
-    // TODO: add lose information
+    // do nothing
   }
 }

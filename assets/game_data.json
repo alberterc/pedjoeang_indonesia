@@ -53,7 +53,7 @@
                     "solution": ["dog oak key map bike knit rage bend chair eagle house table desert origin marble kettle hunting advance reverse dismiss"],
                     "clueTexts": [],
                     "clueImages": [
-                        "assets/images/ui/game/pigpen_cipher.png"
+                        "assets/images/game/pigpen_cipher.png"
                     ],
                     "initialShowClue": false
                 }
@@ -91,7 +91,7 @@
                     "solution": ["dog oak key map bike knit rage bend chair eagle house table desert origin marble kettle hunting advance reverse dismiss"],
                     "clueTexts": [],
                     "clueImages": [
-                        "assets/images/ui/game/pigpen_cipher.png"
+                        "assets/images/game/pigpen_cipher.png"
                     ],
                     "initialShowClue": false
                 },
@@ -159,7 +159,7 @@
                     "solution": ["dog oak key map bike knit rage bend chair eagle house table desert origin marble kettle hunting advance reverse dismiss"],
                     "clueTexts": [],
                     "clueImages": [
-                        "assets/images/ui/game/pigpen_cipher.png"
+                        "assets/images/game/pigpen_cipher.png"
                     ],
                     "initialShowClue": false
                 },
@@ -200,7 +200,7 @@
                     "solution": [],
                     "clueTexts": [],
                     "clueImages": [
-                        "assets/images/ui/game/button_order_clue.png"
+                        "assets/images/game/button_order_clue.png"
                     ],
                     "initialShowClue": false
                 }

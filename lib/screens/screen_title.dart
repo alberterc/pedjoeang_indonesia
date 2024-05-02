@@ -23,7 +23,7 @@ class ScreenTitle extends StatelessWidget {
           width: MediaQuery.of(context).size.width,
           decoration: const BoxDecoration(
             image: DecorationImage(
-              image: AssetImage('assets/images/ui/old_paper.png'),
+              image: AssetImage('assets/images/old_paper.png'),
               fit: BoxFit.fill
             )
           ),
@@ -40,7 +40,7 @@ class ScreenTitle extends StatelessWidget {
                       width: 8.0
                     )
                   ),
-                  child: Image.asset('assets/images/ui/menu/game_title.png')
+                  child: Image.asset('assets/images/menu/game_title.png')
                 ),
                 _gap,
                 Text(

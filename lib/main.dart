@@ -39,13 +39,13 @@ class Game extends StatelessWidget {
   const Game({super.key});
 
   final List<String> _assets = const [
-    'assets/images/ui/old_paper.png',
-    'assets/images/ui/menu/game_title.png',
-    'assets/images/ui/menu/published_text.png',
-    'assets/images/ui/menu/headline_1.png',
-    'assets/images/ui/menu/headline_2.png',
-    'assets/images/ui/menu/dummy_text.png',
-    'assets/images/ui/menu/selector_hand_sprite.png'
+    'assets/images/old_paper.png',
+    'assets/images/menu/game_title.png',
+    'assets/images/menu/published_text.png',
+    'assets/images/menu/headline_1.png',
+    'assets/images/menu/headline_2.png',
+    'assets/images/menu/dummy_text.png',
+    'assets/images/menu/selector_hand_sprite.png'
   ];
 
   @override
