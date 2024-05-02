@@ -144,11 +144,8 @@ class _ButtonOrderState extends State<_ButtonOrder> {
           title: 'Urutan Tombol yang Benar',
           spacing: 64.0,
           showClue: value['ButtonOrder']!,
-          clue: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              widget.clueImageWidget
-            ],
+          clue: Container(
+            child: widget.clueImageWidget
           ),
           body: SizedBox(
             width: widget.screenWidth * 0.25,

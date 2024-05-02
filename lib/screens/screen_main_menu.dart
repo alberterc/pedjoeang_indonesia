@@ -8,6 +8,7 @@ import 'package:go_router/go_router.dart';
 
 import '../constants/constants.dart' as constants;
 import '../game/style/palette.dart';
+import '../main.dart';
 import '../models/game_data.dart';
 
 class ScreenMainMenu extends StatefulWidget {
@@ -23,7 +24,7 @@ class _ScreenMainMenuState extends State<ScreenMainMenu> {
     final palette = context.watch<Palette>();
 
     return FutureBuilder<GameData>(
-      future: _getGameData(),
+      future: getGameData(),
       builder: (context, snapshot) {
         if (snapshot.hasData && snapshot.connectionState == ConnectionState.done) {
           return _getMainMenuScreen(palette, snapshot.data);
@@ -139,12 +140,21 @@ class _ScreenMainMenuState extends State<ScreenMainMenu> {
       direction: Axis.vertical,
       children: [
         _getTextButton('Mulai Main', () {
-          GoRouter.of(context).push(
-            '/intro',
-            extra: {
-              'gameData': gameData
+          playerProvider.getPlayers().then((value) {
+            if (value[0].currLevel == -1) {
+              GoRouter.of(context).push(
+                '/outro'
+              );
             }
-          );
+            else {
+              GoRouter.of(context).push(
+                '/intro',
+                extra: {
+                  'gameData': gameData
+                }
+              );
+            }
+          });
         }),
         _getTextButton('Keluar', () {
           GoRouter.of(context).go('/');
@@ -212,12 +222,11 @@ class _ScreenMainMenuState extends State<ScreenMainMenu> {
       )
     );
   }
+}
+Future<GameData> getGameData() async {
+  final gameDataJsonStr = await rootBundle.loadString('assets/game_data.json');
+  final gameDataJson = jsonDecode(gameDataJsonStr);
+  final parsedGameDataJson = GameData.fromJson(gameDataJson);
 
-  Future<GameData> _getGameData() async {
-    final gameDataJsonStr = await rootBundle.loadString('assets/game_data.json');
-    final gameDataJson = jsonDecode(gameDataJsonStr);
-    final parsedGameDataJson = GameData.fromJson(gameDataJson);
-
-    return parsedGameDataJson;
-  }
+  return parsedGameDataJson;
 }
