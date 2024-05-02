@@ -14,12 +14,12 @@ class AppLifecycleObserver extends StatefulWidget {
 class _AppLifecycleObserverState extends State<AppLifecycleObserver> {
   late final AppLifecycleListener _appLifecycleListener;
 
-  final ValueNotifier<AppLifecycleState> lifecycleListenable = ValueNotifier(AppLifecycleState.inactive);
+  final ValueNotifier<AppLifecycleState> _lifecycleListenable = ValueNotifier(AppLifecycleState.inactive);
 
   @override
   Widget build(BuildContext context) {
     return InheritedProvider<AppLifecycleStateNotifier>.value(
-      value: lifecycleListenable,
+      value: _lifecycleListenable,
       child: widget.child
     );
   }
@@ -34,7 +34,7 @@ class _AppLifecycleObserverState extends State<AppLifecycleObserver> {
   void initState() {
     super.initState();
     _appLifecycleListener = AppLifecycleListener(
-      onStateChange: (s) => lifecycleListenable.value = s,
+      onStateChange: (s) => _lifecycleListenable.value = s,
     );
   }
 }

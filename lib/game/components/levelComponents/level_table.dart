@@ -2,7 +2,7 @@ import 'dart:async';
 
 import 'package:flame/components.dart';
 
-import '../../../widgets/screen_game.dart';
+import '../../../screens/screen_game.dart';
 
 class LevelTable extends PositionComponent with HasGameReference<PIGame>, Snapshot {
   late SpriteComponent background;

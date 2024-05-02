@@ -3,7 +3,7 @@ import 'package:go_router/go_router.dart';
 
 import '../../main.dart';
 import '../../models/player.dart';
-import '../../widgets/screen_game.dart';
+import '../../screens/screen_game.dart';
 import '../../constants/constants.dart' as constants;
 
 class MainCorrectAnswer {

@@ -43,7 +43,7 @@ class _ScreenIntroState extends State<ScreenIntro> {
               width: MediaQuery.of(context).size.width,
               decoration: const BoxDecoration(
                 image: DecorationImage(
-                  image: AssetImage('assets/images/background.png'),
+                  image: AssetImage('assets/images/ui/bricks.png'),
                   fit: BoxFit.fill
                 )
               ),
@@ -56,7 +56,7 @@ class _ScreenIntroState extends State<ScreenIntro> {
                     image: DecorationImage(
                       image: AssetImage('assets/images/ui/old_paper.png'),
                       fit: BoxFit.fill
-                    )
+                    ),
                   ),
                   child: Center(
                     child: Padding(

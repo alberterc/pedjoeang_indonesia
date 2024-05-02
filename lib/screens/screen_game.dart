@@ -210,22 +210,14 @@ class PIGame extends FlameGame {
   late Map<String, Sprite> envelopeIconSprite;
   late Map<String, Sprite> menuIconSprite;
   late Map<String, Sprite> checkmarkIconSprite;
-  late Sprite yuriSprite;
-  late Sprite mikoSprite;
-  // final YarnProject _yarnProject = YarnProject();
-  // final VisualNovelView _visualNovelView = VisualNovelView();
   late LevelView levelView;
   
   @override
   Future<void> onLoad() async {
     uiButtonSize = Vector2(size.x * 0.05, size.x * 0.05);
-    
-    // TODO: decide game assets loading
-    // should all assets for both the visual novel view and level view be pre-loaded after the player presses "Start Game"
-    // or should they be loaded every time the player changes between the views?
 
-    // load image assets for game
-    bgSprite = await loadSprite('ui/game/BG_Mini_Castle_Dark_Gray.png', srcSize: Vector2(600, 360));
+    // load sprite assets for game
+    bgSprite = await loadSprite('ui/bricks.png');
     tableSprite = await loadSprite('ui/game/table.png');
     mainPuzzleBgSprite = await loadSprite('ui/game/broken_paper.png');
     smallPuzzleBgSprite = await loadSprite('ui/game/small_paper.png');
@@ -247,16 +239,6 @@ class PIGame extends FlameGame {
       'dark': await loadSprite('ui/game/checkmark_icon.png'),
       'light': await loadSprite('ui/game/checkmark_icon_light.png'),
     };
-
-    yuriSprite = await loadSprite('yuri.png');
-    mikoSprite = await loadSprite('miko.png');
-
-    // String startDialogueData = await rootBundle.loadString('assets/dialogue.yarn');
-    // _yarnProject.parse(startDialogueData);
-    // var dialogueRunner = DialogueRunner(yarnProject: _yarnProject, dialogueViews: [_visualNovelView]);
-    
-    // dialogueRunner.startDialogue('Library_Meeting');
-    // add(_visualNovelView);
 
     levelView = LevelView(
       puzzleCount: puzzles.length,

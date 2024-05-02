@@ -8,9 +8,9 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 import '../../../models/puzzle.dart';
-import '../../../widgets/screen_game.dart';
+import '../../../screens/screen_game.dart';
 import '../../../constants/constants.dart' as constants;
-import '../menuComponents/button.dart';
+import '../uiComponents/custom_togglable_button.dart';
 
 class MainPuzzleBox extends PositionComponent with HasGameReference<PIGame> {
   late Puzzle puzzle;
@@ -101,7 +101,7 @@ class CellsBox extends PositionComponent with HasGameReference<PIGame>, Snapshot
   dart_ui.Image Function() getCellsBoxImage;
   late Puzzle puzzle;
   late int grid;
-  late List<List<Button>> cells;
+  late List<List<CustomTogglableButton>> cells;
 
   @override
   FutureOr<void> onLoad() {
@@ -140,7 +140,7 @@ class CellsBox extends PositionComponent with HasGameReference<PIGame>, Snapshot
       }
     }
 
-    cells = List.generate(grid, (i) => List.generate(grid, (j) => Button(
+    cells = List.generate(grid, (i) => List.generate(grid, (j) => CustomTogglableButton(
       onTapUpEvent: (event, _, isSelected) {
         isSelected ? mainPuzzleSelectedItems.add(gridChar[i * grid + j]) : mainPuzzleSelectedItems.remove(gridChar[i * grid + j]);
         _checkAnswer();
@@ -148,11 +148,13 @@ class CellsBox extends PositionComponent with HasGameReference<PIGame>, Snapshot
       text: gridChar[i * grid + j],
       showBorder: true,
       showText: true,
-      color: Colors.black
+      color: Colors.black,
+      selectedColor: Colors.white,
+      borderColor: Colors.white,
+      selectedBorderColor: Colors.black,
+      borderWidth: 1.0
     )
       ..size = Vector2(size.x * 0.15, size.x * 0.15)
-      ..borderColor = Colors.white
-      ..borderWidth = 1.0
       ..anchor = Anchor.center
     ));
 
