@@ -2,10 +2,10 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-import '../../../widgets/partials/custom_close_button_icon.dart';
-import '../../../widgets/partials/puzzle_body.dart';
-import '../../../widgets/partials/puzzle_status.dart';
-import '../../../widgets/screen_game.dart';
+import '../../../screens/partials/custom_close_button_icon.dart';
+import '../../../screens/partials/puzzle_body.dart';
+import '../../../screens/partials/puzzle_status.dart';
+import '../../../screens/screen_game.dart';
 import '../../../constants/constants.dart' as constants;
 
 late String solution;

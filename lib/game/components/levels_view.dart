@@ -2,11 +2,10 @@ import 'dart:async';
 
 import 'package:flame/components.dart';
 import 'package:flame/input.dart';
-import 'package:flame/rendering.dart';
 import 'package:flutter/material.dart';
 
 import '../../constants/constants.dart' as constants;
-import '../../widgets/screen_game.dart';
+import '../../screens/screen_game.dart';
 import 'levelComponents/level_puzzle.dart';
 import 'levelComponents/level_table.dart';
 import 'levelComponents/main_puzzle_box.dart';
@@ -45,7 +44,6 @@ class LevelView extends PositionComponent with HasGameReference<PIGame> {
 
     background = SpriteComponent()
       ..sprite = game.bgSprite
-      ..decorator = PaintDecorator.tint(const Color.fromARGB(28, 230, 201, 129))
       ..priority = renderPriority['background']!
       ..size = game.size;
 

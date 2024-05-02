@@ -10,16 +10,6 @@ class ScreenTitle extends StatelessWidget {
   
   static const _gap = SizedBox(height: 48.0);
 
-  Future<void> onloadImages(String imagePath, context) async {
-    await precacheImage(const AssetImage('assets/images/ui/old_paper.png'), context);
-    await precacheImage(const AssetImage('assets/images/ui/menu/game_title.png'), context);
-    await precacheImage(const AssetImage('assets/images/ui/menu/published_text.png'), context);
-    await precacheImage(const AssetImage('assets/images/ui/menu/headline_1.png'), context);
-    await precacheImage(const AssetImage('assets/images/ui/menu/headline_2.png'), context);
-    await precacheImage(const AssetImage('assets/images/ui/menu/dummy_text.png'), context);
-    await precacheImage(const AssetImage('assets/images/ui/menu/selector_hand_sprite.png'), context);
-  }
-
   @override
   Widget build(BuildContext context) {
     final palette = context.watch<Palette>();

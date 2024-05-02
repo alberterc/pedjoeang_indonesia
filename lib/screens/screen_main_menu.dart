@@ -50,7 +50,6 @@ class _ScreenMainMenuState extends State<ScreenMainMenu> {
           child: Column(
             children: [
               Column(
-                // mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Container(
                     padding: const EdgeInsets.only(bottom: 4.0),

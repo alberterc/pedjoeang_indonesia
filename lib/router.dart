@@ -1,9 +1,9 @@
 import 'package:go_router/go_router.dart';
 
-import 'widgets/screen_title.dart';
-import 'widgets/screen_main_menu.dart';
-import 'widgets/screen_intro.dart';
-import 'widgets/screen_game.dart';
+import 'screens/screen_title.dart';
+import 'screens/screen_main_menu.dart';
+import 'screens/screen_intro.dart';
+import 'screens/screen_game.dart';
 
 final router = GoRouter(
   routes: [

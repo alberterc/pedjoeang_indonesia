@@ -17,10 +17,7 @@ late PlayerProvider playerProvider;
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Flame.device.fullScreen();
-  await Flame.device.setLandscapeRightOnly();
-  
-  // pre-load bgm audio file
-  // await FlameAudio.audioCache.load('music/bgm.mp3');
+  await Flame.device.setLandscape();
 
   playerProvider = PlayerProvider(
     dbPath: join(await getDatabasesPath(), 'player_database.db'),
@@ -41,8 +38,19 @@ void main() async {
 class Game extends StatelessWidget {
   const Game({super.key});
 
+  final List<String> _assets = const [
+    'assets/images/ui/old_paper.png',
+    'assets/images/ui/menu/game_title.png',
+    'assets/images/ui/menu/published_text.png',
+    'assets/images/ui/menu/headline_1.png',
+    'assets/images/ui/menu/headline_2.png',
+    'assets/images/ui/menu/dummy_text.png',
+    'assets/images/ui/menu/selector_hand_sprite.png'
+  ];
+
   @override
-  Widget build(BuildContext context) {   
+  Widget build(BuildContext context) {
+    _cacheImageAssets(_assets, context);
     return Sizer(
       builder: (context, orientation, deviceType) {
         return AppLifecycleObserver(
@@ -147,5 +155,11 @@ class Game extends StatelessWidget {
         );
       }
     );
+  }
+
+  void _cacheImageAssets(List<String> assets, BuildContext context) {
+    for (var asset in assets) {
+      precacheImage(Image.asset(asset, gaplessPlayback: true).image, context);
+    }
   }
 }

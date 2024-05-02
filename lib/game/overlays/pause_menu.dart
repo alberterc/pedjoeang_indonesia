@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
-import '../../widgets/screen_game.dart';
+import '../../screens/screen_game.dart';
 import '../../constants/constants.dart' as constants;
 
 class PauseMenu {

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../widgets/screen_game.dart';
+import '../../screens/screen_game.dart';
 
 class MainClue {
   const MainClue();
