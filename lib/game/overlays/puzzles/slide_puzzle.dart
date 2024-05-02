@@ -40,7 +40,6 @@ class SlidePuzzle {
       );
     }
     _SlidePuzzle slidePuzzle = _SlidePuzzle(
-      game: game,
       puzzleOrder: order,
       boardSize: boardSize,
       solution: solution,
@@ -91,7 +90,6 @@ class SlidePuzzle {
 
 class _SlidePuzzle extends StatefulWidget {
   const _SlidePuzzle({
-    required this.game,
     required this.puzzleOrder,
     required this.boardSize,
     required this.solution,
@@ -100,7 +98,6 @@ class _SlidePuzzle extends StatefulWidget {
     required this.clueWidgetTextList,
   });
   
-  final PIGame game;
   final int puzzleOrder;
   final int boardSize;
   final List<int> solution;
@@ -196,7 +193,7 @@ class _SlidePuzzleState extends State<_SlidePuzzle> {
                           setState(() {
                             boardNumbers = newList;
                             if (_checkAnswer(boardNumbers, solution)) {
-                              _win(widget.game);
+                              _win();
                             }
                             _isPuzzleDone = puzzleDone.value['SlidePuzzle']!;
                           });
@@ -224,7 +221,7 @@ class _SlidePuzzleState extends State<_SlidePuzzle> {
     );
   }
 
-  void _win(PIGame game) {
+  void _win() {
     puzzleDone.value['SlidePuzzle'] = true;
     if (!puzzleDone.value.containsValue(false)) {
       puzzleShowClue.value['MainPuzzle'] = true;

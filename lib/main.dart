@@ -32,11 +32,11 @@ void main() async {
     playerProvider.insertPlayer(Player(id: 0, currLevel: 1, unlockedLevelCount: 1));
   }
 
-  runApp(const Game());
+  runApp(const App());
 }
 
-class Game extends StatelessWidget {
-  const Game({super.key});
+class App extends StatelessWidget {
+  const App({super.key});
 
   final List<String> _assets = const [
     'assets/images/old_paper.png',

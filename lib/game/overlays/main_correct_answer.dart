@@ -77,7 +77,7 @@ class MainCorrectAnswer {
                               Player(
                                 id: playerData.id,
                                 currLevel: playerData.currLevel + 1,
-                                unlockedLevelCount: playerData.currLevel + 1 > playerData.unlockedLevelCount ? playerData.unlockedLevelCount + 1 : playerData.unlockedLevelCount
+                                unlockedLevelCount: playerData.currLevel != -1 ? playerData.unlockedLevelCount + 1 : playerData.unlockedLevelCount
                               )
                             );
 
@@ -99,7 +99,33 @@ class MainCorrectAnswer {
                                 fontSize: constants.fontTiny
                             )
                           ),
-                        ) : Container()
+                        ) : TextButton(
+                          onPressed: () async {
+                            game.overlays.remove('MainCorrectAnswer');
+
+                            playerProvider.updatePlayer(
+                              Player(
+                                id: playerData.id,
+                                currLevel: -1,
+                                unlockedLevelCount: playerData.currLevel != -1 ? playerData.unlockedLevelCount + 1 : playerData.unlockedLevelCount
+                              )
+                            );
+
+                            GoRouter.of(context).go(
+                              '/outro'
+                            );
+                          },
+                          style: TextButton.styleFrom(
+                            padding: const EdgeInsets.all(8.0),
+                            minimumSize: Size.zero,
+                          ),
+                          child: Text(
+                            'Selesai',
+                            style: TextStyle(
+                                fontSize: constants.fontTiny
+                            )
+                          )
+                        )
                       ],
                     ),
                   )

@@ -1,6 +1,7 @@
 import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:pedjoeang_indonesia/screens/partials/unordered_list.dart';
 
 import '../../../screens/partials/custom_close_button_icon.dart';
 import '../../../screens/partials/puzzle_body.dart';
@@ -28,21 +29,12 @@ class GuessTheNumber {
 
     var random = Random().nextInt(solutions.length);
     List<String> randomClue = clueTexts[random].cast<String>();
-    List<Widget> clueTextWidgetList = [];
-    for (var clue in randomClue) {
-      clueTextWidgetList.add(
-        Text(
-          clue,
-          style: TextStyle(fontSize: constants.fontTinyLarge)
-        )
-      );
-    }
 
     solution = solutions[random];
 
     _GuessTheNumber guessTheNumber = _GuessTheNumber(
       puzzleOrder: order,
-      clueTextWidgetList: clueTextWidgetList
+      clueTextList: randomClue
     );
 
     return Positioned(
@@ -88,11 +80,11 @@ class GuessTheNumber {
 class _GuessTheNumber extends StatefulWidget {
   const _GuessTheNumber({
     required this.puzzleOrder,
-    required this.clueTextWidgetList
+    required this.clueTextList
   });
 
   final int puzzleOrder;
-  final List<Widget> clueTextWidgetList;
+  final List<String> clueTextList;
 
   @override
   State<_GuessTheNumber> createState() => _GuessTheNumberState();
@@ -124,10 +116,11 @@ class _GuessTheNumberState extends State<_GuessTheNumber> {
           spacing: 32.0,
           showClue: value['GuessTheNumber']!,
           clue: Center(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: widget.clueTextWidgetList,
+            child: SingleChildScrollView(
+              child: UnorderedList(
+                texts: widget.clueTextList,
+                fontSize: constants.fontTinyLarge
+              ),
             ),
           ),
           body: Column(

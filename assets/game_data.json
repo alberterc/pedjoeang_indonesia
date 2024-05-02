@@ -1,6 +1,7 @@
 {
-    "intro": {
-        "text": "Di dalam ruang penyimpanan yang redup di sebuah museum yang terlupakan, seorang sejarawan menemukan sebuah artefak yang hilang dari waktu—sebuah buku yang sudah tua terikat dengan kulit kuno, halamannya menceritakan kisah-kisah peradaban yang telah lama hilang. Saat ia dengan hati-hati membersihkan debu dari masa lalu, tulisan kriptik di dalamnya bergerak di depan mata, menunjukkan adanya rahasia yang tersembunyi di dalamnya. Didorong oleh keinginan untuk mengetahui lebih banyak, sejarawan itu memulai perjalanan penemuan, setiap halaman adalah teka-teki yang menunggu untuk dipecahkan."
+    "narration": {
+        "intro": "Introo",
+        "outro": "Outrooo"
     },
     "levels": [
         {
@@ -23,9 +24,9 @@
             "mainPuzzle": {
                 "order": 0,
                 "type": "MainPuzzle",
-                "title": "Pertanyaan mengenai sejarah penjajahan di Indonesia 1",
+                "title": "Setelah terjadinya pengeboman Pearl Harbor, pada tanggal berapa Jepang pertama kali mendarat di Indonesia?",
                 "solution": [],
-                "clueTexts": ["Jawaban Sejarah"],
+                "clueTexts": ["10 Januari 1942"],
                 "clueImages": [],
                 "initialShowClue": false
             }
@@ -61,9 +62,9 @@
             "mainPuzzle": {
                 "order": 0,
                 "type": "MainPuzzle",
-                "title": "Pertanyaan mengenai sejarah penjajahan di Indonesia 2",
+                "title": "Siapa Letnan Jenderal yang memimpin awal penjajahan Jepang di Indonesia?",
                 "solution": [],
-                "clueTexts": ["Jawaban Sejarah"],
+                "clueTexts": ["Hitoshi Imamura"],
                 "clueImages": [],
                 "initialShowClue": false
             }
@@ -99,27 +100,17 @@
                     "order": 3,
                     "type": "GuessTheNumber",
                     "title": "Tebak Angka",
-                    "solution": ["1234", "2341", "3412", "4123", "6009"],
+                    "solution": ["1942", "2341"],
                     "clueTexts": [
                         [
-                            "Digit pertama",
-                            "Digit kedua"
+                            "Digit pertama adalah bilangan asli yang dapat menjadi faktor dari semua bilangan asli lainnya.",
+                            "Digit kedua adalah bilangan non-prima yang terakhir yang dapat dibagi 3 namun lebih kecil dari 10.",
+                            "Digit ketiga adalah bilangan asli dan merupakan hasil pengkuadratan dari digit keempat.",
+                            "Digit keempat adalah satu-satunya bilangan prima yang termasuk dalam bilangan genap."
                         ],
                         [
                             "Digit kedua",
                             "Digit ketiga"
-                        ],
-                        [
-                            "Digit ketiga",
-                            "Digit keempat"
-                        ],
-                        [
-                            "Digit keempat",
-                            "Digit pertama"
-                        ],
-                        [
-                            "Digit keenam",
-                            "Digit kesembilan"
                         ]
                     ],
                     "clueImages": [],
@@ -129,9 +120,9 @@
             "mainPuzzle": {
                 "order": 0,
                 "type": "MainPuzzle",
-                "title": "Pertanyaan mengenai sejarah penjajahan di Indonesia 3",
+                "title": "Siapa yang menjadi target penangkapan Jepang pada Januari 1943?",
                 "solution": [],
-                "clueTexts": ["Jawaban Sejarah"],
+                "clueTexts": ["Amir Sjarifuddin"],
                 "clueImages": [],
                 "initialShowClue": false
             }
@@ -208,9 +199,9 @@
             "mainPuzzle": {
                 "order": 0,
                 "type": "MainPuzzle",
-                "title": "Pertanyaan mengenai sejarah penjajahan di Indonesia 4",
+                "title": "Dimana letak serangan tentara PETA terhadap gudang senjata Jepang?",
                 "solution": [],
-                "clueTexts": ["Jawaban Sejarah"],
+                "clueTexts": ["Blitar"],
                 "clueImages": [],
                 "initialShowClue": false
             }

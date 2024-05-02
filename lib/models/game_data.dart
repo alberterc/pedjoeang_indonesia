@@ -1,18 +1,18 @@
-import 'intro.dart';
+import 'narration.dart';
 import 'levels.dart';
 
 class GameData {
   GameData({
-    required this.intro,
+    required this.narration,
     required this.levels
   });
 
-  final Intro intro;
+  final Narration narration;
   final Levels levels;
 
   factory GameData.fromJson(Map<String, dynamic> json) {
     return GameData(
-      intro: Intro.fromJson(json['intro']),
+      narration: Narration.fromJson(json['narration']),
       levels: Levels.fromJson(json['levels'])
     );
   }
