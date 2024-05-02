@@ -41,7 +41,7 @@ class _ScreenMainMenuState extends State<ScreenMainMenu> {
         width: MediaQuery.of(context).size.width,
         decoration: const BoxDecoration(
           image: DecorationImage(
-            image: AssetImage('assets/images/ui/old_paper.png'),
+            image: AssetImage('assets/images/old_paper.png'),
             fit: BoxFit.fill
           )
         ),
@@ -61,12 +61,12 @@ class _ScreenMainMenuState extends State<ScreenMainMenu> {
                         )
                       )
                     ),
-                    child: Image.asset('assets/images/ui/menu/published_text.png')
+                    child: Image.asset('assets/images/menu/published_text.png')
                   ),
                   const SizedBox(height: 8.0,),
                   SizedBox(
                     width: MediaQuery.of(context).size.width,
-                    child: Image.asset('assets/images/ui/menu/game_title.png')
+                    child: Image.asset('assets/images/menu/game_title.png')
                   ),
                 ],
               ),
@@ -95,9 +95,9 @@ class _ScreenMainMenuState extends State<ScreenMainMenu> {
                       width: MediaQuery.of(context).size.width / 3.75,
                       child: Column(
                         children: [
-                          Image.asset('assets/images/ui/menu/headline_1.png'),
+                          Image.asset('assets/images/menu/headline_1.png'),
                           const SizedBox(height: 8.0,),
-                          Image.asset('assets/images/ui/menu/dummy_text.png')
+                          Image.asset('assets/images/menu/dummy_text.png')
                         ],
                       ),
                     ),
@@ -115,9 +115,9 @@ class _ScreenMainMenuState extends State<ScreenMainMenu> {
                       width: MediaQuery.of(context).size.width / 3.75,
                       child: Column(
                         children: [
-                          Image.asset('assets/images/ui/menu/dummy_text.png'),
+                          Image.asset('assets/images/menu/dummy_text.png'),
                           const SizedBox(height: 8.0,),
-                          Image.asset('assets/images/ui/menu/headline_2.png')
+                          Image.asset('assets/images/menu/headline_2.png')
                         ],
                       )
                     ),
@@ -199,7 +199,7 @@ class _ScreenMainMenuState extends State<ScreenMainMenu> {
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           Image.asset(
-            'assets/images/ui/menu/selector_hand_sprite.png',
+            'assets/images/menu/selector_hand_sprite.png',
           ),
           Text(
             text,

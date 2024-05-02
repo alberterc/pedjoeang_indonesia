@@ -27,9 +27,8 @@ flutter:
   assets:
     - assets/
     - assets/images/
-    - assets/images/ui/
-    - assets/images/ui/menu/
-    - assets/images/ui/game/
+    - assets/images/menu/
+    - assets/images/game/
   fonts:
     - family: Pixeloid
       fonts:

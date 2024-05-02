@@ -217,27 +217,27 @@ class PIGame extends FlameGame {
     uiButtonSize = Vector2(size.x * 0.05, size.x * 0.05);
 
     // load sprite assets for game
-    bgSprite = await loadSprite('ui/bricks.png');
-    tableSprite = await loadSprite('ui/game/table.png');
-    mainPuzzleBgSprite = await loadSprite('ui/game/broken_paper.png');
-    smallPuzzleBgSprite = await loadSprite('ui/game/small_paper.png');
+    bgSprite = await loadSprite('bricks.png');
+    tableSprite = await loadSprite('game/table.png');
+    mainPuzzleBgSprite = await loadSprite('game/broken_paper.png');
+    smallPuzzleBgSprite = await loadSprite('game/small_paper.png');
     smallPuzzleIcon = [
-      await loadSprite('ui/game/small_grid.png'),
-      await loadSprite('ui/game/small_pigpen.png'),
-      await loadSprite('ui/game/small_guess_num.png'),
-      await loadSprite('ui/game/small_btn_order.png')
+      await loadSprite('game/small_grid.png'),
+      await loadSprite('game/small_pigpen.png'),
+      await loadSprite('game/small_guess_num.png'),
+      await loadSprite('game/small_btn_order.png')
     ];
     envelopeIconSprite = {
-      'dark': await loadSprite('ui/game/envelope_icon.png'),
-      'light': await loadSprite('ui/game/envelope_icon_light.png'),
+      'dark': await loadSprite('game/envelope_icon.png'),
+      'light': await loadSprite('game/envelope_icon_light.png'),
     };
     menuIconSprite = {
-      'dark': await loadSprite('ui/game/menu_icon.png'),
-      'light': await loadSprite('ui/game/menu_icon_light.png'),
+      'dark': await loadSprite('game/menu_icon.png'),
+      'light': await loadSprite('game/menu_icon_light.png'),
     };
     checkmarkIconSprite = {
-      'dark': await loadSprite('ui/game/checkmark_icon.png'),
-      'light': await loadSprite('ui/game/checkmark_icon_light.png'),
+      'dark': await loadSprite('game/checkmark_icon.png'),
+      'light': await loadSprite('game/checkmark_icon_light.png'),
     };
 
     levelView = LevelView(

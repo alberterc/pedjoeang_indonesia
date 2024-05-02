@@ -36,7 +36,7 @@ class MainCorrectAnswer {
               width: screenWidth * 0.65,
               decoration: const BoxDecoration(
                 image: DecorationImage(
-                  image: AssetImage('assets/images/ui/old_paper.png'),
+                  image: AssetImage('assets/images/old_paper.png'),
                   fit: BoxFit.fill
                 )
               ),
