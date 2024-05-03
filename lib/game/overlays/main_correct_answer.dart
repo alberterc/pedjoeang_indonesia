@@ -151,7 +151,7 @@ class MainCorrectAnswer {
                         ),
                         const SizedBox(height: 16.0),
                         Text(
-                          'Salah Bro, coba lagi :)',
+                          'Jawaban salah, coba lagi',
                           style: TextStyle(
                             color: Colors.black,
                             fontSize: constants.fontTinyLarge
