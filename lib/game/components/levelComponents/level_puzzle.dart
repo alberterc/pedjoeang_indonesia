@@ -4,40 +4,30 @@ import 'package:flame/events.dart';
 import 'package:flutter/material.dart';
 import 'package:flame/components.dart';
 
-import '../../screen_game.dart';
+import '../../../screens/screen_game.dart';
+import '../../../constants/constants.dart' as constants;
 
-
-class LevelPuzzle extends PositionComponent with HasGameReference<ScreenGame>, TapCallbacks {
+class LevelPuzzle extends PositionComponent with HasGameReference<PIGame>, TapCallbacks, Snapshot {
   LevelPuzzle({
     required this.onTapUpEvent
   });
 
-  Color get puzzleBoxColor => boxColor;
-  set puzzleBoxColor(Color puzzleBoxColor) => boxColor = puzzleBoxColor;
-
-  String get puzzleBoxText => boxText;
-  set puzzleBoxText(String puzzleBoxText) => boxText = puzzleBoxText;
-
-  Color boxColor = const Color.fromARGB(255, 255, 255, 255);
-  String boxText = '';
-  final Function(TapUpEvent, String) onTapUpEvent;
-
-  late TextBoxComponent text;
-  late TextPaint textPaint;
-  late SpriteComponent box;
+  final String _boxText = '';
+  final Function(TapUpEvent) onTapUpEvent;
+  late Sprite smallIcon;
   
   @override
   FutureOr<void> onLoad() {
-    textPaint = TextPaint(
-      style: const TextStyle(
-        fontSize: 16,
-        // color: game.palette.fontMain.color
-        color: Colors.white
+    final textPaint = TextPaint(
+      style: TextStyle(
+        fontSize: constants.fontSmall,
+        color: constants.fontColorMain,
+        fontFamily: 'Pixeloid'
       )
     );
 
-    text = TextBoxComponent(
-      text: boxText,
+    final text = TextBoxComponent(
+      text: _boxText,
       textRenderer: textPaint,
       align: Anchor.center,
       size: size,
@@ -47,16 +37,21 @@ class LevelPuzzle extends PositionComponent with HasGameReference<ScreenGame>, T
       )
     );
 
-    // box = SpriteComponent(
-    //   sprite: Sprite(
-    //     game.images.fromCache('background.png')
-    //   ),
-    //   size: size,
-    //   paint: Paint()..color = boxColor
-    // );
+    final icon = SpriteComponent(
+      sprite: smallIcon,
+      position: Vector2(size.x / 2, size.y / 2),
+      anchor: Anchor.center,
+      size: smallIcon.srcSize * 1.25
+    );
+
+    final background = SpriteComponent(
+      sprite: game.smallPuzzleBgSprite,
+      size: size
+    );
 
     addAll([
-      // box,
+      background,
+      icon,
       text
     ]);
 
@@ -66,14 +61,6 @@ class LevelPuzzle extends PositionComponent with HasGameReference<ScreenGame>, T
   @override
   void onTapUp(TapUpEvent event) {
     super.onTapUp(event);
-    onTapUpEvent(event, boxText);
-  }
-
-  @override
-  void render(Canvas canvas) {
-    canvas.drawRect(
-      Rect.fromLTWH(0, 0, size.x, size.y),
-      Paint()..color = boxColor
-    );
+    onTapUpEvent(event);
   }
 }

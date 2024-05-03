@@ -1,10 +1,10 @@
-import 'package:flame/game.dart';
 import 'package:go_router/go_router.dart';
 
-import 'widgets/screen_title.dart';
-import 'widgets/screen_main_menu.dart';
-import 'widgets/screen_settings.dart';
-import 'game/screen_game.dart';
+import 'screens/screen_outro.dart';
+import 'screens/screen_title.dart';
+import 'screens/screen_main_menu.dart';
+import 'screens/screen_intro.dart';
+import 'screens/screen_game.dart';
 
 final router = GoRouter(
   routes: [
@@ -17,12 +17,28 @@ final router = GoRouter(
           builder: (context, state) => const ScreenMainMenu(),
         ),
         GoRoute(
-          path: 'game',
-          builder: (context, state) => GameWidget(game: ScreenGame()),
+          path: 'intro',
+          builder: (context, state) {
+            Map<String, dynamic> data = state.extra as Map<String, dynamic>;
+            return ScreenIntro(
+              gameData: data['gameData']!
+            );
+          },
         ),
         GoRoute(
-          path: 'settings',
-          builder: (context, state) => const ScreenSettings(),
+          path: 'game',
+          builder: (context, state) {
+            Map<String, dynamic> data = state.extra as Map<String, dynamic>;
+            return ScreenGame(
+              levelsData: data['levelsData']!
+            );
+          },
+        ),
+        GoRoute(
+          path: 'outro',
+          builder: (context, state) {
+            return const ScreenOutro();
+          },
         )
       ]
     ),

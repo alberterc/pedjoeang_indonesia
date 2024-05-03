@@ -5,6 +5,10 @@
         android:icon="@mipmap/ic_launcher">
         <activity
             android:name=".MainActivity"
+            android:maxAspectRatio="2.4"
+            android:resizeableActivity="false"
+            android:screenOrientation="landscape"
+            android:supportsPictureInPicture="false"
             android:exported="true"
             android:launchMode="singleTop"
             android:theme="@style/LaunchTheme"
