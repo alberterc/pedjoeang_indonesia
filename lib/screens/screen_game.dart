@@ -210,7 +210,6 @@ class PIGame extends FlameGame {
   late Map<String, Sprite> envelopeIconSprite;
   late Map<String, Sprite> menuIconSprite;
   late Map<String, Sprite> checkmarkIconSprite;
-  late LevelView levelView;
   
   @override
   Future<void> onLoad() async {
@@ -240,7 +239,7 @@ class PIGame extends FlameGame {
       'light': await loadSprite('game/checkmark_icon_light.png'),
     };
 
-    levelView = LevelView(
+    final levelView = LevelView(
       puzzleCount: puzzles.length,
       puzzleTypes: _puzzleType
     );

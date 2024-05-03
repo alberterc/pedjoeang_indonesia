@@ -92,7 +92,7 @@ class _GuessTheNumber extends StatefulWidget {
 
 class _GuessTheNumberState extends State<_GuessTheNumber> {
   static const _gap = SizedBox(height: 24.0);
-  var textEditingController = List.generate(4, (index) => TextEditingController());
+  final _textEditingController = List.generate(4, (index) => TextEditingController());
 
   @override
   void initState() {
@@ -129,7 +129,7 @@ class _GuessTheNumberState extends State<_GuessTheNumber> {
                 spacing: 16.0,
                 children: List.generate(4, (index) {
                   return EachTextField(
-                    textController: textEditingController[index]
+                    textController: _textEditingController[index]
                   );
                 }),
               ),
@@ -159,7 +159,7 @@ class _GuessTheNumberState extends State<_GuessTheNumber> {
   }
 
   void _checkAnswer() {
-    final submittedAnswer = List.from(textEditingController.map((e) => e.text)).join();
+    final submittedAnswer = List.from(_textEditingController.map((e) => e.text)).join();
     if (submittedAnswer == solution) {
       _win();
     }

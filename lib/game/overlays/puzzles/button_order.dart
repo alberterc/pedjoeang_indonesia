@@ -96,11 +96,11 @@ class _ButtonOrder extends StatefulWidget {
 class _ButtonOrderState extends State<_ButtonOrder> {
   late List<bool> _selectedButton;
   late List<bool> _isButtonDisabled;
+  late List<int> _pickedItems;
 
-  Map<int, Widget> orderList = solution;
-  Map<int, Widget> questionOrderList = {};
-  List<int> keys = solution.keys.toList();
-  late List<int> pickedItems;
+  final Map<int, Widget> _orderList = solution;
+  final Map<int, Widget> _questionOrderList = {};
+  final List<int> _keys = solution.keys.toList();
 
   static const _gap = SizedBox(height: 24.0);
 
@@ -112,12 +112,12 @@ class _ButtonOrderState extends State<_ButtonOrder> {
     _isPuzzleDone = puzzleDone.value['ButtonOrder']!;
 
     for (int i = 0; i < 4; i++) {
-      var keyIndex = Random().nextInt(keys.length);
-      var pickedKey = keys[keyIndex];
-      questionOrderList[pickedKey] = orderList[pickedKey]!;
-      keys.remove(pickedKey);
+      var keyIndex = Random().nextInt(_keys.length);
+      var pickedKey = _keys[keyIndex];
+      _questionOrderList[pickedKey] = _orderList[pickedKey]!;
+      _keys.remove(pickedKey);
     }
-    pickedItems = questionOrderList.keys.toList();
+    _pickedItems = _questionOrderList.keys.toList();
   }
 
   void _checkButtonOrder(int selectedButton, int selectedItem) {
@@ -171,10 +171,10 @@ class _ButtonOrderState extends State<_ButtonOrder> {
                         ),
                       ),
                       onPressed: () {
-                        _isButtonDisabled[index] ? null : _checkButtonOrder(index, pickedItems[index]);
+                        _isButtonDisabled[index] ? null : _checkButtonOrder(index, _pickedItems[index]);
                       },
                       child: SizedBox(
-                        child: questionOrderList[pickedItems[index]]!
+                        child: _questionOrderList[_pickedItems[index]]!
                       )
                     );
                   }

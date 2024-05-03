@@ -12,24 +12,13 @@ class LevelPuzzle extends PositionComponent with HasGameReference<PIGame>, TapCa
     required this.onTapUpEvent
   });
 
-  Color get puzzleBoxColor => boxColor;
-  set puzzleBoxColor(Color puzzleBoxColor) => boxColor = puzzleBoxColor;
-
-  String get puzzleBoxText => boxText;
-  set puzzleBoxText(String puzzleBoxText) => boxText = puzzleBoxText;
-
-  Color boxColor = const Color.fromARGB(255, 255, 255, 255);
-  String boxText = '';
-  final Function(TapUpEvent, String) onTapUpEvent;
-  late TextBoxComponent text;
-  late TextPaint textPaint;
-  late SpriteComponent background;
-  late SpriteComponent icon;
+  final String _boxText = '';
+  final Function(TapUpEvent) onTapUpEvent;
   late Sprite smallIcon;
   
   @override
   FutureOr<void> onLoad() {
-    textPaint = TextPaint(
+    final textPaint = TextPaint(
       style: TextStyle(
         fontSize: constants.fontSmall,
         color: constants.fontColorMain,
@@ -37,8 +26,8 @@ class LevelPuzzle extends PositionComponent with HasGameReference<PIGame>, TapCa
       )
     );
 
-    text = TextBoxComponent(
-      text: boxText,
+    final text = TextBoxComponent(
+      text: _boxText,
       textRenderer: textPaint,
       align: Anchor.center,
       size: size,
@@ -48,14 +37,14 @@ class LevelPuzzle extends PositionComponent with HasGameReference<PIGame>, TapCa
       )
     );
 
-    icon = SpriteComponent(
+    final icon = SpriteComponent(
       sprite: smallIcon,
       position: Vector2(size.x / 2, size.y / 2),
       anchor: Anchor.center,
       size: smallIcon.srcSize * 1.25
     );
 
-    background = SpriteComponent(
+    final background = SpriteComponent(
       sprite: game.smallPuzzleBgSprite,
       size: size
     );
@@ -72,6 +61,6 @@ class LevelPuzzle extends PositionComponent with HasGameReference<PIGame>, TapCa
   @override
   void onTapUp(TapUpEvent event) {
     super.onTapUp(event);
-    onTapUpEvent(event, boxText);
+    onTapUpEvent(event);
   }
 }
