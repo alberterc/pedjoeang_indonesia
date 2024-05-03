@@ -1,7 +1,7 @@
 {
     "narration": {
-        "intro": "Introo",
-        "outro": "Outrooo"
+        "intro": "Anda adalah seorang sejarawan yang sedang menelusuri sebuah museum yang terlupakan. Setelah menelusuri berbagai ruangan, anda menemukan sebuah perpustakaan dan sebuah buku mengikat perhatian anda. Buku tersebut terlihat sudah tua dan terikat dengan kulit kuno, halamannya menceritakan kisah-kisah peradaban yang telah lama hilang. Di dalam buku tersebut terdapat sebuah pengetahuan yang menanti untuk ditemukan. Namun untuk mendapatkan pengetahuan tersebut, anda harus menyelesaikan 4 teka-teki terlebih dahulu.....",
+        "outro": "Setelah berjuang melewati berbagai macam rintangan, akhirnya anda berhasil menyelesaikan semua teka-teki yang terdapat dalam buku kuno itu. Buku tersebut mulai bersinar dan menampilkan seluruh pengetahuan yang tercantum di dalamnya. Tanpa ragu-ragu, anda menerima dan mendapatkan kembali pengetahuan yang telah lama hilang."
     },
     "levels": [
         {
@@ -100,7 +100,7 @@
                     "order": 3,
                     "type": "GuessTheNumber",
                     "title": "Tebak Angka",
-                    "solution": ["1942", "2341"],
+                    "solution": ["1942", "3260", "0358", "4872", "9618", "7938", "2691", "7154", "0472", "5693"],
                     "clueTexts": [
                         [
                             "Digit pertama adalah bilangan asli yang dapat menjadi faktor dari semua bilangan asli lainnya.",
@@ -109,8 +109,58 @@
                             "Digit keempat adalah satu-satunya bilangan prima yang termasuk dalam bilangan genap."
                         ],
                         [
-                            "Digit kedua",
-                            "Digit ketiga"
+                            "Digit pertama adalah bilangan asli yang merupakan faktor prima dari 6 dan 9.",
+                            "Digit kedua adalah bilangan asli dan merupakan bilangan genap pertama.",
+                            "Digit ketiga adalah bilangan asli dan merupakan hasil perkalian dari digit pertama dan digit kedua.",
+                            "Digit keempat adalah bilangan yang didapatkan dalam pengurangan dari dua bilangan yang sama."
+                        ],
+                        [
+                            "Digit pertama adalah satu-satunya bilangan cacah yang tidak termasuk dalam bilangan asli.",
+                            "Digit kedua adalah bilangan asli dan merupakan bilangan prima kedua.",
+                            "Digit ketiga adalah bilangan asli yang didapatkan dari pembagian 10 dengan 2.",
+                            "Digit keempat adalah bilangan asli dan merupakan hasil penjumlahan dari digit kedua dan digit ketiga."
+                        ],
+                        [
+                            "Digit pertama adalah bilangan asli yang didapatkan dari pengkuadratan bilangan prima pertama.",
+                            "Digit kedua adalah bilangan asli yang merupakan hasil dari perkalian digit pertama dengan 2.",
+                            "Digit ketiga adalah bilangan prima terakhir sebelum digit kedua.",
+                            "Digit keempat adalah bilangan asli dan merupakan hasil pembagian dari digit kedua dengan digit pertama."
+                        ],
+                        [
+                            "Digit pertama adalah bilangan asli dan merupakan hasil pengkuadratan dari bilangan prima kedua.",
+                            "Digit kedua adalah bilangan asli yang didapatkan dari perkalian bilangan prima pertama dan kedua.",
+                            "Digit ketiga adalah bilangan asli dan merupakan hasil pengurangan dari digit pertama dan digit keempat.",
+                            "Digit keempat adalah bilangan asli dan termasuk dalam bilangan genap terakhir sebelum 10."
+                        ],
+                        [
+                            "Digit pertama adalah bilangan prima yang hasil penjumlahan faktornya adalah 8.",
+                            "Digit kedua adalah bilangan ganjil yang hasil akar pangkat duanya adalah 3.",
+                            "Digit ketiga adalah bilangan prima yang faktornya adalah dua bilangan ganjil pertama.",
+                            "Digit keempat adalah bilangan genap yang hasil akar pangkat tiganya adalah 2."
+                        ],
+                        [
+                            "Digit pertama adalah bilangan prima lebih kecil dari 10 dengan nilai terkecil.",
+                            "Digit kedua adalah bilangan genap yang merupakan hasil perkalian dua bilangan prima pertama.",
+                            "Digit ketiga adalah bilangan ganjil yang merupakan hasil penjumlahan bilangan prima terbesar dan terkecil.",
+                            "Digit keempat adalah bilangan ganjil dengan nilai terkecil."
+                        ],
+                        [
+                            "Digit pertama adalah bilangan prima lebih kecil dari 10 dengan nilai terbesar.",
+                            "Digit kedua adalah bilangan ganjil yang hanya memiliki 1 faktor.",
+                            "Digit ketiga adalah bilangan prima yang merupakan hasil penjumlahan 2 bilangan prima sebelumnya.",
+                            "Digit keempat adalah bilangan genap yang hasil akar pangkat duanya adalah 2."
+                        ],
+                        [
+                            "Digit pertama adalah bilangan yang bukan termasuk dalam bilangan ganjil atau genap.",
+                            "Digit kedua adalah bilangan genap yang memiliki 3 faktor.",
+                            "Digit ketiga adalah bilangan prima dengan nilai terbesar.",
+                            "Digit keempat adalah bilangan genap yang hanya memiliki 2 faktor."
+                        ],
+                        [
+                            "Digit pertama adalah bilangan ganjil yang merupakan hasil akar pangkat dua dari 25.",
+                            "Digit kedua adalah bilangan genap yang merupakan hasil penjumlahan 2 bilangan genap sebelumnya.",
+                            "Digit ketiga adalah bilangan ganjil yang hasil faktornya adalah 13.",
+                            "Digit keempat adalah bilangan prima yang hasil penjumlahan faktornya adalah 4."
                         ]
                     ],
                     "clueImages": [],
@@ -120,9 +170,9 @@
             "mainPuzzle": {
                 "order": 0,
                 "type": "MainPuzzle",
-                "title": "Siapa yang menjadi target penangkapan Jepang pada Januari 1943?",
+                "title": "Dimana letak serangan tentara PETA terhadap gudang senjata Jepang?",
                 "solution": [],
-                "clueTexts": ["Amir Sjarifuddin"],
+                "clueTexts": ["Blitar"],
                 "clueImages": [],
                 "initialShowClue": false
             }
@@ -158,27 +208,67 @@
                     "order": 3,
                     "type": "GuessTheNumber",
                     "title": "Tebak Angka",
-                    "solution": ["1234", "2341", "3412", "4123", "6009"],
+                    "solution": ["1942", "3260", "0358", "4872", "9618", "7938", "2691", "7154", "0472", "5693"],
                     "clueTexts": [
                         [
-                            "Digit pertama",
-                            "Digit kedua"
+                            "Digit pertama adalah bilangan asli yang dapat menjadi faktor dari semua bilangan asli lainnya.",
+                            "Digit kedua adalah bilangan non-prima yang terakhir yang dapat dibagi 3 namun lebih kecil dari 10.",
+                            "Digit ketiga adalah bilangan asli dan merupakan hasil pengkuadratan dari digit keempat.",
+                            "Digit keempat adalah satu-satunya bilangan prima yang termasuk dalam bilangan genap."
                         ],
                         [
-                            "Digit kedua",
-                            "Digit ketiga"
+                            "Digit pertama adalah bilangan asli yang merupakan faktor prima dari 6 dan 9.",
+                            "Digit kedua adalah bilangan asli dan merupakan bilangan genap pertama.",
+                            "Digit ketiga adalah bilangan asli dan merupakan hasil perkalian dari digit pertama dan digit kedua.",
+                            "Digit keempat adalah bilangan yang didapatkan dalam pengurangan dari dua bilangan yang sama."
                         ],
                         [
-                            "Digit ketiga",
-                            "Digit keempat"
+                            "Digit pertama adalah satu-satunya bilangan cacah yang tidak termasuk dalam bilangan asli.",
+                            "Digit kedua adalah bilangan asli dan merupakan bilangan prima kedua.",
+                            "Digit ketiga adalah bilangan asli yang didapatkan dari pembagian 10 dengan 2.",
+                            "Digit keempat adalah bilangan asli dan merupakan hasil penjumlahan dari digit kedua dan digit ketiga."
                         ],
                         [
-                            "Digit keempat",
-                            "Digit pertama"
+                            "Digit pertama adalah bilangan asli yang didapatkan dari pengkuadratan bilangan prima pertama.",
+                            "Digit kedua adalah bilangan asli yang merupakan hasil dari perkalian digit pertama dengan 2.",
+                            "Digit ketiga adalah bilangan prima terakhir sebelum digit kedua.",
+                            "Digit keempat adalah bilangan asli dan merupakan hasil pembagian dari digit kedua dengan digit pertama."
                         ],
                         [
-                            "Digit keenam",
-                            "Digit kesembilan"
+                            "Digit pertama adalah bilangan asli dan merupakan hasil pengkuadratan dari bilangan prima kedua.",
+                            "Digit kedua adalah bilangan asli yang didapatkan dari perkalian bilangan prima pertama dan kedua.",
+                            "Digit ketiga adalah bilangan asli dan merupakan hasil pengurangan dari digit pertama dan digit keempat.",
+                            "Digit keempat adalah bilangan asli dan termasuk dalam bilangan genap terakhir sebelum 10."
+                        ],
+                        [
+                            "Digit pertama adalah bilangan prima yang hasil penjumlahan faktornya adalah 8.",
+                            "Digit kedua adalah bilangan ganjil yang hasil akar pangkat duanya adalah 3.",
+                            "Digit ketiga adalah bilangan prima yang faktornya adalah dua bilangan ganjil pertama.",
+                            "Digit keempat adalah bilangan genap yang hasil akar pangkat tiganya adalah 2."
+                        ],
+                        [
+                            "Digit pertama adalah bilangan prima lebih kecil dari 10 dengan nilai terkecil.",
+                            "Digit kedua adalah bilangan genap yang merupakan hasil perkalian dua bilangan prima pertama.",
+                            "Digit ketiga adalah bilangan ganjil yang merupakan hasil penjumlahan bilangan prima terbesar dan terkecil.",
+                            "Digit keempat adalah bilangan ganjil dengan nilai terkecil."
+                        ],
+                        [
+                            "Digit pertama adalah bilangan prima lebih kecil dari 10 dengan nilai terbesar.",
+                            "Digit kedua adalah bilangan ganjil yang hanya memiliki 1 faktor.",
+                            "Digit ketiga adalah bilangan prima yang merupakan hasil penjumlahan 2 bilangan prima sebelumnya.",
+                            "Digit keempat adalah bilangan genap yang hasil akar pangkat duanya adalah 2."
+                        ],
+                        [
+                            "Digit pertama adalah bilangan yang bukan termasuk dalam bilangan ganjil atau genap.",
+                            "Digit kedua adalah bilangan genap yang memiliki 3 faktor.",
+                            "Digit ketiga adalah bilangan prima dengan nilai terbesar.",
+                            "Digit keempat adalah bilangan genap yang hanya memiliki 2 faktor."
+                        ],
+                        [
+                            "Digit pertama adalah bilangan ganjil yang merupakan hasil akar pangkat dua dari 25.",
+                            "Digit kedua adalah bilangan genap yang merupakan hasil penjumlahan 2 bilangan genap sebelumnya.",
+                            "Digit ketiga adalah bilangan ganjil yang hasil faktornya adalah 13.",
+                            "Digit keempat adalah bilangan prima yang hasil penjumlahan faktornya adalah 4."
                         ]
                     ],
                     "clueImages": [],
@@ -199,9 +289,9 @@
             "mainPuzzle": {
                 "order": 0,
                 "type": "MainPuzzle",
-                "title": "Dimana letak serangan tentara PETA terhadap gudang senjata Jepang?",
+                "title": "Siapa yang menjadi target penangkapan Jepang pada Januari 1943?",
                 "solution": [],
-                "clueTexts": ["Blitar"],
+                "clueTexts": ["Amir Sjarifuddin"],
                 "clueImages": [],
                 "initialShowClue": false
             }
