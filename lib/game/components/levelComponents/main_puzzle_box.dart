@@ -14,18 +14,16 @@ import '../uiComponents/custom_togglable_button.dart';
 
 class MainPuzzleBox extends PositionComponent with HasGameReference<PIGame> {
   late Puzzle puzzle;
-  late MainPuzzle mainPuzzle;
-  late SpriteComponent background;
 
   @override
   FutureOr<void> onLoad() {
-    mainPuzzle = MainPuzzle()
+    final mainPuzzle = MainPuzzle()
       ..anchor = Anchor.center
       ..puzzle = puzzle
       ..position = size / 2
       ..size = Vector2(size.x * 0.725, size.y * 0.65);
 
-    background = SpriteComponent()
+    final background = SpriteComponent()
       ..sprite = game.mainPuzzleBgSprite
       ..size = size;
 
@@ -43,12 +41,11 @@ class MainPuzzleBox extends PositionComponent with HasGameReference<PIGame> {
 
 class MainPuzzle extends PositionComponent {
   late Puzzle puzzle;
-  late TextBoxComponent question;
-  late CellsBox cellsBox;
+  late CellsBox _cellsBox;
 
   @override
   FutureOr<void> onLoad() {
-    question = TextBoxComponent(
+    final question = TextBoxComponent(
       text: puzzle.title,
       textRenderer: TextPaint(
         style: TextStyle(
@@ -66,7 +63,7 @@ class MainPuzzle extends PositionComponent {
       )
     );
 
-    cellsBox = CellsBox(
+    _cellsBox = CellsBox(
       getCellsBoxImage: _takeCellsBoxSnapshot
     )
       ..renderSnapshot = false
@@ -78,7 +75,7 @@ class MainPuzzle extends PositionComponent {
 
     addAll([
       question,
-      cellsBox
+      _cellsBox
     ]);
 
     mainPuzzleCellsBoxSnapshot = _takeCellsBoxSnapshot();
@@ -87,21 +84,17 @@ class MainPuzzle extends PositionComponent {
   }
 
   dart_ui.Image _takeCellsBoxSnapshot() {
-    cellsBox.takeSnapshot();
-    return cellsBox.snapshotAsImage((size.x * 0.5).floor(), (size.x * 0.4).floor());
+    _cellsBox.takeSnapshot();
+    return _cellsBox.snapshotAsImage((size.x * 0.5).floor(), (size.x * 0.4).floor());
   }
 }
 
 class CellsBox extends PositionComponent with HasGameReference<PIGame>, Snapshot {
   CellsBox({required this.getCellsBoxImage});
-  
-  int get gridSize => grid;
-  set gridSize(int gridSize) => grid = gridSize;
 
   dart_ui.Image Function() getCellsBoxImage;
   late Puzzle puzzle;
   late int grid;
-  late List<List<CustomTogglableButton>> cells;
 
   @override
   FutureOr<void> onLoad() {
@@ -140,7 +133,7 @@ class CellsBox extends PositionComponent with HasGameReference<PIGame>, Snapshot
       }
     }
 
-    cells = List.generate(grid, (i) => List.generate(grid, (j) => CustomTogglableButton(
+    var cells = List.generate(grid, (i) => List.generate(grid, (j) => CustomTogglableButton(
       onTapUpEvent: (event, _, isSelected) {
         isSelected ? mainPuzzleSelectedItems.add(gridChar[i * grid + j]) : mainPuzzleSelectedItems.remove(gridChar[i * grid + j]);
         _checkAnswer();

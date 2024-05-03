@@ -2,7 +2,6 @@ import 'dart:async';
 
 import 'package:flame/components.dart';
 import 'package:flame/input.dart';
-import 'package:flutter/material.dart';
 
 import '../../constants/constants.dart' as constants;
 import '../../screens/screen_game.dart';
@@ -14,16 +13,8 @@ class LevelView extends PositionComponent with HasGameReference<PIGame> {
   LevelView({required this.puzzleCount, required this.puzzleTypes});
 
   final renderPriority = constants.renderPriority;
-
-  int puzzleCount;
-  late SpriteComponent background;
-  late LevelTable levelTable;
-  late MainPuzzleBox mainPuzzle;
-  late List<String> puzzleTypes;
-  late List<LevelPuzzle> puzzles;
-  late SpriteButtonComponent mainPuzzleSubmitButton;
-  late SpriteButtonComponent menuButton;
-  late SpriteButtonComponent mainClueButton;
+  final int puzzleCount;
+  final List<String> puzzleTypes;
 
   @override
   FutureOr<void> onLoad() async {
@@ -32,7 +23,7 @@ class LevelView extends PositionComponent with HasGameReference<PIGame> {
     double mainPuzzleLeft = game.size.x * 0.1;
     double mainPuzzleTop = game.size.y * 0.07;
 
-    menuButton = SpriteButtonComponent()
+    final menuButton = SpriteButtonComponent()
       ..priority = renderPriority['ui']!
       ..button = game.menuIconSprite['dark']!
       ..buttonDown  = game.menuIconSprite['light']!
@@ -42,47 +33,47 @@ class LevelView extends PositionComponent with HasGameReference<PIGame> {
         game.overlays.add('PauseMenu');
       };
 
-    background = SpriteComponent()
+    final background = SpriteComponent()
       ..sprite = game.bgSprite
       ..priority = renderPriority['background']!
       ..size = game.size;
 
-    levelTable = LevelTable()
+    final levelTable = LevelTable()
       ..priority = renderPriority['foreground']!
       ..sprite = game.tableSprite
       ..size = Vector2(game.size.x - (tableLeft * 2), game.size.y - (tableTop * 2))
       ..position = Vector2(tableLeft, tableTop);
 
-    mainPuzzle =  MainPuzzleBox()
+    final mainPuzzleBox =  MainPuzzleBox()
       ..priority = renderPriority['foreground']!
       ..puzzle = game.mainPuzzle
       ..size = Vector2(game.size.x - ((tableLeft + mainPuzzleLeft) * 2), game.size.y - ((tableTop + mainPuzzleTop) * 2))
       ..position = Vector2(tableLeft + mainPuzzleLeft, tableTop + mainPuzzleTop);
 
-    mainClueButton = SpriteButtonComponent()
+    final mainClueButton = SpriteButtonComponent()
       ..priority = renderPriority['ui']!
       ..button = game.envelopeIconSprite['dark']!
       ..buttonDown = game.envelopeIconSprite['light']!
       ..anchor = Anchor.center
       ..size = game.uiButtonSize
-      ..position = Vector2(mainPuzzle.x * 0.8, mainPuzzle.y + mainPuzzle.size.y / 2)
+      ..position = Vector2(mainPuzzleBox.x * 0.8, mainPuzzleBox.y + mainPuzzleBox.size.y / 2)
       ..onPressed = () {
         game.overlays.add('MainClue');
       };
 
-    mainPuzzleSubmitButton = SpriteButtonComponent()
+    final mainPuzzleSubmitButton = SpriteButtonComponent()
       ..priority = renderPriority['ui']!
       ..button = game.checkmarkIconSprite['dark']!
       ..buttonDown = game.checkmarkIconSprite['light']!
       ..anchor = Anchor.center
       ..size = game.uiButtonSize
-      ..position = Vector2(game.size.x - mainPuzzle.x * 0.8, mainPuzzle.y + mainPuzzle.size.y / 2)
+      ..position = Vector2(game.size.x - mainPuzzleBox.x * 0.8, mainPuzzleBox.y + mainPuzzleBox.size.y / 2)
       ..onPressed = () {
         game.overlays.add('MainCorrectAnswer');
       };
 
-    puzzles = List.generate(puzzleCount, (index) => LevelPuzzle(
-      onTapUpEvent: (event, buttonName) {
+    final levelPuzzles = List.generate(puzzleCount, (index) => LevelPuzzle(
+      onTapUpEvent: (_) {
         game.overlays.add(puzzleTypes[index]);
       }
     )
@@ -91,21 +82,20 @@ class LevelView extends PositionComponent with HasGameReference<PIGame> {
     );
 
     List<Vector2> puzzlePositions = [
-      Vector2(mainPuzzle.x, mainPuzzle.y * 2),
-      Vector2(mainPuzzle.x + mainPuzzle.size.x, mainPuzzle.y * 2),
-      Vector2(mainPuzzle.x, mainPuzzle.size.y),
-      Vector2(mainPuzzle.x + mainPuzzle.size.x, mainPuzzle.size.y),
+      Vector2(mainPuzzleBox.x, mainPuzzleBox.y * 2),
+      Vector2(mainPuzzleBox.x + mainPuzzleBox.size.x, mainPuzzleBox.y * 2),
+      Vector2(mainPuzzleBox.x, mainPuzzleBox.size.y),
+      Vector2(mainPuzzleBox.x + mainPuzzleBox.size.x, mainPuzzleBox.size.y),
     ];
-    for (int i = 0; i < puzzles.length; i++) {
-      puzzles[i]
+    for (int i = 0; i < levelPuzzles.length; i++) {
+      levelPuzzles[i]
         ..position = puzzlePositions[i]
         ..size = Vector2(constants.cipherSize, constants.cipherSize)
-        ..puzzleBoxColor = Color.fromARGB(255, (i * 50), (i * 50), 1 + 255)
         ..smallIcon = game.smallPuzzleIcon[i];
     }
 
-    addAll([background, levelTable, mainPuzzle, mainPuzzleSubmitButton, mainClueButton, menuButton]);
-    addAll(puzzles);
+    addAll([background, levelTable, mainPuzzleBox, mainPuzzleSubmitButton, mainClueButton, menuButton]);
+    addAll(levelPuzzles);
 
     return super.onLoad();
   }
