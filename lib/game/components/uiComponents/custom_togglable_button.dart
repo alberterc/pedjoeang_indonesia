@@ -37,12 +37,11 @@ class CustomTogglableButton extends PositionComponent with HasGameReference<PIGa
     _showBorder = showBorder ?? false,
     _showIcon = showIcon ?? false;
 
-
-  late Sprite icon;
-  set iconSprite(Sprite iconSprite) => icon = iconSprite;
-  
   final Function(TapUpEvent, String, bool) onTapUpEvent;
   final String text;
+  
+  late Sprite icon;
+  
   final bool _showText;
   final bool _showBorder; 
   final bool _showIcon;
@@ -57,14 +56,11 @@ class CustomTogglableButton extends PositionComponent with HasGameReference<PIGa
   final _borderPaint = Paint();
 
   bool _isSelected = false;
-  
-  late TextBoxComponent textComponent;
-  late SpriteComponent iconComponent;
 
   @override
   FutureOr<void> onLoad() {
     if (_showText) {
-      textComponent = TextBoxComponent(
+      final textComponent = TextBoxComponent(
         text: text,
         textRenderer: _textPaint,
         size: size,
@@ -77,7 +73,7 @@ class CustomTogglableButton extends PositionComponent with HasGameReference<PIGa
       add(textComponent);
     }
     else if (_showIcon) {
-      iconComponent = SpriteComponent(
+      final iconComponent = SpriteComponent(
         sprite: icon,
         position: Vector2(size.x / 2, size.y / 2),
         anchor: Anchor.center,
