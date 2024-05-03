@@ -1,0 +1,210 @@
+{
+    "narration": {
+        "intro": "Introo",
+        "outro": "Outrooo"
+    },
+    "levels": [
+        {
+            "level": 1,
+            "puzzles": [
+                {
+                    "order": 1,
+                    "type": "SlidePuzzle",
+                    "title": "Benarkan Urutan Angka",
+                    "solution": [1, 2, 3, 4, 5, 6, 7, 8, 0],
+                    "clueTexts": [
+                        "Urutan meningkat",
+                        "Kiri ke kanan",
+                        "Atas ke bawah"
+                    ],
+                    "clueImages": [],
+                    "initialShowClue": true
+                }
+            ],
+            "mainPuzzle": {
+                "order": 0,
+                "type": "MainPuzzle",
+                "title": "Setelah terjadinya pengeboman Pearl Harbor, pada tanggal berapa Jepang pertama kali mendarat di Indonesia?",
+                "solution": [],
+                "clueTexts": ["10 Januari 1942"],
+                "clueImages": [],
+                "initialShowClue": false
+            }
+        },
+        {
+            "level": 2,
+            "puzzles": [
+                {
+                    "order": 1,
+                    "type": "SlidePuzzle",
+                    "title": "Benarkan Urutan Angka",
+                    "solution": [1, 2, 3, 4, 5, 6, 7, 8, 0],
+                    "clueTexts": [
+                        "Urutan meningkat",
+                        "Kiri ke kanan",
+                        "Atas ke bawah"
+                    ],
+                    "clueImages": [],
+                    "initialShowClue": true
+                },
+                {
+                    "order": 2,
+                    "type": "PigpenCipher",
+                    "title": "Dekripsi Teks",
+                    "solution": ["dog oak key map bike knit rage bend chair eagle house table desert origin marble kettle hunting advance reverse dismiss"],
+                    "clueTexts": [],
+                    "clueImages": [
+                        "assets/images/game/pigpen_cipher.png"
+                    ],
+                    "initialShowClue": false
+                }
+            ],
+            "mainPuzzle": {
+                "order": 0,
+                "type": "MainPuzzle",
+                "title": "Siapa Letnan Jenderal yang memimpin awal penjajahan Jepang di Indonesia?",
+                "solution": [],
+                "clueTexts": ["Hitoshi Imamura"],
+                "clueImages": [],
+                "initialShowClue": false
+            }
+        },
+        {
+            "level": 3,
+            "puzzles": [
+                {
+                    "order": 1,
+                    "type": "SlidePuzzle",
+                    "title": "Benarkan Urutan Angka",
+                    "solution": [1, 2, 3, 4, 5, 6, 7, 8, 0],
+                    "clueTexts": [
+                        "Urutan meningkat",
+                        "Kiri ke kanan",
+                        "Atas ke bawah"
+                    ],
+                    "clueImages": [],
+                    "initialShowClue": true
+                },
+                {
+                    "order": 2,
+                    "type": "PigpenCipher",
+                    "title": "Dekripsi Teks",
+                    "solution": ["dog oak key map bike knit rage bend chair eagle house table desert origin marble kettle hunting advance reverse dismiss"],
+                    "clueTexts": [],
+                    "clueImages": [
+                        "assets/images/game/pigpen_cipher.png"
+                    ],
+                    "initialShowClue": false
+                },
+                {
+                    "order": 3,
+                    "type": "GuessTheNumber",
+                    "title": "Tebak Angka",
+                    "solution": ["1942", "2341"],
+                    "clueTexts": [
+                        [
+                            "Digit pertama adalah bilangan asli yang dapat menjadi faktor dari semua bilangan asli lainnya.",
+                            "Digit kedua adalah bilangan non-prima yang terakhir yang dapat dibagi 3 namun lebih kecil dari 10.",
+                            "Digit ketiga adalah bilangan asli dan merupakan hasil pengkuadratan dari digit keempat.",
+                            "Digit keempat adalah satu-satunya bilangan prima yang termasuk dalam bilangan genap."
+                        ],
+                        [
+                            "Digit kedua",
+                            "Digit ketiga"
+                        ]
+                    ],
+                    "clueImages": [],
+                    "initialShowClue": false
+                }
+            ],
+            "mainPuzzle": {
+                "order": 0,
+                "type": "MainPuzzle",
+                "title": "Siapa yang menjadi target penangkapan Jepang pada Januari 1943?",
+                "solution": [],
+                "clueTexts": ["Amir Sjarifuddin"],
+                "clueImages": [],
+                "initialShowClue": false
+            }
+        },
+        {
+            "level": 4,
+            "puzzles": [
+                {
+                    "order": 1,
+                    "type": "SlidePuzzle",
+                    "title": "Benarkan Urutan Angka",
+                    "solution": [1, 2, 3, 4, 5, 6, 7, 8, 0],
+                    "clueTexts": [
+                        "Urutan meningkat",
+                        "Kiri ke kanan",
+                        "Atas ke bawah"
+                    ],
+                    "clueImages": [],
+                    "initialShowClue": true
+                },
+                {
+                    "order": 2,
+                    "type": "PigpenCipher",
+                    "title": "Dekripsi Teks",
+                    "solution": ["dog oak key map bike knit rage bend chair eagle house table desert origin marble kettle hunting advance reverse dismiss"],
+                    "clueTexts": [],
+                    "clueImages": [
+                        "assets/images/game/pigpen_cipher.png"
+                    ],
+                    "initialShowClue": false
+                },
+                {
+                    "order": 3,
+                    "type": "GuessTheNumber",
+                    "title": "Tebak Angka",
+                    "solution": ["1234", "2341", "3412", "4123", "6009"],
+                    "clueTexts": [
+                        [
+                            "Digit pertama",
+                            "Digit kedua"
+                        ],
+                        [
+                            "Digit kedua",
+                            "Digit ketiga"
+                        ],
+                        [
+                            "Digit ketiga",
+                            "Digit keempat"
+                        ],
+                        [
+                            "Digit keempat",
+                            "Digit pertama"
+                        ],
+                        [
+                            "Digit keenam",
+                            "Digit kesembilan"
+                        ]
+                    ],
+                    "clueImages": [],
+                    "initialShowClue": false
+                },
+                {
+                    "order": 4,
+                    "type": "ButtonOrder",
+                    "title": "Urutan Tombol yang Benar",
+                    "solution": [],
+                    "clueTexts": [],
+                    "clueImages": [
+                        "assets/images/game/button_order_clue.png"
+                    ],
+                    "initialShowClue": false
+                }
+            ],
+            "mainPuzzle": {
+                "order": 0,
+                "type": "MainPuzzle",
+                "title": "Dimana letak serangan tentara PETA terhadap gudang senjata Jepang?",
+                "solution": [],
+                "clueTexts": ["Blitar"],
+                "clueImages": [],
+                "initialShowClue": false
+            }
+        }
+    ]
+}
