@@ -65,20 +65,16 @@ const Map<String, int> renderPriority = {
   'foreground': 1,
   'background': 0
 };
-double characterSize = 320.sp;
 double fontTiny = 8.sp;
 double fontTinyLarge = 10.sp;
 double fontSmall = 12.sp;
 double fontSmallLarge = 14.sp;
 double fontMedium = 16.sp;
 double fontLarge = 32.sp;
-double gridSize = 140.sp;
 double cipherSize = 90.sp; //default 80.sp
-double forceAspectRatio = 16 / 9;
 Color backgroundColorPrimary = const Color(0xffefbf97);
 Color backgroundColorSecondary = const Color(0xffD9D9D9);
 Color fontColorMain = Colors.black;
-Color fontColorSecondary = Colors.white;
 const flameOverlays = [
   'SlidePuzzle',
   'PigpenCipher',
