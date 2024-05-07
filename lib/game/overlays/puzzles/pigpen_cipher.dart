@@ -130,7 +130,29 @@ class _PigpenCipherState extends State<_PigpenCipher> {
           showClue: value['PigpenCipher']!,
           clue: Column(
             mainAxisAlignment: MainAxisAlignment.center,
-            children: widget.clueImageWidgetList,
+            children: [
+              Wrap(
+                children: [
+                  Text (
+                    'PIGPEN = ',
+                    style: TextStyle(
+                      color: Colors.black,
+                      fontSize: constants.fontSmall,
+                    )
+                  ),
+                  Text (
+                    'PIGPEN',
+                    style: TextStyle(
+                      color: Colors.black,
+                      fontSize: constants.fontSmall,  
+                      fontFamily: 'PigpenCipher',
+                    )
+                  )
+                ],
+              ),
+              for (Widget image in widget.clueImageWidgetList)
+                image
+            ]
           ),
           body: Column(
             children: [
