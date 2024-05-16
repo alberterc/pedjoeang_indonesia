@@ -1,8 +1,10 @@
 import 'dart:convert';
 
 import 'package:flame/extensions.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter/widgets.dart';
 import 'package:provider/provider.dart';
 import 'package:go_router/go_router.dart';
 
@@ -85,14 +87,13 @@ class _ScreenMainMenuState extends State<ScreenMainMenu> {
               ),
               const SizedBox(height: 16.0,),
               SizedBox(
-                height: MediaQuery.of(context).size.height * 0.3,
                 child: Wrap(
                   direction: Axis.horizontal,
                   alignment: WrapAlignment.spaceBetween,
                   spacing: 16.0,
                   children: [
                     SizedBox(
-                      width: MediaQuery.of(context).size.width / 3.75,
+                      width: MediaQuery.of(context).size.width / 5.1,
                       child: Column(
                         children: [
                           Image.asset('assets/images/menu/headline_1.png'),
@@ -117,7 +118,7 @@ class _ScreenMainMenuState extends State<ScreenMainMenu> {
                       ],
                     ),
                     SizedBox(
-                      width: MediaQuery.of(context).size.width / 3.75,
+                      width: MediaQuery.of(context).size.width / 5.1,
                       child: Column(
                         children: [
                           Image.asset('assets/images/menu/dummy_text.png'),
