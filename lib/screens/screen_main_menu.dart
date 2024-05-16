@@ -85,11 +85,10 @@ class _ScreenMainMenuState extends State<ScreenMainMenu> {
               ),
               const SizedBox(height: 16.0,),
               SizedBox(
-                height: MediaQuery.of(context).size.height * 0.5,
+                height: MediaQuery.of(context).size.height * 0.3,
                 child: Wrap(
                   direction: Axis.horizontal,
                   alignment: WrapAlignment.spaceBetween,
-                  crossAxisAlignment: WrapCrossAlignment.center,
                   spacing: 16.0,
                   children: [
                     SizedBox(
@@ -102,15 +101,20 @@ class _ScreenMainMenuState extends State<ScreenMainMenu> {
                         ],
                       ),
                     ),
-                    Container(
-                      width: MediaQuery.of(context).size.width / 3.3,
-                      decoration: BoxDecoration(
-                        border: Border.all(
-                          color: Colors.black,
-                          width: 8.0
-                        )
-                      ),
-                      child: _getGameMainMenu(palette, gameData)
+                    Column(
+                      children: [
+                        const SizedBox(height: 32.0,),
+                        Container(
+                          width: MediaQuery.of(context).size.width / 3.3,
+                          decoration: BoxDecoration(
+                            border: Border.all(
+                              color: Colors.black,
+                              width: 8.0
+                            )
+                          ),
+                          child: _getGameMainMenu(palette, gameData)
+                        ),
+                      ],
                     ),
                     SizedBox(
                       width: MediaQuery.of(context).size.width / 3.75,
