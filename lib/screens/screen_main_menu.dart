@@ -1,10 +1,8 @@
 import 'dart:convert';
 
 import 'package:flame/extensions.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter/widgets.dart';
 import 'package:provider/provider.dart';
 import 'package:go_router/go_router.dart';
 
@@ -86,49 +84,57 @@ class _ScreenMainMenuState extends State<ScreenMainMenu> {
                 color: Colors.black
               ),
               const SizedBox(height: 16.0,),
-              SizedBox(
-                child: Wrap(
-                  direction: Axis.horizontal,
-                  alignment: WrapAlignment.spaceBetween,
-                  spacing: 16.0,
-                  children: [
-                    SizedBox(
-                      width: MediaQuery.of(context).size.width / 5.1,
-                      child: Column(
-                        children: [
-                          Image.asset('assets/images/menu/headline_1.png'),
-                          const SizedBox(height: 8.0,),
-                          Image.asset('assets/images/menu/dummy_text.png')
-                        ],
+              Wrap(
+                direction: Axis.horizontal,
+                alignment: WrapAlignment.spaceBetween,
+                crossAxisAlignment: WrapCrossAlignment.center,
+                spacing: 24.0,
+                children: [
+                  Column(
+                    children: [
+                      Image.asset(
+                        'assets/images/menu/headline_1.png',
+                        height: MediaQuery.of(context).size.height / 9.5,
+                        width: MediaQuery.of(context).size.width / 4,
+                        fit: BoxFit.fill,
                       ),
-                    ),
-                    Column(
-                      children: [
-                        const SizedBox(height: 32.0,),
-                        Container(
-                          width: MediaQuery.of(context).size.width / 3.3,
-                          decoration: BoxDecoration(
-                            border: Border.all(
-                              color: Colors.black,
-                              width: 8.0
-                            )
-                          ),
-                          child: _getGameMainMenu(palette, gameData)
-                        ),
-                      ],
-                    ),
-                    SizedBox(
-                      width: MediaQuery.of(context).size.width / 5.1,
-                      child: Column(
-                        children: [
-                          Image.asset('assets/images/menu/dummy_text.png'),
-                          const SizedBox(height: 8.0,),
-                          Image.asset('assets/images/menu/headline_2.png')
-                        ],
+                      const SizedBox(height: 8.0,),
+                      Image.asset(
+                        'assets/images/menu/dummy_text.png',
+                        height: MediaQuery.of(context).size.height / 3.25,
+                        width: MediaQuery.of(context).size.width / 4,
+                        fit: BoxFit.fill,
+                      )
+                    ],
+                  ),
+                  Container(
+                    width: MediaQuery.of(context).size.width / 3.3,
+                    decoration: BoxDecoration(
+                      border: Border.all(
+                        color: Colors.black,
+                        width: 8.0
                       )
                     ),
-                  ],
-                ),
+                    child: _getGameMainMenu(palette, gameData)
+                  ),
+                  Column(
+                    children: [
+                      Image.asset(
+                        'assets/images/menu/dummy_text.png',
+                        height: MediaQuery.of(context).size.height / 3.25,
+                        width: MediaQuery.of(context).size.width / 4,
+                        fit: BoxFit.fill,
+                      ),
+                      const SizedBox(height: 8.0,),
+                      Image.asset(
+                        'assets/images/menu/headline_2.png',
+                        height: MediaQuery.of(context).size.height / 9.5,
+                        width: MediaQuery.of(context).size.width / 4,
+                        fit: BoxFit.fill,
+                      )
+                    ],
+                  ),
+                ],
               )
             ],
           ),
