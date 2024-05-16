@@ -21,6 +21,7 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
   flutter_lints: ^3.0.0
+  flutter_launcher_icons: ^0.13.1
 
 flutter:
   uses-material-design: true
@@ -38,3 +39,10 @@ flutter:
     - family: PigpenCipher
       fonts:
         - asset: assets/fonts/PigpenCipher.otf
+
+flutter_launcher_icons:
+  image_path: "assets/images/icons/play_store_512.png"
+  android: true
+  min_sdk_android: 19
+  ios: true
+  remove_alpha_ios: true
