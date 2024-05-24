@@ -180,7 +180,20 @@ class _ScreenGameState extends State<ScreenGame> {
 
   List<int> _shuffleBoard(List<int> list) {
     List<int> shuffledNumList = List.from(list);
+
     shuffledNumList.shuffle();
+    int invCount = 0;
+    for (int i = 0; i < shuffledNumList.length - 1; i++) {
+      for (int j = i + 1; j < shuffledNumList.length; j++) {
+        if (shuffledNumList[i] > 0 && shuffledNumList[j] > 0 && shuffledNumList[i] > shuffledNumList[j]) {
+          invCount += 1;
+        }
+      }
+    }
+    if (invCount % 2 != 0) {
+      shuffledNumList = _shuffleBoard(list);
+    }
+
     return shuffledNumList;
   }
 
