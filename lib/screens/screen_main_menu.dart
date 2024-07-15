@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:flame/extensions.dart';
+import 'package:flame_audio/flame_audio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
@@ -37,109 +38,112 @@ class _ScreenMainMenuState extends State<ScreenMainMenu> {
   }
 
   Widget _getMainMenuScreen(Palette palette, GameData? gameData) {
-    return Scaffold(
-      body: Container(
-        width: MediaQuery.of(context).size.width,
-        decoration: const BoxDecoration(
-          image: DecorationImage(
-            image: AssetImage('assets/images/old_paper.png'),
-            fit: BoxFit.fill
-          )
-        ),
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
-          child: Column(
-            children: [
-              Column(
-                children: [
-                  Container(
-                    padding: const EdgeInsets.only(bottom: 4.0),
-                    decoration: const BoxDecoration(
-                      border: Border(
-                        bottom: BorderSide(
-                          color: Colors.black,
-                          width: 4.0
-                        )
-                      )
-                    ),
-                    child: Image.asset('assets/images/menu/published_text.png')
-                  ),
-                  const SizedBox(height: 8.0,),
-                  SizedBox(
-                    width: MediaQuery.of(context).size.width,
-                    child: Image.asset('assets/images/menu/game_title.png')
-                  ),
-                ],
-              ),
-              const SizedBox(height: 4.0,),
-              Container(
-                width: MediaQuery.of(context).size.width,
-                height: 16.0,
-                color: Colors.black
-              ),
-              const SizedBox(height: 8.0,),
-              Container(
-                width: MediaQuery.of(context).size.width,
-                height: 8.0,
-                color: Colors.black
-              ),
-              const SizedBox(height: 16.0,),
-              Wrap(
-                direction: Axis.horizontal,
-                alignment: WrapAlignment.spaceBetween,
-                crossAxisAlignment: WrapCrossAlignment.center,
-                spacing: 24.0,
-                children: [
-                  Column(
-                    children: [
-                      Image.asset(
-                        'assets/images/menu/headline_1.png',
-                        height: MediaQuery.of(context).size.height / 9.5,
-                        width: MediaQuery.of(context).size.width / 4,
-                        fit: BoxFit.fill,
-                      ),
-                      const SizedBox(height: 8.0,),
-                      Image.asset(
-                        'assets/images/menu/dummy_text.png',
-                        height: MediaQuery.of(context).size.height / 3.25,
-                        width: MediaQuery.of(context).size.width / 4,
-                        fit: BoxFit.fill,
-                      )
-                    ],
-                  ),
-                  Container(
-                    width: MediaQuery.of(context).size.width / 3.3,
-                    decoration: BoxDecoration(
-                      border: Border.all(
-                        color: Colors.black,
-                        width: 8.0
-                      )
-                    ),
-                    child: _getGameMainMenu(palette, gameData)
-                  ),
-                  Column(
-                    children: [
-                      Image.asset(
-                        'assets/images/menu/dummy_text.png',
-                        height: MediaQuery.of(context).size.height / 3.25,
-                        width: MediaQuery.of(context).size.width / 4,
-                        fit: BoxFit.fill,
-                      ),
-                      const SizedBox(height: 8.0,),
-                      Image.asset(
-                        'assets/images/menu/headline_2.png',
-                        height: MediaQuery.of(context).size.height / 9.5,
-                        width: MediaQuery.of(context).size.width / 4,
-                        fit: BoxFit.fill,
-                      )
-                    ],
-                  ),
-                ],
-              )
-            ],
+    return PopScope(
+      canPop: false,
+      child: Scaffold(
+        body: Container(
+          width: MediaQuery.of(context).size.width,
+          decoration: const BoxDecoration(
+            image: DecorationImage(
+              image: AssetImage('assets/images/old_paper.png'),
+              fit: BoxFit.fill
+            )
           ),
-        ),
-      )
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
+            child: Column(
+              children: [
+                Column(
+                  children: [
+                    Container(
+                      padding: const EdgeInsets.only(bottom: 4.0),
+                      decoration: const BoxDecoration(
+                        border: Border(
+                          bottom: BorderSide(
+                            color: Colors.black,
+                            width: 4.0
+                          )
+                        )
+                      ),
+                      child: Image.asset('assets/images/menu/published_text.png')
+                    ),
+                    const SizedBox(height: 8.0,),
+                    SizedBox(
+                      width: MediaQuery.of(context).size.width,
+                      child: Image.asset('assets/images/menu/game_title.png')
+                    ),
+                  ],
+                ),
+                const SizedBox(height: 4.0,),
+                Container(
+                  width: MediaQuery.of(context).size.width,
+                  height: 16.0,
+                  color: Colors.black
+                ),
+                const SizedBox(height: 8.0,),
+                Container(
+                  width: MediaQuery.of(context).size.width,
+                  height: 8.0,
+                  color: Colors.black
+                ),
+                const SizedBox(height: 16.0,),
+                Wrap(
+                  direction: Axis.horizontal,
+                  alignment: WrapAlignment.spaceBetween,
+                  crossAxisAlignment: WrapCrossAlignment.center,
+                  spacing: 24.0,
+                  children: [
+                    Column(
+                      children: [
+                        Image.asset(
+                          'assets/images/menu/headline_1.png',
+                          height: MediaQuery.of(context).size.height / 9.5,
+                          width: MediaQuery.of(context).size.width / 4,
+                          fit: BoxFit.fill,
+                        ),
+                        const SizedBox(height: 8.0,),
+                        Image.asset(
+                          'assets/images/menu/dummy_text.png',
+                          height: MediaQuery.of(context).size.height / 3.25,
+                          width: MediaQuery.of(context).size.width / 4,
+                          fit: BoxFit.fill,
+                        )
+                      ],
+                    ),
+                    Container(
+                      width: MediaQuery.of(context).size.width / 3.3,
+                      decoration: BoxDecoration(
+                        border: Border.all(
+                          color: Colors.black,
+                          width: 8.0
+                        )
+                      ),
+                      child: _getGameMainMenu(palette, gameData)
+                    ),
+                    Column(
+                      children: [
+                        Image.asset(
+                          'assets/images/menu/dummy_text.png',
+                          height: MediaQuery.of(context).size.height / 3.25,
+                          width: MediaQuery.of(context).size.width / 4,
+                          fit: BoxFit.fill,
+                        ),
+                        const SizedBox(height: 8.0,),
+                        Image.asset(
+                          'assets/images/menu/headline_2.png',
+                          height: MediaQuery.of(context).size.height / 9.5,
+                          width: MediaQuery.of(context).size.width / 4,
+                          fit: BoxFit.fill,
+                        )
+                      ],
+                    ),
+                  ],
+                )
+              ],
+            ),
+          ),
+        )
+      ),
     );
   }
 
@@ -176,7 +180,10 @@ class _ScreenMainMenuState extends State<ScreenMainMenu> {
 
   Widget _getTextButton(String text, Function onTap) {
     return TextButton(
-      onPressed: () => onTap(),
+      onPressed: () {
+        FlameAudio.play('page_turn.mp3');
+        onTap();
+      },
       style: ButtonStyle(
         fixedSize: MaterialStateProperty.all<Size>(Size.fromWidth(MediaQuery.of(context).size.width / 3.8)),
         padding: MaterialStateProperty.all<EdgeInsets>(EdgeInsets.zero),

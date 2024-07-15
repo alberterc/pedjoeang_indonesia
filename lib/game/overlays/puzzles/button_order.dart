@@ -1,8 +1,9 @@
 import 'dart:math';
 
+import 'package:flame_audio/flame_audio.dart';
 import 'package:flutter/material.dart';
 
-import '../../../screens/partials/custom_close_button_icon.dart';
+import '../../../screens/partials/paper_close_button.dart';
 import '../../../screens/partials/puzzle_body.dart';
 import '../../../screens/partials/puzzle_status.dart';
 import '../../../screens/screen_game.dart';
@@ -57,7 +58,7 @@ class ButtonOrder {
             children: [
               Align(
                 alignment: Alignment.topRight,
-                child: CustomCloseButtonIcon(
+                child: PaperCloseButton(
                   onPressed: () => game.overlays.remove('ButtonOrder'),
                 ),
               ),
@@ -171,6 +172,7 @@ class _ButtonOrderState extends State<_ButtonOrder> {
                         ),
                       ),
                       onPressed: () {
+                        FlameAudio.play('button_click.mp3', volume: 0.5);
                         _isButtonDisabled[index] ? null : _checkButtonOrder(index, _pickedItems[index]);
                       },
                       child: SizedBox(
@@ -200,10 +202,12 @@ class _ButtonOrderState extends State<_ButtonOrder> {
     if (puzzles.length != widget.puzzleOrder) {
       puzzleShowClue.value[puzzles[widget.puzzleOrder].type] = true;
     }
+    FlameAudio.play('answer_correct.mp3', volume: 0.3);
   }
 
   void _lose() {
     _reset();
+    FlameAudio.play('answer_wrong.mp3', volume: 0.3);
   }
 
   void _reset() {

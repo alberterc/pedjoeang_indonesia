@@ -1,3 +1,4 @@
+import 'package:flame_audio/flame_audio.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:go_router/go_router.dart';
@@ -17,6 +18,7 @@ class ScreenTitle extends StatelessWidget {
     return Scaffold(
       body: GestureDetector(
         onTap: () {
+          FlameAudio.play('page_turn.mp3');
           GoRouter.of(context).push('/main_menu');
         },
         child: Container(

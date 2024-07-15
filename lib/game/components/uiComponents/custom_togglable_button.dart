@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flame/components.dart';
 import 'package:flame/events.dart';
+import 'package:flame_audio/flame_audio.dart';
 import 'package:flutter/material.dart';
 
 import '../../../screens/screen_game.dart';
@@ -120,6 +121,7 @@ class CustomTogglableButton extends PositionComponent with HasGameReference<PIGa
   void onTapUp(TapUpEvent event) {
     super.onTapUp(event);
     _isSelected = !_isSelected;
+    FlameAudio.play('button_click.mp3');
     onTapUpEvent(event, text, _isSelected);
   }
 }

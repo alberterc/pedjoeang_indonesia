@@ -4,6 +4,7 @@ import 'package:provider/provider.dart';
 import 'package:sizer/sizer.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:path/path.dart';
+import 'package:flame_audio/flame_audio.dart';
 
 import 'constants/constants.dart' as constants;
 import 'models/player.dart';
@@ -26,6 +27,9 @@ void main() async {
   await playerProvider.ready;
 
   // playerProvider.deleteAll(); // delete all player data
+
+  // load audio file to cache into memory
+  await FlameAudio.audioCache.load('page_turn.mp3');
 
   // create new player data if it doesn't exist
   if ((await playerProvider.getPlayers()).isEmpty) {

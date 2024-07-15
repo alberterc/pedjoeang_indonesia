@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flame/components.dart';
 import 'package:flame/input.dart';
+import 'package:flame_audio/flame_audio.dart';
 
 import '../../constants/constants.dart' as constants;
 import '../../screens/screen_game.dart';
@@ -23,6 +24,13 @@ class LevelView extends PositionComponent with HasGameReference<PIGame> {
     double mainPuzzleLeft = game.size.x * 0.1;
     double mainPuzzleTop = game.size.y * 0.07;
 
+    // load audio files to cache into memory
+    await FlameAudio.audioCache.loadAll([
+      'answer_correct.mp3',
+      'answer_wrong.mp3',
+      'button_click.mp3'
+    ]);
+
     final menuButton = SpriteButtonComponent()
       ..priority = renderPriority['ui']!
       ..button = game.menuIconSprite['dark']!
@@ -30,6 +38,7 @@ class LevelView extends PositionComponent with HasGameReference<PIGame> {
       ..size = game.uiButtonSize
       ..position = Vector2(game.size.x - game.uiButtonSize.x - game.size.x * 0.02, game.size.y * 0.03) 
       ..onPressed = () {
+        FlameAudio.play('button_click.mp3');
         game.overlays.add('PauseMenu');
       };
 
@@ -58,6 +67,7 @@ class LevelView extends PositionComponent with HasGameReference<PIGame> {
       ..size = game.uiButtonSize
       ..position = Vector2(mainPuzzleBox.x * 0.8, mainPuzzleBox.y + mainPuzzleBox.size.y / 2)
       ..onPressed = () {
+        FlameAudio.play('page_turn.mp3');
         game.overlays.add('MainClue');
       };
 
@@ -74,6 +84,7 @@ class LevelView extends PositionComponent with HasGameReference<PIGame> {
 
     final levelPuzzles = List.generate(puzzleCount, (index) => LevelPuzzle(
       onTapUpEvent: (_) {
+        FlameAudio.play('page_turn.mp3');
         game.overlays.add(puzzleTypes[index]);
       }
     )

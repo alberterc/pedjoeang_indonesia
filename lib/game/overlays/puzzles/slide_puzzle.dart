@@ -1,9 +1,10 @@
+import 'package:flame_audio/flame_audio.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 import '../../../screens/partials/puzzle_status.dart';
 import '../../../screens/screen_game.dart';
-import '../../../screens/partials/custom_close_button_icon.dart';
+import '../../../screens/partials/paper_close_button.dart';
 import '../../../screens/partials/puzzle_body.dart';
 import '../../../constants/constants.dart' as constants;
 
@@ -69,7 +70,7 @@ class SlidePuzzle {
             children: [
               Align(
                 alignment: Alignment.topRight,
-                child: CustomCloseButtonIcon(
+                child: PaperCloseButton(
                   onPressed: () => game.overlays.remove('SlidePuzzle'),
                 ),
               ),
@@ -189,6 +190,7 @@ class _SlidePuzzleState extends State<_SlidePuzzle> {
                           )
                         ),
                         onPressed: () async {
+                          FlameAudio.play('button_click.mp3', volume: 0.5);
                           List<int> newList = await _onTileClick(boardNumbers, await _getCurrentIndex(boardNumbers, boardNumbers[index]));
                           setState(() {
                             boardNumbers = newList;
@@ -229,6 +231,7 @@ class _SlidePuzzleState extends State<_SlidePuzzle> {
     if (puzzles.length != widget.puzzleOrder) {
       puzzleShowClue.value[puzzles[widget.puzzleOrder].type] = true;
     }
+    FlameAudio.play('answer_correct.mp3', volume: 0.5);
   }
 
   bool _checkAnswer(List<int> boardNumbers, List<int> solution) {
