@@ -1,9 +1,10 @@
 import 'dart:math';
+import 'package:flame_audio/flame_audio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:pedjoeang_indonesia/screens/partials/unordered_list.dart';
 
-import '../../../screens/partials/custom_close_button_icon.dart';
+import '../../../screens/partials/paper_close_button.dart';
 import '../../../screens/partials/puzzle_body.dart';
 import '../../../screens/partials/puzzle_status.dart';
 import '../../../screens/screen_game.dart';
@@ -58,7 +59,7 @@ class GuessTheNumber {
             children: [
               Align(
                 alignment: Alignment.topRight,
-                child: CustomCloseButtonIcon(
+                child: PaperCloseButton(
                   onPressed: () => game.overlays.remove('GuessTheNumber'),
                 )
               ),
@@ -176,10 +177,11 @@ class _GuessTheNumberState extends State<_GuessTheNumber> {
     if (puzzles.length != widget.puzzleOrder) {
       puzzleShowClue.value[puzzles[widget.puzzleOrder].type] = true;
     }
+    FlameAudio.play('answer_correct.mp3', volume: 0.5);
   }
 
   void _lose() {
-    // do nothing
+    FlameAudio.play('answer_wrong.mp3', volume: 0.3);
   }
 }
 

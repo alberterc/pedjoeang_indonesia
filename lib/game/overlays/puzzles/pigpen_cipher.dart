@@ -1,11 +1,12 @@
 import 'dart:math';
+import 'package:flame_audio/flame_audio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 import '../../../screens/partials/puzzle_status.dart';
 import '../../../screens/screen_game.dart';
 import '../../../constants/constants.dart' as constants;
-import '../../../screens/partials/custom_close_button_icon.dart';
+import '../../../screens/partials/paper_close_button.dart';
 import '../../../screens/partials/puzzle_body.dart';
 
 late bool _isPuzzleDone;
@@ -68,7 +69,7 @@ class PigpenCipher {
             children: [
               Align(
                 alignment: Alignment.topRight,
-                child: CustomCloseButtonIcon(
+                child: PaperCloseButton(
                   onPressed: () => game.overlays.remove('PigpenCipher'),
                 )
               ),
@@ -246,9 +247,10 @@ class _PigpenCipherState extends State<_PigpenCipher> {
     if (puzzles.length != widget.puzzleOrder) {
       puzzleShowClue.value[puzzles[widget.puzzleOrder].type] = true;
     }
+    FlameAudio.play('answer_correct.mp3', volume: 0.5);
   }
 
   void _lose() {
-    // do nothing
+    FlameAudio.play('answer_wrong.mp3', volume: 0.3);
   }
 }

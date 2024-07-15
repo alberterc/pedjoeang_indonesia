@@ -1,3 +1,4 @@
+import 'package:flame_audio/flame_audio.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:go_router/go_router.dart';
@@ -21,54 +22,58 @@ class ScreenIntro extends StatelessWidget {
   }
 
   Widget _getIntroScreen(BuildContext context, Palette palette, GameData gameData) {
-    return Scaffold(
-      body: GestureDetector(
-        onTap: () {
-          GoRouter.of(context).pushReplacement(
-            '/game',
-            extra: {
-              'levelsData': gameData.levels
-            }
-          );
-        },
-        child: Stack(
-          children: [
-            Container(
-              width: MediaQuery.of(context).size.width,
-              decoration: const BoxDecoration(
-                image: DecorationImage(
-                  image: AssetImage('assets/images/bricks.png'),
-                  fit: BoxFit.fill
-                )
+    return PopScope(
+      canPop: false,
+      child: Scaffold(
+        body: GestureDetector(
+          onTap: () {
+            FlameAudio.play('page_turn.mp3');
+            GoRouter.of(context).pushReplacement(
+              '/game',
+              extra: {
+                'levelsData': gameData.levels
+              }
+            );
+          },
+          child: Stack(
+            children: [
+              Container(
+                width: MediaQuery.of(context).size.width,
+                decoration: const BoxDecoration(
+                  image: DecorationImage(
+                    image: AssetImage('assets/images/bricks.png'),
+                    fit: BoxFit.fill
+                  )
+                ),
               ),
-            ),
-            Center(
-              child: Container(
-                  width: MediaQuery.of(context).size.width * 0.84,
-                  height: MediaQuery.of(context).size.height * 0.9,
-                  decoration: const BoxDecoration(
-                    image: DecorationImage(
-                      image: AssetImage('assets/images/old_paper.png'),
-                      fit: BoxFit.fill
+              Center(
+                child: Container(
+                    width: MediaQuery.of(context).size.width * 0.84,
+                    height: MediaQuery.of(context).size.height * 0.9,
+                    decoration: const BoxDecoration(
+                      image: DecorationImage(
+                        image: AssetImage('assets/images/old_paper.png'),
+                        fit: BoxFit.fill
+                      ),
+                    ),
+                    child: Center(
+                      child: Padding(
+                        padding: const EdgeInsets.all(32.0),
+                        child: Text(
+                          gameData.narration.intro,
+                          style: TextStyle(
+                            color: palette.fontMain.color,
+                            fontSize: constants.fontSmall
+                          )
+                        ),
+                      )
                     ),
                   ),
-                  child: Center(
-                    child: Padding(
-                      padding: const EdgeInsets.all(32.0),
-                      child: Text(
-                        gameData.narration.intro,
-                        style: TextStyle(
-                          color: palette.fontMain.color,
-                          fontSize: constants.fontSmall
-                        )
-                      ),
-                    )
-                  ),
-                ),
-            )
-          ],
-        ),
-      )
+              )
+            ],
+          ),
+        )
+      ),
     );
   }
 }

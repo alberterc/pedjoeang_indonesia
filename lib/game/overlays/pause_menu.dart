@@ -1,3 +1,4 @@
+import 'package:flame_audio/flame_audio.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
@@ -66,6 +67,7 @@ class PauseMenu {
                       )
                   ),
                   onPressed: () {
+                    FlameAudio.play('button_click.mp3');
                     game.overlays.remove('PauseMenu');
                     GoRouter.of(context).pop();
                   },

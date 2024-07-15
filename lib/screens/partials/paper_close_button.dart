@@ -1,7 +1,8 @@
+import 'package:flame_audio/flame_audio.dart';
 import 'package:flutter/material.dart';
 
-class CustomCloseButtonIcon extends StatelessWidget {
-  const CustomCloseButtonIcon({super.key, this.onPressed});
+class PaperCloseButton extends StatelessWidget {
+  const PaperCloseButton({super.key, this.onPressed});
 
   final VoidCallback? onPressed;
   
@@ -47,6 +48,7 @@ class CustomCloseButtonIcon extends StatelessWidget {
       ),
       color: Colors.white,
       onPressed: () {
+        FlameAudio.play('page_turn.mp3');
         if (onPressed != null) {
           onPressed!();
         }

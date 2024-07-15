@@ -1,3 +1,4 @@
+import 'package:flame_audio/flame_audio.dart';
 import 'package:flutter/material.dart';
 
 import '../../screens/screen_game.dart';
@@ -12,10 +13,12 @@ class MainClue {
     return PopScope(
       canPop: false,
       onPopInvoked: (_) {
+        FlameAudio.play('page_turn.mp3');
         game.overlays.remove('MainClue');
       },
       child: GestureDetector(
         onTap: () {
+          FlameAudio.play('page_turn.mp3');
           game.overlays.remove('MainClue');
         },
         child: Container(
@@ -55,7 +58,6 @@ class MainClue {
                         Container(
                           height: screenHeight * 0.5,
                           width: screenWidth * 0.2,
-                          // color: Colors.blue,
                           decoration: const BoxDecoration(
                             image: DecorationImage(
                               image: AssetImage('assets/images/game/main_clue.png'), 

@@ -16,6 +16,7 @@ dependencies:
   image: ^4.1.7
   sqflite: ^2.3.3
   path: ^1.9.0
+  flame_audio: ^2.10.1
 
 dev_dependencies:
   flutter_test:
@@ -30,6 +31,7 @@ flutter:
     - assets/images/
     - assets/images/menu/
     - assets/images/game/
+    - assets/audio/
   fonts:
     - family: Pixeloid
       fonts:
