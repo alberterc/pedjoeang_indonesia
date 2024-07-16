@@ -209,7 +209,9 @@ class _ButtonOrderState extends State<_ButtonOrder> {
 
   void _lose() {
     _reset();
-    FlameAudio.play('answer_wrong.mp3', volume: 0.3);
+    if (puzzleDone.value['ButtonOrder'] == false) {
+      FlameAudio.play('answer_wrong.mp3', volume: 0.3);
+    }
   }
 
   void _reset() {
