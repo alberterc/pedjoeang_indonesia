@@ -121,7 +121,7 @@ class CustomTogglableButton extends PositionComponent with HasGameReference<PIGa
   void onTapUp(TapUpEvent event) {
     super.onTapUp(event);
     _isSelected = !_isSelected;
-    FlameAudio.play('button_click.mp3');
+    FlameAudio.play('button_click.mp3', volume: 0.5);
     onTapUpEvent(event, text, _isSelected);
   }
 }

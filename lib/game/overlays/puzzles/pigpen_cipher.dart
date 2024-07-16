@@ -240,6 +240,9 @@ class _PigpenCipherState extends State<_PigpenCipher> {
   }
 
   void _win() {
+    if (puzzleDone.value['PigpenCipher'] == false) {
+      FlameAudio.play('answer_correct.mp3', volume: 0.5);
+    }
     puzzleDone.value['PigpenCipher'] = true;
     if (!puzzleDone.value.containsValue(false)) {
       puzzleShowClue.value['MainPuzzle'] = true;
@@ -247,7 +250,6 @@ class _PigpenCipherState extends State<_PigpenCipher> {
     if (puzzles.length != widget.puzzleOrder) {
       puzzleShowClue.value[puzzles[widget.puzzleOrder].type] = true;
     }
-    FlameAudio.play('answer_correct.mp3', volume: 0.5);
   }
 
   void _lose() {

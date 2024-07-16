@@ -224,6 +224,9 @@ class _SlidePuzzleState extends State<_SlidePuzzle> {
   }
 
   void _win() {
+    if (puzzleDone.value['SlidePuzzle'] == false) {
+      FlameAudio.play('answer_correct.mp3', volume: 0.5);
+    }
     puzzleDone.value['SlidePuzzle'] = true;
     if (!puzzleDone.value.containsValue(false)) {
       puzzleShowClue.value['MainPuzzle'] = true;
@@ -231,7 +234,6 @@ class _SlidePuzzleState extends State<_SlidePuzzle> {
     if (puzzles.length != widget.puzzleOrder) {
       puzzleShowClue.value[puzzles[widget.puzzleOrder].type] = true;
     }
-    FlameAudio.play('answer_correct.mp3', volume: 0.5);
   }
 
   bool _checkAnswer(List<int> boardNumbers, List<int> solution) {

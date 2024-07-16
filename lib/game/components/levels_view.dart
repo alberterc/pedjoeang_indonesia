@@ -38,7 +38,7 @@ class LevelView extends PositionComponent with HasGameReference<PIGame> {
       ..size = game.uiButtonSize
       ..position = Vector2(game.size.x - game.uiButtonSize.x - game.size.x * 0.02, game.size.y * 0.03) 
       ..onPressed = () {
-        FlameAudio.play('button_click.mp3');
+        FlameAudio.play('button_click.mp3', volume: 0.5);
         game.overlays.add('PauseMenu');
       };
 

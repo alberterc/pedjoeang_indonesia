@@ -170,6 +170,9 @@ class _GuessTheNumberState extends State<_GuessTheNumber> {
   }
 
   void _win() {
+    if (puzzleDone.value['GuessTheNumber'] == false) {
+      FlameAudio.play('answer_correct.mp3', volume: 0.5);
+    }
     puzzleDone.value['GuessTheNumber'] = true;
     if (!puzzleDone.value.containsValue(false)) {
       puzzleShowClue.value['MainPuzzle'] = true;
@@ -177,7 +180,6 @@ class _GuessTheNumberState extends State<_GuessTheNumber> {
     if (puzzles.length != widget.puzzleOrder) {
       puzzleShowClue.value[puzzles[widget.puzzleOrder].type] = true;
     }
-    FlameAudio.play('answer_correct.mp3', volume: 0.5);
   }
 
   void _lose() {
