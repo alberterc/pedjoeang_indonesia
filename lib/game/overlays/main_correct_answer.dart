@@ -24,7 +24,7 @@ class MainCorrectAnswer {
       FlameAudio.play('answer_correct.mp3');
     }
     else {
-      FlameAudio.play('answer_wrong.mp3', volume: 0.5);
+      FlameAudio.play('answer_wrong.mp3', volume: 0.3);
     }
 
     return PopScope(

@@ -183,7 +183,9 @@ class _GuessTheNumberState extends State<_GuessTheNumber> {
   }
 
   void _lose() {
-    FlameAudio.play('answer_wrong.mp3', volume: 0.3);
+    if (puzzleDone.value['GuessTheNumber'] == false) {
+      FlameAudio.play('answer_wrong.mp3', volume: 0.3);
+    }
   }
 }
 

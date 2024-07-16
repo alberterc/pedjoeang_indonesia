@@ -253,6 +253,8 @@ class _PigpenCipherState extends State<_PigpenCipher> {
   }
 
   void _lose() {
-    FlameAudio.play('answer_wrong.mp3', volume: 0.3);
+    if (puzzleDone.value['PigpenCipher'] == false) {
+      FlameAudio.play('answer_wrong.mp3', volume: 0.3);
+    }
   }
 }
