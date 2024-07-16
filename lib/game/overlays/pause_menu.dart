@@ -67,7 +67,7 @@ class PauseMenu {
                       )
                   ),
                   onPressed: () {
-                    FlameAudio.play('button_click.mp3');
+                    FlameAudio.play('button_click.mp3', volume: 0.5);
                     game.overlays.remove('PauseMenu');
                     GoRouter.of(context).pop();
                   },

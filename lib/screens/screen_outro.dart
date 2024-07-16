@@ -75,7 +75,7 @@ class ScreenOutro extends StatelessWidget {
                             children: [
                               TextButton(
                                 onPressed: () {
-                                  FlameAudio.play('button_click.mp3');
+                                  FlameAudio.play('button_click.mp3', volume: 0.5);
                                   GoRouter.of(context).pushReplacement('/main_menu'); 
                                 },
                                 style: TextButton.styleFrom(
@@ -91,7 +91,7 @@ class ScreenOutro extends StatelessWidget {
                               ),
                               TextButton(
                                 onPressed: () {
-                                  FlameAudio.play('button_click.mp3');
+                                  FlameAudio.play('button_click.mp3', volume: 0.5);
                                   playerProvider.getPlayers().then((value) {
                                     Player playerData = value.first;  
                                     playerProvider.updatePlayer(
